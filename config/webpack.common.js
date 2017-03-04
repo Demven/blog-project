@@ -18,29 +18,36 @@ module.exports = {
     rules: [
       {
         test: /\.ts$/,
-        loaders: [{
-          loader: 'awesome-typescript-loader',
-          options: { configFileName: helpers.root('tsconfig.json') }
-        } , 'angular2-template-loader']
+        loaders: [
+          {
+            loader: 'awesome-typescript-loader',
+            options: { configFileName: helpers.root('tsconfig.json') }
+          },
+          'angular2-template-loader',
+        ],
       },
       {
         test: /\.html$/,
-        loader: 'html-loader'
+        loader: 'html-loader',
       },
       {
         test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
-        loader: 'file-loader?name=assets/[name].[hash].[ext]'
+        loader: 'file-loader?name=assets/[name].[hash].[ext]',
       },
       {
-        test: /\.css$/,
-        exclude: helpers.root('src', 'app'),
-        loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: 'css-loader?sourceMap' })
+        test: /\.pcss$/,
+        exclude: helpers.root('src', 'node_modules'),
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {
+              loader: 'css-loader',
+              options : { autoprefixer: false, sourceMap: true, importLoaders: 1 }
+            },
+            'postcss-loader',
+          ]
+        })
       },
-      {
-        test: /\.css$/,
-        include: helpers.root('src', 'app'),
-        loader: 'raw-loader'
-      }
     ]
   },
 
@@ -54,11 +61,11 @@ module.exports = {
     ),
 
     new webpack.optimize.CommonsChunkPlugin({
-      name: ['app', 'vendor', 'polyfills']
+      name: ['app', 'vendor', 'polyfills'],
     }),
 
     new HtmlWebpackPlugin({
       template: 'src/index.html'
-    })
+    }),
   ]
 };
