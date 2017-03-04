@@ -1,9 +1,17 @@
 import { Component } from '@angular/core';
-import '../../public/css/main.css';
+import '../../public/styles/main.pcss';
+import './app.component.pcss';
 
 @Component({
   selector: 'my-app',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  template: `
+  <main class="AppComponent">
+    <h1 class="AppComponent__heading">Hello from Angular App with Webpack</h1>
+    <img
+      class="AppComponent__image"
+      src="../../public/images/angular.png"
+    />
+  </main>
+  `,
 })
 export class AppComponent {}
