@@ -5,7 +5,8 @@
   "scripts": {
     "start": "webpack-dev-server --inline --progress --port 8080",
     "build": "rimraf dist && webpack --config config/webpack.prod.js --progress --profile --bail",
-    "lint:styles": "stylelint src/**/*.pcss"
+    "lint:styles": "stylelint src/**/*.pcss",
+    "lint:typescript": "tslint -c tslint.json src/**/*.ts"
   },
   "license": "UNLICENSED",
   "dependencies": {
@@ -17,10 +18,12 @@
     "@angular/platform-browser": "2.4.9",
     "@angular/platform-browser-dynamic": "2.4.9",
     "@angular/router": "3.4.9",
+    "codelyzer": "^3.0.0-beta.0",
     "core-js": "2.4.1",
     "postcss": "5.2.15",
     "postcss-cssnext": "2.9.0",
     "rxjs": "5.2.0",
+    "tslint": "^4.5.1",
     "zone.js": "0.7.7"
   },
   "devDependencies": {
