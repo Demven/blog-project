@@ -1,6 +1,7 @@
 {
   "extends": "stylelint-config-standard",
   "rules": {
-    "selector-no-type": true
+    "selector-no-type": true,
+    "color-hex-length": "long"
   }
 }
