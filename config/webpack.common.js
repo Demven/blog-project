@@ -31,8 +31,18 @@ module.exports = {
         loader: 'html-loader',
       },
       {
-        test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
-        loader: 'file-loader?name=assets/[name].[hash].[ext]',
+        test: /\.(png|jpe?g|gif|ico)$/,
+        loader: 'file-loader',
+        options: {
+          name: 'images/[name].[hash].[ext]',
+        },
+      },
+      {
+        test: /\.(ttf|woff)$/,
+        loader: 'file-loader',
+        options: {
+          name: 'fonts/[name].[hash].[ext]',
+        },
       },
       {
         test: /\.pcss$/,

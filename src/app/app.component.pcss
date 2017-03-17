@@ -1,14 +1,13 @@
-:root {
-  --main-color: #6f0029;
-}
+@import '../../public/styles/typography.pcss';
+@import '../../public/styles/colors.pcss';
 
 .AppComponent {
   padding: 1em;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-cormorant-bold);
   text-align: center;
   margin-top: 50px;
   display: block;
-  color: var(--main-color);
+  color: var(--color-white);
 
   & .AppComponent__heading {
     font-size: 50px;

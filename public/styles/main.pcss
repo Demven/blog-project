@@ -1,6 +1,27 @@
+/* stylelint-disable selector-no-type */
+@import "fonts.pcss";
+@import "colors.pcss";
 @import "typography.pcss";
 
-body {
-  background: #0147a7;
-  color: #fff;
+html {
+  font-size: 10px;
+  padding: 0;
+  margin: 0;
 }
+
+body {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+*::selection {
+  color: var(--color-white);
+  background: var(--color-main);
+}
+
+input::-webkit-input-placeholder { color: currentColor; }
+input::-moz-placeholder { color: currentColor; } /* Firefox 19+ */
+input:-moz-placeholder { color: currentColor; } /* Firefox 18- */
+input:-ms-input-placeholder { color: currentColor; }
