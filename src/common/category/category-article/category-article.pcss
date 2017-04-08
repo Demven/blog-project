@@ -3,14 +3,41 @@
 @import '../../../../public/styles/media.pcss';
 
 .CategoryArticle {
-  width: 25%;
+  width: 24.3%;
   height: 50%;
   padding: 0 0 0.25em 0.5em;
   box-sizing: border-box;
 
+  @media (--media-tablet-any) {
+    width: 33.3%;
+  }
+
+  @media (--media-mobile-any) {
+    width: 50%;
+    height: auto;
+    padding: 0.5em 0.25em 0 0;
+  }
+
+  @media (--media-desktop-any) {
+    padding: 0;
+  }
+
   &:nth-of-type(2n + 1) {
     padding-top: 0.25em;
     padding-bottom: 0;
+
+    @media (--media-mobile-any) {
+      padding: 0.5em 0 0 0.25em;
+    }
+  }
+
+  &:nth-of-type(4n),
+  &:nth-of-type(5n) {
+    display: none;
+
+    @media (--media-desktop-any) {
+      display: block;
+    }
   }
 
   & .CategoryArticle__link {
@@ -33,35 +60,88 @@
     bottom: 0;
     left: 0;
     background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+
+    @media (--media-mobile-any) {
+      height: 100%;
+    }
   }
 
   & .CategoryArticle__title {
     display: block;
     width: auto;
-    max-width: 65%;
+    max-width: 80%;
     height: auto;
     position: absolute;
-    bottom: 1.48em;
-    left: 1.6em;
+    bottom: 1.15em;
+    left: 1.2em;
     color: var(--color-white);
     font-family: var(--font-dincyr-regular);
-    font-size: 1.8em;
+    font-size: 2em;
     text-align: left;
+
+    @media (--media-mobile) {
+      font-size: 1.6em;
+      left: 0.9em;
+      bottom: 0.8em;
+    }
+
+    @media (--media-mobile-wide) {
+      font-size: 1.8em;
+      left: 1.1em;
+      bottom: 1em;
+    }
+
+    @media (--media-desktop) {
+      font-size: 1.8em;
+    }
   }
 
   &.CategoryArticle--main {
-    width: 50%;
+    width: 49.6%;
     height: 100%;
     box-sizing: border-box;
     padding: 0 !important;
 
-    & .Category__article-title {
-      max-width: 65%;
-      font-size: 2.4em;
+    @media (--media-mobile-any) {
+      width: 100%;
+    }
+
+    @media (--media-tablet-any) {
+      width: 66.74%;
+    }
+
+    & .CategoryArticle__image-shadow {
+      height: 65%;
+    }
+
+    & .CategoryArticle__title {
+      max-width: 75%;
+      font-size: 2.8em;
       text-align: right;
-      bottom: 1em;
-      right: 1.2em;
       left: initial;
+      right: 1em;
+      bottom: 0.8em;
+
+      @media (--media-mobile) {
+        font-size: 2.4em;
+        left: 0.6em;
+        bottom: 0.5em;
+      }
+
+      @media (--media-mobile-wide) {
+        font-size: 2.6em;
+        left: 0.8em;
+        bottom: 0.6em;
+      }
+
+      @media (--media-mobile-any) {
+        text-align: left;
+        right: initial;
+      }
+
+      @media (--media-desktop) {
+        font-size: 2.5em;
+      }
     }
   }
 }
