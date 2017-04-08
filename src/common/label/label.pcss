@@ -1,0 +1,85 @@
+@import '../../../public/styles/typography.pcss';
+@import '../../../public/styles/colors.pcss';
+@import '../../../public/styles/media.pcss';
+
+.Label {
+  width: auto;
+  height: auto;
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding-right: 1.5em;
+  text-transform: uppercase;
+  font-family: var(--font-cormorant-bold);
+  font-size: 3em;
+  overflow: hidden;
+  z-index: 10;
+
+  @media (--media-mobile) {
+    font-size: 1.7em;
+  }
+
+  @media (--media-mobile-wide) {
+    font-size: 2em;
+  }
+
+  @media (--media-tablet) {
+    font-size: 2.2em;
+  }
+
+  @media (--media-tablet-wide) {
+    font-size: 2.6em;
+  }
+
+  @media (--media-desktop) {
+    font-size: 2.6em;
+  }
+
+  &.Label--blue {
+    & .Label__title {
+      background: var(--color-aquamarine);
+
+      &:after {
+        background: var(--color-aquamarine);
+      }
+    }
+  }
+
+  &.Label--green {
+    & .Label__title {
+      background: var(--color-green);
+
+      &:after {
+        background: var(--color-green);
+      }
+    }
+  }
+
+  &.Label--red {
+    & .Label__title {
+      background: var(--color-red);
+
+      &:after {
+        background: var(--color-red);
+      }
+    }
+  }
+
+  & .Label__title {
+    padding: 0.2em 1.6em 0.2em 1.2em;
+    background: var(--color-aquamarine);
+    color: var(--color-white);
+
+    &:after {
+      content: '';
+      display: block;
+      width: 1.6em;
+      height: 2em;
+      position: absolute;
+      right: 0.75em;
+      bottom: 0.28em;
+      background: var(--color-aquamarine);
+      transform: rotate(35deg);
+    }
+  }
+}

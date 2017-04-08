@@ -2,6 +2,7 @@
   "extends": "stylelint-config-standard",
   "rules": {
     "selector-no-type": true,
-    "color-hex-length": "long"
+    "color-hex-length": "long",
+    "selector-pseudo-element-colon-notation": "single"
   }
 }
