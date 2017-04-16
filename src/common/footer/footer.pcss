@@ -1,0 +1,134 @@
+@import '../../../public/styles/typography.pcss';
+@import '../../../public/styles/colors.pcss';
+@import '../../../public/styles/media.pcss';
+
+.Footer {
+  width: 100%;
+  height: 12em;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 8em;
+  font-size: 0.8rem;
+  position: relative;
+  overflow: hidden;
+
+  @media (--media-mobile-any) {
+    height: 16.8em;
+    flex-direction: column;
+    font-size: 0.7rem;
+  }
+
+  @media (--media-mobile) {
+    font-size: 0.55rem;
+  }
+
+  & .Footer__line {
+    width: auto;
+    height: 1px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    @media (--media-desktop-any) {
+      margin: 0 10em;
+    }
+
+    @media (--media-tablet-any) {
+      margin: 0 5em;
+    }
+
+    @media (--media-mobile-any) {
+      margin: 0 1.7em;
+    }
+
+    @media (--media-mobile) {
+      margin: 0 2.18em;
+    }
+
+    &:before {
+      content: '';
+      width: 100%;
+      height: 1px;
+      position: absolute;
+      top: 7.8em;
+      left: 0;
+      background: var(--color-black);
+    }
+  }
+
+  & .Footer__author {
+    align-self: center;
+    padding-right: 5em;
+    font-family: var(--font-cormorant-bold);
+    font-size: 2em;
+    text-transform: uppercase;
+
+    @media (--media-mobile-any) {
+      align-self: flex-start;
+      padding-right: 0;
+      padding-left: 9em;
+      font-size: 2.4em;
+      margin: -0.5em 0 1em;
+    }
+
+    @media (--media-mobile) {
+      padding-left: 8.5em;
+      font-size: 2.6em;
+    }
+  }
+
+  & .Footer__blog {
+    align-self: center;
+    padding-left: 5em;
+    font-family: var(--font-cormorant-bold);
+    font-size: 2em;
+    text-transform: uppercase;
+
+    @media (--media-mobile-any) {
+      align-self: flex-start;
+      padding-left: 9em;
+      font-size: 2.4em;
+    }
+
+    @media (--media-mobile) {
+      padding-left: 8.5em;
+      font-size: 2.6em;
+    }
+  }
+
+  & .Footer__logo-container {
+    width: 16em;
+    height: 15em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: var(--color-white);
+    border: 0.6em solid var(--color-black);
+    border-radius: 50%;
+    box-sizing: border-box;
+    z-index: 10;
+
+    @media (--media-mobile-any) {
+      position: absolute;
+      left: 1.7em;
+      top: 0;
+    }
+
+    @media (--media-mobile) {
+      left: 2.18em;
+    }
+  }
+
+  & .Footer__current-year {
+    margin: -1.4em 0 0.4em;
+    font-family: var(--font-cormorant-bold);
+    font-size: 2em;
+  }
+
+  & .Footer__logo {
+    width: 10em;
+  }
+}

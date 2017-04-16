@@ -15,7 +15,7 @@ import './home.pcss';
       ></ds-category>
     </div>
     
-    <footer class="Home__footer"></footer>
+    <ds-footer></ds-footer>
   `,
 })
 export default class Home {
