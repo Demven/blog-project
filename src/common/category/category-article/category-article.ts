@@ -16,7 +16,7 @@ export class CategoryArticle {
   template: `
     <a
       class="CategoryArticle__link"
-      href="/article/{{article.slug}}"
+      routerLink="/article/{{article.slug}}"
     >
       <img
         class="CategoryArticle__image"
