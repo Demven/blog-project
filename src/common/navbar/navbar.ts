@@ -6,16 +6,16 @@ import './navbar.pcss';
   template: `
     <nav class="Navbar__menu">
       <menuitem class="Navbar__menu-item">
-        <a class="Navbar__menu-link" href="/category/robotics">Robotics</a>
+        <a class="Navbar__menu-link" routerLink="/category/robotics">Robotics</a>
       </menuitem>
       <menuitem class="Navbar__menu-item">
-        <a class="Navbar__menu-link" href="/category/thoughts">Thoughts</a>
+        <a class="Navbar__menu-link" routerLink="/category/thoughts">Thoughts</a>
       </menuitem>
       <menuitem class="Navbar__menu-item">
-        <a class="Navbar__menu-link" href="/category/programming">Programming</a>
+        <a class="Navbar__menu-link" routerLink="/category/programming">Programming</a>
       </menuitem>
       <menuitem class="Navbar__menu-item">
-        <a class="Navbar__menu-link" href="/contacts">Contacs</a>
+        <a class="Navbar__menu-link" routerLink="/contacts">Contacs</a>
       </menuitem>
     </nav>
     
