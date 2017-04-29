@@ -42,7 +42,7 @@ import './navbar.pcss';
     
     <a
       class="Navbar__logo-container"
-      href="/"
+      routerLink="/"
     >
       <img
         class="Navbar__logo"

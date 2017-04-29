@@ -5,11 +5,7 @@ import './app.styles.pcss';
 @Component({
   selector: 'ds-app',
   template: `
-    <ds-navbar></ds-navbar>
-    
     <router-outlet></router-outlet>
-
-    <ds-footer></ds-footer>
   `,
 })
 export default class AppComponent {
