@@ -5,6 +5,7 @@ $tablet-wide-screen = 1024px
 $desktop-screen = 1440px
 */
 
+@custom-media --media-sub-mobile (max-width: 320px);
 @custom-media --media-mobile (max-width: 400px);
 @custom-media --media-mobile-wide (min-width: 401px) and (max-width: 690px);
 @custom-media --media-mobile-any (max-width: 690px);
@@ -12,6 +13,7 @@ $desktop-screen = 1440px
 @custom-media --media-tablet-wide (min-width: 996px) and (max-width: 1024px);
 @custom-media --media-tablet-any (min-width: 691px) and (max-width: 1024px);
 @custom-media --media-desktop (min-width: 1025px) and (max-width: 1439px);
+@custom-media --media-desktop-narrow (min-width: 1025px) and (max-width: 1279px);
 @custom-media --media-desktop-wide (min-width: 1440px);
 @custom-media --media-desktop-any (min-width: 1025px);
 @custom-media --media-portrait (orientation: portrait);

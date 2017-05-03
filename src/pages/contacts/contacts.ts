@@ -22,7 +22,7 @@ import './contacts.pcss';
         <h2 class="Contacts__greeting">Hi, I'm Dmitry Salnikov</h2>
         
         <p class="Contacts__text">I'm actively interested in web-development, robotics and psychology.</p>
-        <p class="Contacts__text">For any reason you can contact me by email or use socials.</p>
+        <p class="Contacts__text">For any reason you can contact with me by email or use socials.</p>
         
         <div class="Contacts__socials">
           <a
