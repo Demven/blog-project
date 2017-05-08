@@ -11,6 +11,7 @@ import Footer from './common/footer/footer';
 import Category from './common/category/category';
 import CategoryArticle from './common/category/category-article/category-article';
 import Label from './common/label/label';
+import Modal from './common/modal/modal';
 
 @NgModule({
   imports: [
@@ -28,6 +29,7 @@ import Label from './common/label/label';
     Category,
     CategoryArticle,
     Label,
+    Modal,
   ],
   bootstrap: [ AppComponent ],
 })
