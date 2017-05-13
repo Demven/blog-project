@@ -2,10 +2,11 @@ import { NgModule } from '@angular/core';
 import { BrowserModule }  from '@angular/platform-browser';
 import AppComponent from './app.component';
 import AppRouterModule from './app-router.module';
+import Page404 from './pages/page404/page404';
 import HomePage from './pages/home/home';
 import ContactsPage from './pages/contacts/contacts';
 import ArticlePage from './pages/article/article';
-import Page404 from './pages/page404/page404';
+import ArticleHeader from './pages/article/article-header/article-header';
 import Navbar from './common/navbar/navbar';
 import Footer from './common/footer/footer';
 import Category from './common/category/category';
@@ -21,9 +22,10 @@ import Modal from './common/modal/modal';
   declarations: [
     AppComponent,
     HomePage,
-    ArticlePage,
-    ContactsPage,
     Page404,
+    ContactsPage,
+    ArticlePage,
+    ArticleHeader,
     Navbar,
     Footer,
     Category,

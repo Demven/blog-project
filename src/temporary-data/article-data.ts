@@ -10,4 +10,6 @@ export default {
     "title": "Robotics",
     "slug": "robotics",
   },
+  "views": 13789,
+  "comments": 264,
 };

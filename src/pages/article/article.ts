@@ -20,34 +20,40 @@ class ArticleModel {
     title: string;
     slug: string;
   };
+  views: number;
+  comments: number;
 }
 
 @Component({
   selector: 'ds-page-article',
   template: `
     <ds-modal [flat]="true">
-      <div class="Article__modal-content">
+      <div class="ArticlePage__modal-content">
         <ds-label [title]="article.category.title" [green]="true"></ds-label>
 
-        <div class="Article__hero">
+        <div class="ArticlePage__hero">
           <img
-            class="Article__hero-image"
+            class="ArticlePage__hero-image"
             src="{{article.image.url}}"
             alt="{{article.image.description}}"
           />
         </div>
 
-        <img class="Article__hidden-hero-image" src="{{article.image.url}}" />
+        <img class="ArticlePage__hidden-hero-image" src="{{article.image.url}}" />
         
-        <div class="Article__content-container">
-          <div class="Article__content-header"></div>
+        <div class="ArticlePage__content-container">
+          <ds-article-header
+            [title]="article.title"
+            [views]="article.views"
+            [comments]="article.comments"
+          ></ds-article-header>
         </div>
       </div>
     </ds-modal>
   `,
 })
-export default class Article implements OnInit, OnDestroy {
-  @HostBinding('class.Article') rootClass: boolean = true;
+export default class ArticlePage implements OnInit, OnDestroy {
+  @HostBinding('class.ArticlePage') rootClass: boolean = true;
 
   slug: string;
   article: ArticleModel = ARTICLE_DATA;
