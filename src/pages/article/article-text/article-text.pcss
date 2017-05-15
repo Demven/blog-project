@@ -1,0 +1,16 @@
+@import '../../../../public/styles/typography.pcss';
+@import '../../../../public/styles/media.pcss';
+
+.ArticleText {
+  margin-top: 1em;
+  padding: 0 4em;
+
+  & .ArticleText__content {
+    font-family: var(--font-dincyr-regular);
+    font-size: 2.5em;
+
+    @media (--media-desktop-any) {
+      text-indent: 1em;
+    }
+  }
+}

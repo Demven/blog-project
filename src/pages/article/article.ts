@@ -22,6 +22,7 @@ class ArticleModel {
   };
   views: number;
   comments: number;
+  body: Array<any>;
 }
 
 @Component({
@@ -47,6 +48,13 @@ class ArticleModel {
             [views]="article.views"
             [comments]="article.comments"
           ></ds-article-header>
+          
+          <div class="ArticlePage__article-body">
+            <ds-article-text [content]="article.body[0]"></ds-article-text>
+            <ds-article-text [content]="article.body[1]"></ds-article-text>
+            <ds-article-image [content]="article.body[2]"></ds-article-image>
+            <ds-article-text [content]="article.body[3]"></ds-article-text>
+          </div>
         </div>
       </div>
     </ds-modal>

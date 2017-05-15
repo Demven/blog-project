@@ -1,0 +1,33 @@
+@import '../../../../public/styles/typography.pcss';
+@import '../../../../public/styles/colors.pcss';
+@import '../../../../public/styles/media.pcss';
+
+.ArticleImage {
+  & .ArticleImage__container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 4em 0 0;
+  }
+
+  & .ArticleImage__image {
+    width: 100%;
+  }
+
+  & .ArticleImage__image-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding: 1em 4em 0 0;
+    font-family: var(--font-dincyr-regular);
+    color: var(--color-dark-grey);
+  }
+
+  & .ArticleImage__description {
+    font-size: 1.5em;
+  }
+
+  & .ArticleImage__credits {
+    font-size: 1.2em;
+  }
+}
