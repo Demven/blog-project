@@ -7,6 +7,8 @@ import HomePage from './pages/home/home';
 import ContactsPage from './pages/contacts/contacts';
 import ArticlePage from './pages/article/article';
 import ArticleHeader from './pages/article/article-header/article-header';
+import ArticleBody from './pages/article/article-body/article-body';
+import ArticleBodyNode from './pages/article/article-body/article-body-node';
 import ArticleText from './pages/article/article-text/article-text';
 import ArticleImage from './pages/article/article-image/article-image';
 import Navbar from './common/navbar/navbar';
@@ -28,6 +30,8 @@ import Modal from './common/modal/modal';
     ContactsPage,
     ArticlePage,
     ArticleHeader,
+    ArticleBody,
+    ArticleBodyNode,
     ArticleText,
     ArticleImage,
     Navbar,
@@ -36,6 +40,10 @@ import Modal from './common/modal/modal';
     CategoryArticle,
     Label,
     Modal,
+  ],
+  entryComponents: [
+    ArticleText,
+    ArticleImage,
   ],
   bootstrap: [ AppComponent ],
 })

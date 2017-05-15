@@ -1,3 +1,6 @@
+import ArticleImage from '../pages/article/article-image/article-image';
+import ArticleText from '../pages/article/article-text/article-text';
+
 export default {
   title: 'Octagon Nine: how to make a personal spider',
   slug: 'octagon-nine-how-to-make-a-personal-spider',
@@ -14,7 +17,7 @@ export default {
   comments: 264,
   body: [
     {
-      type: 'text',
+      type: ArticleText,
       text: `
         Robotics is the interdisciplinary branch of engineering and science that includes mechanical engineering,
         electrical engineering, computer science, and others. Robotics deals with the design, construction,
@@ -23,7 +26,7 @@ export default {
       `,
     },
     {
-      type: 'text',
+      type: ArticleText,
       text: `
         These technologies are used to develop machines that can substitute for humans. Robots can be used in any
         situation and for any purpose, but today many are used in dangerous environments (including bomb detection
@@ -35,13 +38,13 @@ export default {
       `,
     },
     {
-      type: 'image',
+      type: ArticleImage,
       url: 'http://fotohost.by/images/2017/05/15/article-image.jpg',
       credits: 'Google Images',
       description: 'This is how it looks like to be a humanoid bot',
     },
     {
-      type: 'text',
+      type: ArticleText,
       text: `
         The concept of creating machines that can operate autonomously dates back to classical times, but research
         into the functionality and potential uses of robots did not grow substantially until the 20th century.
