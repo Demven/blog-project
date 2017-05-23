@@ -19,8 +19,13 @@
     flex-direction: column;
     align-items: flex-end;
     padding: 1em 4em 0 0;
+    text-align: right;
     font-family: var(--font-dincyr-regular);
     color: var(--color-dark-grey);
+
+    @media (--media-mobile-any) {
+      padding: 1em 2em 0;
+    }
   }
 
   & .ArticleImage__description {

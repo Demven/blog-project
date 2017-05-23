@@ -6,9 +6,18 @@
   margin-top: 2em;
   padding: 0 4em;
 
+  @media (--media-mobile-any) {
+    margin-top: 1em;
+    padding: 0 2em;
+  }
+
   & .ArticleText__content {
     font-family: var(--font-dincyr-regular);
     font-size: 2.5em;
+
+    @media (--media-mobile-any) {
+      font-size: 2em;
+    }
 
     @media (--media-desktop-any) {
       text-indent: 1em;

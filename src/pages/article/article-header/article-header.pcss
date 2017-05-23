@@ -7,11 +7,23 @@
   padding: 3em 4em 2em;
   box-sizing: border-box;
 
+  @media (--media-mobile-any) {
+    padding: 1em 2em;
+  }
+
   & .ArticleHeader__title {
     font-family: var(--font-dincyr-bold);
     font-size: 4.4em;
     line-height: 1.3em;
     color: var(--color-black-darker);
+
+    @media (--media-mobile-any) {
+      font-size: 3.2em;
+    }
+
+    @media (--media-mobile) {
+      font-size: 2.8em;
+    }
   }
 
   & .ArticleHeader__article-info {

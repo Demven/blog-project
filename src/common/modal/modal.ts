@@ -15,4 +15,5 @@ import './modal.pcss';
 export default class Modal {
   @HostBinding('class.Modal') rootClass: boolean = true;
   @HostBinding('class.Modal--flat') @Input() flat: boolean;
+  @HostBinding('class.Modal--all-space-on-mobile') @Input() allSpaceOnMobile: boolean;
 }

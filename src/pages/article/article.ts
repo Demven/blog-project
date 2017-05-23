@@ -28,7 +28,10 @@ class ArticleModel {
 @Component({
   selector: 'ds-page-article',
   template: `
-    <ds-modal [flat]="true">
+    <ds-modal
+      [flat]="true"
+      [allSpaceOnMobile]="true"
+    >
       <div class="ArticlePage__modal-content">
         <ds-label [title]="article.category.title" [green]="true"></ds-label>
 

@@ -33,6 +33,13 @@
 
   & .ArticlePage__hero-image {
     width: 100%;
+
+    @media (--media-mobile-any) {
+      @media (--media-portrait) {
+        width: auto;
+        height: 50vh;
+      }
+    }
   }
 
   & .ArticlePage__hidden-hero-image {
@@ -50,5 +57,17 @@
     background: var(--color-white);
     transform: translateY(-20vh);
     box-shadow: 0 0 8px 4px rgba(0, 0, 0, 0.05);
+
+    @media (--media-mobile-any) {
+      width: 92vw;
+      min-width: 92vw;
+      transform: translateY(-7vh);
+    }
+
+    @media (--media-tablet) {
+      width: 90vw;
+      min-width: 90vw;
+      transform: translateY(-10vh);
+    }
   }
 }
