@@ -5,6 +5,8 @@ import {
   HostBinding,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { select } from '@angular-redux/store';
+import { Observable } from 'rxjs/Observable';
 import ARTICLE_DATA from '../../temporary-data/article-data';
 import './article.pcss';
 
@@ -28,6 +30,10 @@ class ArticleModel {
 @Component({
   selector: 'ds-page-article',
   template: `
+    <ds-article-nav
+      [title]="article.title"
+      [open]="!(articleTitleIsVisible$ | async)"
+    ></ds-article-nav>
     <ds-modal
       [flat]="true"
       [allSpaceOnMobile]="true"
@@ -64,6 +70,7 @@ export default class ArticlePage implements OnInit, OnDestroy {
   slug: string;
   article: ArticleModel = ARTICLE_DATA;
   private routerParamsListener: any;
+  @select(state => state.ui.articleTitleIsVisible) readonly articleTitleIsVisible$: Observable<boolean>;
 
   constructor(private route: ActivatedRoute) {}
 
