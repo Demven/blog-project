@@ -7,25 +7,10 @@
 }
 
 .Contacts {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  padding: var(--modal-offset);
-  box-sizing: border-box;
-
-  @media (--media-mobile-any) {
-    padding: 1em;
-  }
-
-  & .Contacts__modal {
-    width: 100%;
-    min-height: calc(100vh - var(--modal-offset) * 2);
+  & .Contacts__modal-content {
     display: flex;
     flex-direction: row;
     position: relative;
-    background: var(--color-white);
-    box-shadow: 0 0 8px 4px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
 
     @media (--media-tablet-any) {
       flex-direction: column;
@@ -33,65 +18,6 @@
 
     @media (--media-mobile-any) {
       flex-direction: column;
-    }
-  }
-
-  & .Contacts__top-gradient {
-    width: 100%;
-    height: 20em;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0));
-    z-index: 5;
-  }
-
-  & .Contacts__close-button {
-    width: 6em;
-    height: 6em;
-    position: absolute;
-    top: 1em;
-    right: 1em;
-    color: var(--color-white);
-    z-index: 10;
-
-    &:before {
-      content: '';
-      width: 0.2em;
-      height: 6.6em;
-      position: absolute;
-      top: -0.3em;
-      left: 2.9em;
-      background: currentColor;
-      transform: rotate(45deg);
-    }
-
-    &:after {
-      content: '';
-      width: 0.2em;
-      height: 6.6em;
-      position: absolute;
-      top: -0.3em;
-      right: 2.9em;
-      background: currentColor;
-      transform: rotate(-45deg);
-    }
-
-    &:hover {
-      cursor: pointer;
-      opacity: 0.7;
-    }
-
-    @media (--media-tablet-any) {
-      font-size: 0.8em;
-    }
-
-    @media (--media-mobile-any) {
-      font-size: 0.6em;
-    }
-
-    @media (--media-sub-mobile) {
-      font-size: 0.55em;
     }
   }
 

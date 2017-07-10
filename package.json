@@ -10,6 +10,7 @@
   },
   "license": "UNLICENSED",
   "dependencies": {
+    "@angular-redux/store": "^6.4.0",
     "@angular/common": "2.4.9",
     "@angular/compiler": "2.4.9",
     "@angular/core": "2.4.9",
@@ -22,6 +23,7 @@
     "core-js": "2.4.1",
     "postcss": "5.2.15",
     "postcss-cssnext": "2.9.0",
+    "redux": "^3.6.0",
     "rxjs": "5.2.0",
     "tslint": "^4.5.1",
     "zone.js": "0.7.7"
