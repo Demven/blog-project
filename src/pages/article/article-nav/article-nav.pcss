@@ -17,6 +17,14 @@
   transform: translateY(-100%);
   z-index: 100;
 
+  @media (--media-mobile-any) {
+    font-size: 0.8rem;
+  }
+
+  @media (--media-sub-mobile) {
+    font-size: 0.75rem;
+  }
+
   &.ArticleNav--open {
     transform: translateY(0);
   }
@@ -47,6 +55,14 @@
     text-overflow: ellipsis;
     color: var(--color-black-darker);
     transform: translateY(-0.08em);
+
+    @media (--media-mobile-any) {
+      width: 70%;
+    }
+
+    @media (--media-sub-mobile) {
+      width: 68%;
+    }
   }
 
   & .ArticleNav__close-button {
@@ -90,11 +106,15 @@
     }
 
     @media (--media-mobile-any) {
-      font-size: 0.6em;
+      font-size: 0.6rem;
+      top: 1.7em;
+      right: 1.5em;
     }
 
     @media (--media-sub-mobile) {
-      font-size: 0.55em;
+      font-size: 0.55rem;
+      top: 1.8em;
+      right: 1em;
     }
   }
 }
