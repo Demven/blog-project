@@ -4,10 +4,10 @@ import {
   OnDestroy,
   HostBinding,
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { select } from '@angular-redux/store';
 import { Observable } from 'rxjs/Observable';
-import ARTICLE_DATA from '../../temporary-data/article-data';
+import axios from 'axios'
 import './article.pcss';
 
 class ArticleModel {
@@ -68,19 +68,52 @@ export default class ArticlePage implements OnInit, OnDestroy {
   @HostBinding('class.ArticlePage') rootClass: boolean = true;
 
   slug: string;
-  article: ArticleModel = ARTICLE_DATA;
+  article: ArticleModel = {
+    title: '',
+    slug: '',
+    image: {
+      url: '',
+      description: '',
+      credits: '',
+    },
+    category: {
+      title: '',
+      slug: '',
+    },
+    views: 0,
+    comments: 0,
+    body: [],
+  };
   private routerParamsListener: any;
   @select(state => state.ui.articleTitleIsVisible) readonly articleTitleIsVisible$: Observable<boolean>;
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute) {
+    this.onArticleRouteInit = this.onArticleRouteInit.bind(this);
+  }
 
   ngOnInit() {
-    this.routerParamsListener = this.route.params.subscribe(params => {
-      this.slug = params['slug'];
-    });
+    this.routerParamsListener = this.route.params.subscribe(this.onArticleRouteInit);
   }
 
   ngOnDestroy() {
     this.routerParamsListener.unsubscribe();
+  }
+
+  onArticleRouteInit(routeParams: Params) {
+    this.slug = routeParams['slug'];
+
+    axios
+      .get(`/api/v1/article/${this.slug}`)
+      .then(response => {
+        if (response.status === 200) {
+          this.article = response.data;
+          console.info('article data', this.article);
+        } else {
+          console.error('Could not get article data', response);
+        }
+      })
+      .catch(error => {
+        console.error(error);
+      });
   }
 }
