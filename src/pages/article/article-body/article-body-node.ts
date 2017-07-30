@@ -7,10 +7,15 @@ import {
   ComponentRef,
   ComponentFactoryResolver,
   ChangeDetectorRef,
+  OnChanges,
+  AfterViewInit,
+  OnDestroy,
 } from '@angular/core';
+import ArticleImage from '../article-image/article-image';
+import ArticleText from '../article-text/article-text';
 
 class BodyNodeContent {
-  type: any;
+  type: string;
 }
 
 @Component({
@@ -19,7 +24,7 @@ class BodyNodeContent {
     <div #target></div>
   `,
 })
-export default class ArticleBodyNode {
+export default class ArticleBodyNode implements OnChanges, AfterViewInit, OnDestroy {
   @Input() content:BodyNodeContent;
   @ViewChild('target', { read: ViewContainerRef }) target: ViewContainerRef;
 
@@ -41,7 +46,8 @@ export default class ArticleBodyNode {
       this.node.destroy();
     }
 
-    let factory = this.componentFactoryResolver.resolveComponentFactory(this.content.type);
+    const componentToRender:any = this.getComponentByNodeType(this.content.type);
+    const factory = this.componentFactoryResolver.resolveComponentFactory(componentToRender);
     this.node = this.target.createComponent(factory);
     this.node.instance.content = this.content;
     // this.node.instance.someOutput.subscribe(val => doSomething());
@@ -60,6 +66,17 @@ export default class ArticleBodyNode {
   ngOnDestroy() {
     if (this.node) {
       this.node.destroy();
+    }
+  }
+
+  getComponentByNodeType(type:string) {
+    switch(type) {
+      case 'text':
+        return ArticleText;
+      case 'inline-image':
+        return ArticleImage;
+      default:
+        return null;
     }
   }
 }

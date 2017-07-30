@@ -1,6 +1,10 @@
-import { Component, HostBinding } from '@angular/core';
+import {
+  Component,
+  HostBinding,
+  OnInit,
+} from '@angular/core';
+import axios from 'axios'
 import { Category } from '../../common/category/category';
-import SECTIONS_DATA from '../../temporary-data/sections-data';
 import './home.pcss';
 
 @Component({
@@ -17,8 +21,24 @@ import './home.pcss';
     <ds-footer></ds-footer>
   `,
 })
-export default class Home {
+export default class Home implements OnInit {
   @HostBinding('class.Home') rootClass: boolean = true;
 
-  categories: Array<Category> = SECTIONS_DATA;
+  categories: Array<Category>;
+
+  ngOnInit() {
+    axios
+      .get('/api/v1/section')
+      .then(response => {
+        if (response.status === 200) {
+          this.categories = response.data;
+          console.info('categories data', this.categories);
+        } else {
+          console.error('Could not get categories', response);
+        }
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
 }
