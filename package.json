@@ -10,6 +10,7 @@
     "build:client": "webpack --progress --profile --bail",
     "build:server": "tsc --p tsconfig-server.json",
     "build:images": "cpy public/images/* dist/client/public/images",
+    "db:reset": "npm run build && node dist/server/dal/seed",
     "lint:styles": "stylelint src/**/*.pcss",
     "lint:ts": "tslint -c tslint.json src/**/*.ts"
   },
@@ -24,6 +25,7 @@
     "@angular/platform-browser": "2.4.9",
     "@angular/platform-browser-dynamic": "2.4.9",
     "@angular/router": "3.4.9",
+    "@types/mongoose": "^4.7.19",
     "axios": "^0.16.2",
     "bluebird": "^3.5.0",
     "body-parser": "^1.17.2",
@@ -32,6 +34,7 @@
     "cookie-parser": "^1.4.3",
     "core-js": "2.4.1",
     "express": "^4.15.3",
+    "mongoose": "^4.11.5",
     "postcss": "5.2.15",
     "postcss-cssnext": "2.9.0",
     "redux": "^3.6.0",

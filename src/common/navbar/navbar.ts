@@ -57,7 +57,7 @@ export default class Navbar {
   @HostBinding('class.Navbar') rootClass: boolean = true;
 
   getOffsetToCategory(index:number):number {
-    return document.querySelectorAll('ds-category')[index]['offsetTop'] - 20;
+    return document.querySelectorAll('ds-homepage-section')[index]['offsetTop'] - 20;
   }
 
   onMenuItemClick(event:Event, index:number) {

@@ -1,10 +1,17 @@
 import { Router as expressRouter } from 'express';
-import { Section } from '../../dal/models';
+import HomepageSection from '../../dal/models/homepage-section';
 
 const router = expressRouter();
 
 router.get('/', (req, res) => {
-  Section.findAll()
+  HomepageSection
+    .find()
+    .populate('category')
+    .populate({
+      path: 'articles',
+      populate: { path: 'image category' },
+    })
+    .exec()
     .then(sections => {
       if (sections instanceof Array) {
         res.json(sections);
