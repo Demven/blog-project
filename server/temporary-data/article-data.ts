@@ -11,7 +11,6 @@ export default {
     slug: 'robotics',
   },
   views: 13789,
-  comments: 264,
   body: [
     {
       type: 'text',

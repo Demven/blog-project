@@ -22,8 +22,8 @@ import ArticleText from './pages/article/article-text/article-text';
 import ArticleImage from './pages/article/article-image/article-image';
 import Navbar from './common/navbar/navbar';
 import Footer from './common/footer/footer';
-import Category from './common/category/category';
-import CategoryArticle from './common/category/category-article/category-article';
+import HomepageSection from './common/homepage-section/homepage-section';
+import HomepageSectionArticle from './common/homepage-section/homepage-section-article/homepage-section-article';
 import Label from './common/label/label';
 import Modal from './common/modal/modal';
 
@@ -55,8 +55,8 @@ global['store'] = store;
     ArticleImage,
     Navbar,
     Footer,
-    Category,
-    CategoryArticle,
+    HomepageSection,
+    HomepageSectionArticle,
     Label,
     Modal,
   ],

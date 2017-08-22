@@ -7,7 +7,7 @@ import {
 import { ActivatedRoute, Params } from '@angular/router';
 import { select } from '@angular-redux/store';
 import { Observable } from 'rxjs/Observable';
-import axios from 'axios'
+import axios from 'axios';
 import './article.pcss';
 
 class ArticleModel {
@@ -21,9 +21,9 @@ class ArticleModel {
   category: {
     title: string;
     slug: string;
+    color: string;
   };
   views: number;
-  comments: number;
   body: Array<any>;
 }
 
@@ -39,7 +39,12 @@ class ArticleModel {
       [allSpaceOnMobile]="true"
     >
       <div class="ArticlePage__modal-content">
-        <ds-label [title]="article.category.title" [green]="true"></ds-label>
+        <ds-label
+          [title]="article.category.title"
+          [green]="article.category.color === 'green'"
+          [blue]="article.category.color === 'blue'"
+          [red]="article.category.color === 'red'"
+        ></ds-label>
 
         <div class="ArticlePage__hero">
           <img
@@ -55,7 +60,6 @@ class ArticleModel {
           <ds-article-header
             [title]="article.title"
             [views]="article.views"
-            [comments]="article.comments"
           ></ds-article-header>
           
           <ds-article-body [nodes]="article.body"></ds-article-body>
@@ -79,9 +83,9 @@ export default class ArticlePage implements OnInit, OnDestroy {
     category: {
       title: '',
       slug: '',
+      color: '',
     },
     views: 0,
-    comments: 0,
     body: [],
   };
   private routerParamsListener: any;

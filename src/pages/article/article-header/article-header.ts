@@ -35,7 +35,7 @@ import './article-header.pcss';
           src="../../../../public/images/comments.png"
           alt="Comment icon"
         />
-        <div class="ArticleHeader__comments-count-value">{{comments}}</div>
+        <div class="ArticleHeader__comments-count-value">123</div>
       </div>
     </div>
   `,
@@ -45,7 +45,6 @@ export default class ArticleHeader implements AfterViewInit, OnDestroy {
 
   @Input() title: string;
   @Input() views: number;
-  @Input() comments: number;
 
   @ViewChild('titleEl')
   private titleEl : ElementRef;
