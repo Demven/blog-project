@@ -28,8 +28,31 @@ class ArticleModel {
 @Component({
   selector: 'ds-page-edit-article',
   template: `
-    <h1>This is article edit mode!</h1>
-    <h2>{{slug || 'new'}}</h2>
+    <ds-edit-article-nav></ds-edit-article-nav>
+    
+    <main class="EditArticlePage__main">
+      <ds-text-field
+        [name]="'title'"
+        [label]="'Title'"
+        [placeholder]="'Title'"
+        required="true"
+      ></ds-text-field>
+      
+      <ds-text-field
+        [name]="'description'"
+        [label]="'Description'"
+        [placeholder]="'Description'"
+        required="true"
+        errorText="{{'This field cannot be empty. Please fill.'}}"
+      ></ds-text-field>
+      
+      <ds-text-field
+        [name]="'category'"
+        [label]="'Category'"
+        [placeholder]="'Category'"
+        required="true"
+      ></ds-text-field>
+    </main>
   `,
 })
 export default class EditArticlePage implements OnInit, OnDestroy {

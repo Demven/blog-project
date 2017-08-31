@@ -13,7 +13,7 @@ import AppComponent from './app.component';
 import AppRouterModule from './app-router.module';
 import CommonComponentsModule from './common/common.module';
 import ArticleModule from './pages/article/article.module';
-import EditArticlePage from './pages/edit-article/edit-article';
+import EditArticleModule from './pages/edit-article/edit-article.module';
 import Page404 from './pages/page404/page404';
 import HomePage from './pages/home/home';
 import ContactsPage from './pages/contacts/contacts';
@@ -38,11 +38,11 @@ global['store'] = store;
     CommonModule,
     CommonComponentsModule,
     ArticleModule,
+    EditArticleModule,
   ],
   declarations: [
     AppComponent,
     HomePage,
-    EditArticlePage,
     Page404,
     ContactsPage,
     Navbar,
