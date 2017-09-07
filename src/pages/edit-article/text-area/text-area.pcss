@@ -1,0 +1,57 @@
+@import '../../../../public/styles/media.pcss';
+@import '../../../../public/styles/colors.pcss';
+@import '../../../../public/styles/typography.pcss';
+
+.TextArea {
+  display: flex;
+  flex-direction: column;
+  margin-top: 35px;
+
+  & .TextArea__label {
+    font-family: var(--font-dincyr-bold);
+    font-size: 14px;
+    color: var(--color-aquamarine);
+    padding-bottom: 5px;
+  }
+
+  & .TextArea__field {
+    -webkit-appearance: none;
+    width: 100%;
+    max-width: 100%;
+    padding: 8px 10px 8px 0;
+    outline: none;
+    font-family: var(--font-dincyr-regular);
+    font-size: 16px;
+    border: 0;
+    border-bottom: 1px solid var(--color-dark-grey);
+    color: var(--color-black-darker);
+    transition: border-color 0.3s;
+    box-sizing: border-box;
+
+    &:focus {
+      border-bottom: 2px solid var(--color-aquamarine);
+    }
+  }
+
+  & .TextArea__error {
+    display: none;
+    padding-top: 5px;
+    font-family: var(--font-dincyr-regular);
+    font-size: 12px;
+    color: var(--color-red);
+  }
+
+  &.TextArea--with-error {
+    & .TextArea__label {
+      color: var(--color-red);
+    }
+
+    & .TextArea__field {
+      border-color: var(--color-red);
+    }
+
+    & .TextArea__error {
+      display: block;
+    }
+  }
+}

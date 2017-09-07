@@ -6,6 +6,7 @@ import {
 } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import axios from 'axios';
+import { SelectItem } from '../edit-article/select-field/select-field';
 import './edit-article.pcss';
 
 class ArticleModel {
@@ -35,23 +36,28 @@ class ArticleModel {
         [name]="'title'"
         [label]="'Title'"
         [placeholder]="'Title'"
-        required="true"
+        required
+        (change)="onFieldChange($event)"
       ></ds-text-field>
       
-      <ds-text-field
+      <ds-text-area
         [name]="'description'"
         [label]="'Description'"
+        [rows]="4"
         [placeholder]="'Description'"
-        required="true"
-        errorText="{{'This field cannot be empty. Please fill.'}}"
-      ></ds-text-field>
+        required
+        [errorText]="'This field cannot be empty. Please fill.'"
+        (change)="onFieldChange($event)"
+      ></ds-text-area>
       
-      <ds-text-field
+      <ds-select-field
         [name]="'category'"
         [label]="'Category'"
-        [placeholder]="'Category'"
-        required="true"
-      ></ds-text-field>
+        [errorText]="''"
+        [selectedIndex]="category"
+        [values]="categories"
+        (select)="onSelectFieldChange($event)"
+      ></ds-select-field>
     </main>
   `,
 })
@@ -75,7 +81,24 @@ export default class EditArticlePage implements OnInit, OnDestroy {
     views: 0,
     body: [],
   };
+  categories: Array<SelectItem> = [
+    {
+      text: 'Robotics',
+      value: 'robotics',
+    },
+    {
+      text: 'Programming',
+      value: 'programming',
+    },
+    {
+      text: 'Psychology',
+      value: 'psychology',
+    },
+  ];
   private routerParamsListener: any;
+  private title: string;
+  private description: string;
+  private category: number = 0;
 
   constructor(private route: ActivatedRoute) {
     this.onArticleRouteInit = this.onArticleRouteInit.bind(this);
@@ -112,5 +135,15 @@ export default class EditArticlePage implements OnInit, OnDestroy {
       .catch(error => {
         console.error(error);
       });
+  }
+
+  onFieldChange({ name, value }: { name: string, value: string }) {
+    console.info(name, value);
+    this[name] = value;
+  }
+
+  onSelectFieldChange({ name, selectedIndex }: { name: string, selectedIndex: number }) {
+    console.info('selected', name, selectedIndex);
+    this[name] = selectedIndex;
   }
 }

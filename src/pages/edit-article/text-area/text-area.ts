@@ -5,35 +5,39 @@ import {
   Output,
   EventEmitter,
 } from '@angular/core';
-import './text-field.pcss';
+import './text-area.pcss';
 
 @Component({
-  selector: 'ds-text-field',
+  selector: 'ds-text-area',
   template: `
     <label
-      class="TextField__label"
+      class="TextArea__label"
       for="{{name}}"
     >
       {{label}}
     </label>
-    <input
-      class="TextField__field"
+    <textarea
+      class="TextArea__field"
       id="{{name}}"
       placeholder="{{placeholder}}"
+      rows="{{rows}}"
+      autosize
       [attr.required]="required ? 'true' : null"
       (focus)="onFocus($event)"
       (keyup)="onKeyUp($event)"
       (blur)="onBlur($event)"
-    />
-    <div class="TextField__error">{{errorText}}</div>
+    >{{value}}</textarea>
+    <div class="TextArea__error">{{errorText}}</div>
   `,
 })
-export default class TextField {
-  @HostBinding('class.TextField') rootClass: boolean = true;
-  @HostBinding('class.TextField--with-error') @Input() errorText: string;
+export default class TextArea {
+  @HostBinding('class.TextArea') rootClass: boolean = true;
+  @HostBinding('class.TextArea--with-error') @Input() errorText: string;
 
   @Input() name: string;
   @Input() label: string;
+  @Input() rows: string;
+  @Input() value: string;
   @Input() placeholder: string;
   @Input() required: boolean;
 

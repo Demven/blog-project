@@ -6,7 +6,7 @@ import './modal.pcss';
   template: `
     <div class="Modal__content">
       <div class="Modal__top-gradient"></div>
-      <a class="Modal__close-button" routerLink="/"></a>
+      <a class="Modal__close-button" [routerLink]="['/']"></a>
 
       <ng-content></ng-content>
     </div>
