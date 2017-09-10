@@ -11,7 +11,6 @@
     font-family: var(--font-dincyr-bold);
     font-size: 14px;
     color: var(--color-aquamarine);
-    padding-bottom: 5px;
   }
 
   & .TextArea__field {
@@ -30,6 +29,10 @@
 
     &:focus {
       border-bottom: 2px solid var(--color-aquamarine);
+    }
+
+    &::placeholder {
+      color: var(--color-dark-grey);
     }
   }
 
