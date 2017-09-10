@@ -12,6 +12,7 @@ import './edit-article-nav.pcss';
     </div>
     <h1 class="EditArticleNav__title">How to make your own personal assistant</h1>
     <button class="EditArticleNav__save-button">Save</button>
+    <button class="EditArticleNav__preview-button">Preview</button>
   `,
 })
 export default class EditArticleNav {

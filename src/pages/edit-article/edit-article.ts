@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import axios from 'axios';
-import { SelectItem } from '../edit-article/select-field/select-field';
+import { SelectItem } from './select-field/select-field';
 import './edit-article.pcss';
 
 class ArticleModel {
@@ -39,6 +39,21 @@ class ArticleModel {
         required
         (change)="onFieldChange($event)"
       ></ds-text-field>
+
+      <div class="EditArticlePage__hero-image-field">
+        <ds-text-field
+          [name]="'mainImageUrl'"
+          [label]="'Main Image'"
+          [placeholder]="'Url'"
+          required
+          (change)="onFieldChange($event)"
+        ></ds-text-field>
+        <img
+          class="EditArticlePage__hero-image"
+          src="{{mainImageUrl}}"
+          *ngIf="mainImageUrl"
+        />
+      </div>
       
       <ds-text-area
         [name]="'description'"
@@ -58,11 +73,24 @@ class ArticleModel {
         [values]="categories"
         (select)="onSelectFieldChange($event)"
       ></ds-select-field>
+      
+      <div class="EditArticlePage__add-content">
+        <ul class="EditArticlePage__content-types">
+          <li class="EditArticlePage__content-type">Text</li>
+          <li class="EditArticlePage__content-type">Image</li>
+        </ul>
+        <button
+          class="EditArticlePage__add-button"
+          (click)="contentTypesVisible ? hideContentTypes() : showContentTypes()"
+        ></button>
+      </div>
+      
     </main>
   `,
 })
 export default class EditArticlePage implements OnInit, OnDestroy {
   @HostBinding('class.EditArticlePage') rootClass: boolean = true;
+  @HostBinding('class.EditArticlePage--content-types-visible') contentTypesVisible: boolean = false;
 
   slug: string;
   article: ArticleModel = {
@@ -96,13 +124,18 @@ export default class EditArticlePage implements OnInit, OnDestroy {
     },
   ];
   private routerParamsListener: any;
+
+  // field values
   private title: string;
   private description: string;
-  private category: number = 0;
+  category: number = 0;
+  mainImageUrl: string = '';
 
   constructor(private route: ActivatedRoute) {
     this.onArticleRouteInit = this.onArticleRouteInit.bind(this);
     this.fetchArticle = this.fetchArticle.bind(this);
+    this.showContentTypes = this.showContentTypes.bind(this);
+    this.hideContentTypes = this.hideContentTypes.bind(this);
   }
 
   ngOnInit() {
@@ -145,5 +178,13 @@ export default class EditArticlePage implements OnInit, OnDestroy {
   onSelectFieldChange({ name, selectedIndex }: { name: string, selectedIndex: number }) {
     console.info('selected', name, selectedIndex);
     this[name] = selectedIndex;
+  }
+
+  showContentTypes():void {
+    this.contentTypesVisible = true;
+  }
+
+  hideContentTypes():void {
+    this.contentTypesVisible = false;
   }
 }
