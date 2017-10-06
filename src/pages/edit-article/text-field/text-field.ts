@@ -24,6 +24,7 @@ import './text-field.pcss';
       (focus)="onFocus($event)"
       (keyup)="onKeyUp($event)"
       (blur)="onBlur($event)"
+      value="{{value}}"
     />
     <div class="TextField__error">{{errorText}}</div>
   `,
@@ -34,6 +35,7 @@ export default class TextField {
 
   @Input() name: string;
   @Input() label: string;
+  @Input() value: string;
   @Input() placeholder: string;
   @Input() required: boolean;
 
@@ -47,7 +49,10 @@ export default class TextField {
 
   onKeyUp(event: KeyboardEvent) {
     const value = (<HTMLTextAreaElement>event.target).value;
-    this.change.emit({ name: this.name, value });
+
+    if (value && this.name) {
+      this.change.emit({ name: this.name, value });
+    }
   }
 
   onBlur(event: Event) {

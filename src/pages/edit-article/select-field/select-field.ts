@@ -26,8 +26,7 @@ export class SelectItem {
       </label>
       <div
         class="SelectField__field"
-        (click)="openList()"
-        (blur)="closeList()"
+        (click)="openList($event)"
         [attr.tabindex]="0"
       >
         {{values && values[selectedIndex].text}}
@@ -38,7 +37,7 @@ export class SelectItem {
           class="SelectField__item"
           *ngFor="let itemValue of values; let i = index"
           [attr.data-index]="i"
-          (click)="onSelect(+$event.target.dataset.index)"
+          (click)="onSelect($event)"
         >{{itemValue.text}}</li>
       </ul>
       
@@ -62,18 +61,23 @@ export default class SelectField {
     this.closeList = this.closeList.bind(this);
     this.onKeyUp = this.onKeyUp.bind(this);
     this.onSelect = this.onSelect.bind(this);
+    this.onOuterClick = this.onOuterClick.bind(this);
   }
 
-  openList(): void {
+  openList(event: MouseEvent): void {
+    event.stopPropagation();
+
     this.open = true;
 
     window.document.addEventListener('keyup', this.onKeyUp);
+    window.document.addEventListener('click', this.onOuterClick);
   }
 
   closeList(): void {
     this.open = false;
 
     window.document.removeEventListener('keyup', this.onKeyUp);
+    window.document.removeEventListener('click', this.onOuterClick);
   }
 
   onKeyUp(event: KeyboardEvent) {
@@ -82,8 +86,14 @@ export default class SelectField {
     }
   }
 
-  onSelect(selectedIndex: number): void {
+  onSelect(event:any): void {
+    const selectedIndex = event.target.dataset.index;
+
     this.select.emit({ name: this.name, selectedIndex });
+    this.closeList();
+  }
+
+  onOuterClick(): void {
     this.closeList();
   }
 }

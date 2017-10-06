@@ -172,10 +172,6 @@ amdefine@>=0.0.4:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
 
-angular2-autosize@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/angular2-autosize/-/angular2-autosize-1.0.1.tgz#df9d34231eef1d49f306b29ab353c8d9e9b0930f"
-
 angular2-template-loader@0.6.2:
   version "0.6.2"
   resolved "https://registry.yarnpkg.com/angular2-template-loader/-/angular2-template-loader-0.6.2.tgz#c0d44e90fff0fac95e8b23f043acda7fd1c51d7c"
@@ -2714,6 +2710,10 @@ nested-error-stacks@^1.0.0, nested-error-stacks@^1.0.1:
   resolved "https://registry.yarnpkg.com/nested-error-stacks/-/nested-error-stacks-1.0.2.tgz#19f619591519f096769a5ba9a86e6eeec823c3cf"
   dependencies:
     inherits "~2.0.1"
+
+ng-autosize@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/ng-autosize/-/ng-autosize-1.0.1.tgz#25cd81690665e5b2a5a6cc7c364aca89cf1d3740"
 
 no-case@^2.2.0:
   version "2.3.1"
