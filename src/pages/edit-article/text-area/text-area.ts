@@ -13,6 +13,7 @@ import './text-area.pcss';
     <label
       class="TextArea__label"
       for="{{name}}"
+      *ngIf="label"
     >
       {{label}}
     </label>
@@ -51,7 +52,10 @@ export default class TextArea {
 
   onKeyUp(event: KeyboardEvent) {
     const value = (<HTMLTextAreaElement>event.target).value;
-    this.change.emit({ name: this.name, value });
+
+    if (value && this.name) {
+      this.change.emit({ name: this.name, value });
+    }
   }
 
   onBlur(event: Event) {
