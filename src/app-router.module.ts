@@ -10,6 +10,7 @@ const appRoutes: Routes = [
   { path: '', component: HomePage },
   { path: 'contacts', component: ContactsPage },
   { path: 'article/new', component: EditArticlePage },
+  { path: 'article/preview', component: ArticlePage },
   { path: 'article/:slug', component: ArticlePage },
   { path: 'article/:slug/edit', component: EditArticlePage },
   { path: '**', component: Page404 },

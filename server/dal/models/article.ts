@@ -5,6 +5,10 @@ export const ArticleSchema = new Schema({
     type: String,
     required: true,
   },
+  description: {
+    type: String,
+    required: false,
+  },
   slug: {
     type: String,
     required: true,
@@ -22,6 +26,10 @@ export const ArticleSchema = new Schema({
   views: {
     type: Number,
     default: 0,
+  },
+  deleted: {
+    type: Boolean,
+    default: false,
   },
   body: [Schema.Types.Mixed],
 });

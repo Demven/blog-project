@@ -29,7 +29,10 @@ import './article-header.pcss';
         />
         <div class="ArticleHeader__views-count-value">{{views}}</div>
       </div>
-      <div class="ArticleHeader__comments-count">
+      <div
+        class="ArticleHeader__comments-count"
+        *ngIf="false"
+      >
         <img
           class="ArticleHeader__comments-count-icon"
           src="../../../../public/images/comments.png"

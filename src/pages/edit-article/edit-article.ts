@@ -4,33 +4,61 @@ import {
   OnDestroy,
   HostBinding,
 } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import {
+  ActivatedRoute,
+  Params,
+} from '@angular/router';
 import axios from 'axios';
 import { SelectItem } from './select-field/select-field';
+import clientStorage, { STORAGE_KEY } from '../../services/clientStorage';
 import './edit-article.pcss';
 
 class ArticleModel {
-  title: string;
   slug: string;
+  title: string;
+  description: string;
   image: {
     url: string;
     description: string;
     credits: string;
   };
-  category: {
-    title: string;
-    slug: string;
-    color: string;
-  };
+  category: Category;
   views: number;
   body: Array<any>;
 }
+
+class Category {
+  title: string;
+  slug: string;
+  color: string;
+}
+
+const DEFAULT_ARTICLE:ArticleModel = {
+  slug: '',
+  title: '',
+  description: '',
+  image: {
+    url: '',
+    description: '',
+    credits: '',
+  },
+  category: {
+    title: '', // text
+    slug: '', // value
+    color: '',
+  },
+  views: 0,
+  body: [],
+};
 
 @Component({
   selector: 'ds-page-edit-article',
   template: `
     <ds-svg-sprite></ds-svg-sprite>
-    <ds-edit-article-nav></ds-edit-article-nav>
+    <ds-edit-article-nav
+      (publish)="onPublish()"
+      (preview)="onPreview()"
+    ></ds-edit-article-nav>
     
     <main class="EditArticlePage__main">
       <div class="EditArticlePage__input-field">
@@ -67,7 +95,7 @@ class ArticleModel {
           [rows]="4"
           [placeholder]="'Description'"
           required
-          [errorText]="'This field cannot be empty. Please fill.'"
+          [value]="article.description"
           (change)="onFieldChange($event)"
         ></ds-text-area>
       </div>
@@ -107,46 +135,22 @@ export default class EditArticlePage implements OnInit, OnDestroy {
   @HostBinding('class.EditArticlePage--content-types-visible') contentTypesVisible: boolean = false;
 
   slug: string;
-  article: ArticleModel = {
-    title: '',
-    slug: '',
-    image: {
-      url: '',
-      description: '',
-      credits: '',
-    },
-    category: {
-      title: '', // text
-      slug: '', // value
-      color: '',
-    },
-    views: 0,
-    body: [],
-  };
+  article: ArticleModel = DEFAULT_ARTICLE;
   body: Array<Object> = [];
-  categories: Array<SelectItem> = [
-    {
-      text: 'Robotics',
-      value: 'robotics',
-    },
-    {
-      text: 'Programming',
-      value: 'programming',
-    },
-    {
-      text: 'Psychology',
-      value: 'psychology',
-    },
-  ];
+  categories: Array<SelectItem> = [];
   private routerParamsListener: any;
   category: number = 0;
+  createMode: boolean = false;
 
   constructor(private route: ActivatedRoute) {
     this.onArticleRouteInit = this.onArticleRouteInit.bind(this);
     this.fetchArticle = this.fetchArticle.bind(this);
+    this.fetchCategories = this.fetchCategories.bind(this);
     this.showContentTypes = this.showContentTypes.bind(this);
     this.hideContentTypes = this.hideContentTypes.bind(this);
     this.onBodyContentUpdate = this.onBodyContentUpdate.bind(this);
+    this.onPublish = this.onPublish.bind(this);
+    this.onPreview = this.onPreview.bind(this);
   }
 
   ngOnInit() {
@@ -161,21 +165,51 @@ export default class EditArticlePage implements OnInit, OnDestroy {
     this.slug = routeParams['slug'];
 
     if (this.slug) {
-      this.fetchArticle();
+      this.createMode = false;
+      this.fetchArticle()
+        .then(this.fetchCategories);
+    } else {
+      this.createMode = true;
+      this.fetchCategories();
     }
   }
 
   fetchArticle() {
-    axios
+    return axios
       .get(`/api/v1/article/${this.slug}`)
       .then(response => {
         if (response.status === 200) {
           this.article = response.data;
-          this.category = this.categories.findIndex(category => category.value === this.article.category.slug);
           this.body = [...this.article.body];
           console.info('article data', this.article);
         } else {
           console.error('Could not get article data', response);
+        }
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
+
+  fetchCategories() {
+    return axios
+      .get('/api/v1/category')
+      .then(response => {
+        if (response.status === 200) {
+          const categories = response.data;
+          this.categories = categories.map((category: Category) => ({
+            ...category,
+            text: category.title,
+            value: category.slug,
+          }));
+
+          if (!this.createMode) {
+            this.category = this.categories.findIndex(category => category.value === this.article.category.slug);
+          }
+
+          console.info('categories', this.categories);
+        } else {
+          console.error('Could not get categories data', response);
         }
       })
       .catch(error => {
@@ -197,11 +231,15 @@ export default class EditArticlePage implements OnInit, OnDestroy {
   }
 
   onCategoryChange({ name, selectedIndex }: { name: string, selectedIndex: number }) {
-    this.category = selectedIndex;
-    const selectedCategory = this.categories[selectedIndex];
-    this.article.category = { title: '', slug: selectedCategory.value, color: '' };
-
-    console.info('selected', name, selectedIndex, this.article);
+    if (name) {
+      this.category = selectedIndex;
+      const selectedCategory: object = {
+        ...this.categories[selectedIndex],
+        text: undefined,
+        value: undefined,
+      };
+      this.article.category = <Category>selectedCategory;
+    }
   }
 
   showContentTypes():void {
@@ -232,5 +270,15 @@ export default class EditArticlePage implements OnInit, OnDestroy {
 
       console.info('body', this.body);
     }
+  }
+
+  onPublish() {
+    console.info('publish', this.article);
+  }
+
+  onPreview() {
+    console.info('PREVIEW', this.article);
+    clientStorage.save(STORAGE_KEY.ARTICLE_DATA, this.article);
+    window.open('http://localhost:8080/article/preview', '_blank');
   }
 }

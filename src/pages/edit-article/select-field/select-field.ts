@@ -17,6 +17,7 @@ export class SelectItem {
     <div
       class="SelectField"
       [ngClass]="{ 'SelectField--open': open, 'SelectField--with-error': !!errorText }"
+      *ngIf="values && values.length"
     >
       <label
         class="SelectField__label"
@@ -29,7 +30,7 @@ export class SelectItem {
         (click)="openList($event)"
         [attr.tabindex]="0"
       >
-        {{values && values[selectedIndex].text}}
+        {{values && values.length && values[selectedIndex].text}}
       </div>
       
       <ul class="SelectField__list">
@@ -49,7 +50,7 @@ export default class SelectField {
   @Input() name: string;
   @Input() label: string;
   @Input() errorText: string;
-  @Input() selectedIndex: number;
+  @Input() selectedIndex: number = 0;
   @Input() values: Array<SelectItem>;
 
   @Output() select: EventEmitter<object> = new EventEmitter();
