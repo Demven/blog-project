@@ -8,11 +8,13 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { select } from '@angular-redux/store';
 import { Observable } from 'rxjs/Observable';
 import axios from 'axios';
+import clientStorage, { STORAGE_KEY } from '../../services/clientStorage';
 import './article.pcss';
 
 class ArticleModel {
-  title: string;
   slug: string;
+  title: string;
+  description: string;
   image: {
     url: string;
     description: string;
@@ -26,6 +28,24 @@ class ArticleModel {
   views: number;
   body: Array<any>;
 }
+
+const DEFAULT_ARTICLE: ArticleModel = {
+  slug: '',
+  title: '',
+  description: '',
+  image: {
+    url: '',
+    description: '',
+    credits: '',
+  },
+  category: {
+    title: '',
+    slug: '',
+    color: '',
+  },
+  views: 0,
+  body: [],
+};
 
 @Component({
   selector: 'ds-page-article',
@@ -72,35 +92,32 @@ export default class ArticlePage implements OnInit, OnDestroy {
   @HostBinding('class.ArticlePage') rootClass: boolean = true;
 
   slug: string;
-  article: ArticleModel = {
-    title: '',
-    slug: '',
-    image: {
-      url: '',
-      description: '',
-      credits: '',
-    },
-    category: {
-      title: '',
-      slug: '',
-      color: '',
-    },
-    views: 0,
-    body: [],
-  };
+  article: ArticleModel = DEFAULT_ARTICLE;
+  previewMode: boolean = false;
   private routerParamsListener: any;
+
   @select(state => state.ui.articleTitleIsVisible) readonly articleTitleIsVisible$: Observable<boolean>;
 
   constructor(private route: ActivatedRoute) {
     this.onArticleRouteInit = this.onArticleRouteInit.bind(this);
+    this.useArticleDataFromClientStorage = this.useArticleDataFromClientStorage.bind(this);
   }
 
   ngOnInit() {
-    this.routerParamsListener = this.route.params.subscribe(this.onArticleRouteInit);
+    this.previewMode = window.location.pathname === '/article/preview';
+
+    if (this.previewMode) {
+      console.info('PREVIEW MODE');
+      this.useArticleDataFromClientStorage();
+    } else {
+      this.routerParamsListener = this.route.params.subscribe(this.onArticleRouteInit);
+    }
   }
 
   ngOnDestroy() {
-    this.routerParamsListener.unsubscribe();
+    if (!this.previewMode) {
+      this.routerParamsListener.unsubscribe();
+    }
   }
 
   onArticleRouteInit(routeParams: Params) {
@@ -119,5 +136,12 @@ export default class ArticlePage implements OnInit, OnDestroy {
       .catch(error => {
         console.error(error);
       });
+  }
+
+  useArticleDataFromClientStorage() {
+    const articleData = clientStorage.get(STORAGE_KEY.ARTICLE_DATA);
+    if (articleData) {
+      this.article = articleData;
+    }
   }
 }
