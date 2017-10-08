@@ -8,6 +8,7 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { NgRedux } from '@angular-redux/store';
+import * as moment from 'moment';
 import { IAppState } from '../../../redux/InitialAppState';
 import { articleTitleIsHiddenAction, articleTitleIsVisibleAction } from '../../../redux/actions/ui';
 import './article-header.pcss';
@@ -21,6 +22,7 @@ import './article-header.pcss';
     >{{title}}</h1>
     
     <div class="ArticleHeader__article-info">
+      <div class="ArticleHeader__publication-date">{{formatPublicationDate()}}</div>
       <div class="ArticleHeader__views-count">
         <img
           class="ArticleHeader__views-count-icon"
@@ -48,6 +50,7 @@ export default class ArticleHeader implements AfterViewInit, OnDestroy {
 
   @Input() title: string;
   @Input() views: number;
+  @Input() publicationDate: string;
 
   @ViewChild('titleEl')
   private titleEl : ElementRef;
@@ -58,6 +61,7 @@ export default class ArticleHeader implements AfterViewInit, OnDestroy {
     this.onArticleScroll = this.onArticleScroll.bind(this);
     this.onTitleIsHidden = this.onTitleIsHidden.bind(this);
     this.onTitleIsVisible = this.onTitleIsVisible.bind(this);
+    this.formatPublicationDate = this.formatPublicationDate.bind(this);
   }
 
   ngAfterViewInit() {
@@ -85,5 +89,9 @@ export default class ArticleHeader implements AfterViewInit, OnDestroy {
   onTitleIsVisible() {
     this.articleTitleIsVisible = true;
     this.ngRedux.dispatch(articleTitleIsVisibleAction());
+  }
+
+  formatPublicationDate() {
+    return moment(this.publicationDate).format('MMM DD YYYY');
   }
 }

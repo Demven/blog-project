@@ -53,7 +53,7 @@ export default class TextArea {
   onKeyUp(event: KeyboardEvent) {
     const value = (<HTMLTextAreaElement>event.target).value;
 
-    if (value && this.name) {
+    if (this.name) {
       this.change.emit({ name: this.name, value });
     }
   }
