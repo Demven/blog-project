@@ -20,6 +20,7 @@ import Icon from './icon/icon';
     Modal,
     SvgSprite,
     Icon,
+    RouterModule,
   ],
 })
 export default class CommonModule {}

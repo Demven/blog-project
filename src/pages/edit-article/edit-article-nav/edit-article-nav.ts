@@ -1,6 +1,7 @@
 import {
   Component,
   HostBinding,
+  Input,
   Output,
   EventEmitter,
 } from '@angular/core';
@@ -9,13 +10,16 @@ import './edit-article-nav.pcss';
 @Component({
   selector: 'ds-edit-article-nav',
   template: `
-    <div class="EditArticleNav__logo-container">
+    <a
+      class="EditArticleNav__logo-container"
+      [routerLink]="['/']"
+    >
       <img
         class="EditArticleNav__logo"
         src="../../../../public/images/logo.png"
       />
-    </div>
-    <h1 class="EditArticleNav__title">How to make your own personal assistant</h1>
+    </a>
+    <h1 class="EditArticleNav__title">{{(title && title.length) ? title : 'Create a new article'}}</h1>
     <button
       class="EditArticleNav__publish-button"
       (click)="onPublish()"
@@ -28,6 +32,8 @@ import './edit-article-nav.pcss';
 })
 export default class EditArticleNav {
   @HostBinding('class.EditArticleNav') rootClass: boolean = true;
+
+  @Input() title: string;
 
   @Output() publish: EventEmitter<any> = new EventEmitter();
   @Output() preview: EventEmitter<any> = new EventEmitter();

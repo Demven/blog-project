@@ -5,6 +5,7 @@ import {
   HostBinding,
 } from '@angular/core';
 import {
+  Router,
   ActivatedRoute,
   Params,
 } from '@angular/router';
@@ -31,6 +32,8 @@ class Category {
   title: string;
   slug: string;
   color: string;
+  _v: number;
+  _id: string;
 }
 
 const DEFAULT_ARTICLE:ArticleModel = {
@@ -46,6 +49,8 @@ const DEFAULT_ARTICLE:ArticleModel = {
     title: '', // text
     slug: '', // value
     color: '',
+    _v: 0,
+    _id: '',
   },
   views: 0,
   body: [],
@@ -56,6 +61,7 @@ const DEFAULT_ARTICLE:ArticleModel = {
   template: `
     <ds-svg-sprite></ds-svg-sprite>
     <ds-edit-article-nav
+      [title]="article.title"
       (publish)="onPublish()"
       (preview)="onPreview()"
     ></ds-edit-article-nav>
@@ -142,7 +148,7 @@ export default class EditArticlePage implements OnInit, OnDestroy {
   category: number = 0;
   createMode: boolean = false;
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private router: Router) {
     this.onArticleRouteInit = this.onArticleRouteInit.bind(this);
     this.fetchArticle = this.fetchArticle.bind(this);
     this.fetchCategories = this.fetchCategories.bind(this);
@@ -203,7 +209,9 @@ export default class EditArticlePage implements OnInit, OnDestroy {
             value: category.slug,
           }));
 
-          if (!this.createMode) {
+          if (this.createMode) {
+            this.article.category = categories[0];
+          } else {
             this.category = this.categories.findIndex(category => category.value === this.article.category.slug);
           }
 
@@ -218,8 +226,7 @@ export default class EditArticlePage implements OnInit, OnDestroy {
   }
 
   onFieldChange({ name, value }: { name: string, value: string }) {
-    if (name && value) {
-      console.info(name, value);
+    if (name) {
       this.article[name] = value;
     }
   }
@@ -274,6 +281,24 @@ export default class EditArticlePage implements OnInit, OnDestroy {
 
   onPublish() {
     console.info('publish', this.article);
+    axios
+      .post('/api/v1/article/publish', this.article)
+      .then(response => {
+        if (response.status === 200) {
+          console.info('successfully published', response.data);
+          if (this.createMode) {
+            const articleSlug = response.data.slug;
+            this.router.navigate([`/article/${articleSlug}/edit`]);
+          } else {
+            this.router.navigate([`/article/${this.article.slug}/edit`]);
+          }
+        } else {
+          console.error('Failed to publish', response);
+        }
+      })
+      .catch(error => {
+        console.error(error);
+      });
   }
 
   onPreview() {

@@ -80,6 +80,7 @@ const DEFAULT_ARTICLE: ArticleModel = {
           <ds-article-header
             [title]="article.title"
             [views]="article.views"
+            [publicationDate]="article.publication_date"
           ></ds-article-header>
           
           <ds-article-body [nodes]="article.body"></ds-article-body>

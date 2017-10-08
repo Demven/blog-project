@@ -50,7 +50,7 @@ export default class TextField {
   onKeyUp(event: KeyboardEvent) {
     const value = (<HTMLTextAreaElement>event.target).value;
 
-    if (value && this.name) {
+    if (this.name) {
       this.change.emit({ name: this.name, value });
     }
   }
