@@ -26,8 +26,9 @@ export const ArticleSchema = new Schema({
     required: true,
   },
   views: {
-    type: Number,
-    default: 0,
+    type: Schema.Types.ObjectId,
+    ref: 'ViewsCount',
+    required: true,
   },
   publication_date: {
     type: Date,

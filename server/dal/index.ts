@@ -4,6 +4,7 @@ require('./models/image');
 require('./models/category');
 require('./models/article');
 require('./models/homepage-section');
+require('./models/views-count');
 
 require('mongoose').Promise = require('bluebird');
 

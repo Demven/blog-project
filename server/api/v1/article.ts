@@ -3,16 +3,40 @@ import * as Promise from 'bluebird';
 import { Router as expressRouter, Request, Response } from 'express';
 import Article from '../../dal/models/article';
 import Image from '../../dal/models/image';
+import ViewsCount from '../../dal/models/views-count';
 
 const router = expressRouter();
 
 router.get('/:slug', (req:Request, res:Response) => {
   const slug:string = req.params.slug;
+  const ignorePageView = req.query.ignore ? req.query.ignore === 'pageview' : false;
 
-  Article
-    .findOne({ slug })
-    .populate('image category')
-    .exec()
+  function findArticleAndPopulate(slug: string) {
+    return Article
+      .findOne({ slug })
+      .populate('image category views')
+      .exec();
+  }
+
+  function incrementViewsCount(article: any) {
+    if (!ignorePageView && article) {
+      const views = article.views;
+
+      ViewsCount
+        .findOneAndUpdate({ _id: views._id }, { $inc: { 'count': 1 } })
+        .exec();
+
+      // don't wait for ViewsCount to update
+      // just return the article
+      article.views.count = views.count + 1;
+      return article;
+    }
+
+    return article;
+  }
+
+  findArticleAndPopulate(slug)
+    .then(incrementViewsCount)
     .then(article => {
       if (article) {
         res.json(article);
@@ -28,6 +52,7 @@ router.get('/:slug', (req:Request, res:Response) => {
 router.post('/publish', (req:Request, res:Response) => {
   const article = req.body;
   const createMainImage = () => Image.create(article.image);
+  const createViewsCount = () => ViewsCount.create({ count: 0 });
 
   if (article.slug) {
     // update
@@ -76,9 +101,14 @@ router.post('/publish', (req:Request, res:Response) => {
     // create
     article.slug = slug(article.title).toLowerCase();
 
-    createMainImage()
-      .then((mainImage:Object) => {
+    Promise
+      .all([
+        createMainImage(),
+        createViewsCount(),
+      ])
+      .then(([mainImage, viewsCount]: [Object, Object]) => {
         article.image = mainImage;
+        article.views = viewsCount;
 
         Article
           .create(article)
