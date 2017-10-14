@@ -25,7 +25,9 @@ class ArticleModel {
     slug: string;
     color: string;
   };
-  views: number;
+  views: {
+    count: number;
+  };
   body: Array<any>;
 }
 
@@ -43,7 +45,9 @@ const DEFAULT_ARTICLE: ArticleModel = {
     slug: '',
     color: '',
   },
-  views: 0,
+  views: {
+    count: 0,
+  },
   body: [],
 };
 
@@ -79,7 +83,7 @@ const DEFAULT_ARTICLE: ArticleModel = {
         <div class="ArticlePage__content-container">
           <ds-article-header
             [title]="article.title"
-            [views]="article.views"
+            [views]="article.views.count"
             [publicationDate]="article.publication_date"
           ></ds-article-header>
           

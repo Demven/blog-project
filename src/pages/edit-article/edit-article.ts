@@ -24,7 +24,9 @@ class ArticleModel {
     credits: string;
   };
   category: Category;
-  views: number;
+  views: {
+    count: number;
+  };
   body: Array<any>;
 }
 
@@ -52,7 +54,9 @@ const DEFAULT_ARTICLE:ArticleModel = {
     _v: 0,
     _id: '',
   },
-  views: 0,
+  views: {
+    count: 0,
+  },
   body: [],
 };
 
@@ -182,7 +186,7 @@ export default class EditArticlePage implements OnInit, OnDestroy {
 
   fetchArticle() {
     return axios
-      .get(`/api/v1/article/${this.slug}`)
+      .get(`/api/v1/article/${this.slug}?ignore=pageview`)
       .then(response => {
         if (response.status === 200) {
           this.article = response.data;
