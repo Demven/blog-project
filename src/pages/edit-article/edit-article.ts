@@ -3,6 +3,7 @@ import {
   OnInit,
   OnDestroy,
   HostBinding,
+  EventEmitter,
 } from '@angular/core';
 import {
   Router,
@@ -137,6 +138,8 @@ const DEFAULT_ARTICLE:ArticleModel = {
           (click)="contentTypesVisible ? hideContentTypes() : showContentTypes()"
         ></button>
       </div>
+      
+      <ds-toast [messageEmmiter]="toastMessageEmmiter"></ds-toast>
     </main>
   `,
 })
@@ -151,6 +154,7 @@ export default class EditArticlePage implements OnInit, OnDestroy {
   private routerParamsListener: any;
   category: number = 0;
   createMode: boolean = false;
+  toastMessageEmmiter: EventEmitter<string> = new EventEmitter();
 
   constructor(private route: ActivatedRoute, private router: Router) {
     this.onArticleRouteInit = this.onArticleRouteInit.bind(this);
@@ -194,6 +198,7 @@ export default class EditArticlePage implements OnInit, OnDestroy {
           console.info('article data', this.article);
         } else {
           console.error('Could not get article data', response);
+          this.toastMessageEmmiter.emit('Could not get article data');
         }
       })
       .catch(error => {
@@ -218,10 +223,9 @@ export default class EditArticlePage implements OnInit, OnDestroy {
           } else {
             this.category = this.categories.findIndex(category => category.value === this.article.category.slug);
           }
-
-          console.info('categories', this.categories);
         } else {
           console.error('Could not get categories data', response);
+          this.toastMessageEmmiter.emit('Could not get categories data');
         }
       })
       .catch(error => {
@@ -278,18 +282,17 @@ export default class EditArticlePage implements OnInit, OnDestroy {
     if (index) {
       this.article.body.splice(+index, 1);
       this.body.splice(+index, 1);
-
-      console.info('body', this.body);
     }
   }
 
   onPublish() {
-    console.info('publish', this.article);
     axios
       .post('/api/v1/article/publish', this.article)
       .then(response => {
         if (response.status === 200) {
           console.info('successfully published', response.data);
+          this.toastMessageEmmiter.emit('Successfully published');
+
           if (this.createMode) {
             const articleSlug = response.data.slug;
             this.router.navigate([`/article/${articleSlug}/edit`]);
@@ -298,6 +301,7 @@ export default class EditArticlePage implements OnInit, OnDestroy {
           }
         } else {
           console.error('Failed to publish', response);
+          this.toastMessageEmmiter.emit('Failed to publish the article');
         }
       })
       .catch(error => {
@@ -306,7 +310,6 @@ export default class EditArticlePage implements OnInit, OnDestroy {
   }
 
   onPreview() {
-    console.info('PREVIEW', this.article);
     clientStorage.save(STORAGE_KEY.ARTICLE_DATA, this.article);
     window.open('http://localhost:8080/article/preview', '_blank');
   }
