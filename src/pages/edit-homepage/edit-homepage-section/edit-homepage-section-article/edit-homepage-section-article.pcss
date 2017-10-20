@@ -1,0 +1,39 @@
+@import '../../../../../public/styles/typography.pcss';
+@import '../../../../../public/styles/colors.pcss';
+
+.EditHomepageSectionArticle {
+  width: 100%;
+  height: 160px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  margin-top: 30px;
+
+  & .EditHomepageSectionArticle__image {
+    height: 100%;
+  }
+
+  & .EditHomepageSectionArticle__info {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding-left: 20px;
+  }
+
+  & .EditHomepageSectionArticle__title {
+    font-family: var(--font-dincyr-regular);
+    font-size: 20px;
+    line-height: 28px;
+    color: var(--color-black-darker);
+    transform: translateY(-7px);
+  }
+
+  & .EditHomepageSectionArticle__slug {
+    font-family: var(--font-dincyr-regular);
+    font-size: 16px;
+    line-height: 20px;
+    color: var(--color-black-darker);
+    cursor: pointer;
+  }
+}

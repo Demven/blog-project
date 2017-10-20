@@ -1,9 +1,9 @@
-@import '../../../../public/styles/media.pcss';
-@import '../../../../public/styles/colors.pcss';
-@import '../../../../public/styles/typography.pcss';
+@import '../../../public/styles/media.pcss';
+@import '../../../public/styles/colors.pcss';
+@import '../../../public/styles/typography.pcss';
 
 :root {
-  --edit-article-nav-button: {
+  --edit-nav-button: {
     -webkit-appearance: none;
     padding: 12px 20px;
     border-radius: 4px;
@@ -22,7 +22,7 @@
   };
 }
 
-.EditArticleNav {
+.EditNav {
   width: 100%;
   height: 70px;
   background: var(--color-white);
@@ -31,7 +31,7 @@
   align-items: center;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.05);
 
-  & .EditArticleNav__logo-container {
+  & .EditNav__logo-container {
     width: 54px;
     height: 50px;
     display: flex;
@@ -46,11 +46,11 @@
     z-index: 10;
   }
 
-  & .EditArticleNav__logo {
+  & .EditNav__logo {
     width: 36px;
   }
 
-  & .EditArticleNav__title {
+  & .EditNav__title {
     font-family: var(--font-dincyr-bold);
     font-size: 24px;
     color: var(--color-black-darker);
@@ -58,15 +58,15 @@
     padding-left: 113px;
   }
 
-  & .EditArticleNav__publish-button {
-    @apply --edit-article-nav-button;
+  & .EditNav__publish-button {
+    @apply --edit-nav-button;
 
     margin: 0 15px 0 0;
     background: var(--color-green);
   }
 
-  & .EditArticleNav__preview-button {
-    @apply --edit-article-nav-button;
+  & .EditNav__preview-button {
+    @apply --edit-nav-button;
 
     margin: 0 20px 0 0;
     background: var(--color-aquamarine);

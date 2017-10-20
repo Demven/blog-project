@@ -13,7 +13,8 @@ import './home.pcss';
     <ds-navbar></ds-navbar>
     
     <div class="Home__content">
-      <ds-homepage-section *ngFor="let homepageSection of homepageSections"
+      <ds-homepage-section
+        *ngFor="let homepageSection of homepageSections"
         [homepageSection]="homepageSection"
       ></ds-homepage-section>
     </div>

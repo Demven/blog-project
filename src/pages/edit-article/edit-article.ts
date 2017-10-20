@@ -11,7 +11,7 @@ import {
   Params,
 } from '@angular/router';
 import axios from 'axios';
-import { SelectItem } from './select-field/select-field';
+import { SelectItem } from '../../edit-common/select-field/select-field';
 import clientStorage, { STORAGE_KEY } from '../../services/clientStorage';
 import './edit-article.pcss';
 
@@ -65,11 +65,11 @@ const DEFAULT_ARTICLE:ArticleModel = {
   selector: 'ds-page-edit-article',
   template: `
     <ds-svg-sprite></ds-svg-sprite>
-    <ds-edit-article-nav
+    <ds-edit-nav
       [title]="article.title"
       (publish)="onPublish()"
       (preview)="onPreview()"
-    ></ds-edit-article-nav>
+    ></ds-edit-nav>
     
     <main class="EditArticlePage__main">
       <div class="EditArticlePage__input-field">
