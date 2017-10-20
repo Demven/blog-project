@@ -14,6 +14,7 @@ import AppRouterModule from './app-router.module';
 import CommonComponentsModule from './common/common.module';
 import ArticleModule from './pages/article/article.module';
 import EditArticleModule from './pages/edit-article/edit-article.module';
+import EditHomePageModule from './pages/edit-homepage/edit-homepage.module';
 import Page404 from './pages/page404/page404';
 import HomePage from './pages/home/home';
 import ContactsPage from './pages/contacts/contacts';
@@ -39,6 +40,7 @@ global['store'] = store;
     CommonComponentsModule,
     ArticleModule,
     EditArticleModule,
+    EditHomePageModule,
   ],
   declarations: [
     AppComponent,

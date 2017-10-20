@@ -15,9 +15,12 @@ export const LABEL_COLOR = {
 })
 export default class Label {
   @HostBinding('class.Label') rootClass: boolean = true;
+
   @HostBinding('class.Label--blue') @Input() blue: boolean;
   @HostBinding('class.Label--green') @Input() green: boolean;
   @HostBinding('class.Label--red') @Input() red: boolean;
+
+  @HostBinding('class.Label--small') @Input() small: boolean;
 
   @Input() title: string;
 }
