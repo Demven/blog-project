@@ -9,7 +9,8 @@ router.get('/', (req, res) => {
     .populate('category')
     .populate({
       path: 'articles',
-      populate: { path: 'image category' },
+      populate: { path: 'image category views' },
+      select: '-body',
     })
     .exec()
     .then(sections => {

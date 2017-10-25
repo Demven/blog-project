@@ -21,8 +21,10 @@ import './edit-homepage.pcss';
     ></ds-edit-nav>
 
     <ds-edit-homepage-section
-      *ngFor="let homepageSection of homepageSections"
+      *ngFor="let homepageSection of homepageSections; let i = index"
+      [index]="i"
       [homepageSection]="homepageSection"
+      (update)="onHomepageSectionUpdate($event)"
     ></ds-edit-homepage-section>
     
     <main class="EditHomePage__main">
@@ -40,6 +42,7 @@ export default class EditHomePage implements OnInit {
     this.fetchHomePageSections = this.fetchHomePageSections.bind(this);
     this.onPublish = this.onPublish.bind(this);
     this.onPreview = this.onPreview.bind(this);
+    this.onHomepageSectionUpdate = this.onHomepageSectionUpdate.bind(this);
   }
 
   ngOnInit() {
@@ -63,10 +66,10 @@ export default class EditHomePage implements OnInit {
       });
   }
 
-  onFieldChange({ name, value }: { name: string, value: string }) {
-    if (name) {
-      console.info(name, value);
-      // this.homepage[name] = value;
+  onHomepageSectionUpdate({ index, homepageSection }: { index: number, homepageSection: HomepageSection }) {
+    if (homepageSection) {
+      this.homepageSections[index] = homepageSection;
+      console.info('UPDATED SECTIONS', this.homepageSections);
     }
   }
 

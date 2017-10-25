@@ -9,6 +9,10 @@ export class HomepageSectionArticle {
     description: string;
     credits: string;
   };
+  views: {
+    count: number;
+  };
+  publication_date: string;
 }
 
 @Component({
