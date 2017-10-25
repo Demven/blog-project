@@ -28,6 +28,7 @@ class ArticleModel {
   views: {
     count: number;
   };
+  publication_date: string;
   body: Array<any>;
 }
 
@@ -48,6 +49,7 @@ const DEFAULT_ARTICLE: ArticleModel = {
   views: {
     count: 0,
   },
+  publication_date: '',
   body: [],
 };
 

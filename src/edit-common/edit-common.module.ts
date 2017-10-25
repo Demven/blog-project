@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Autosize } from 'ng-autosize';
 import EditNav from './edit-nav/edit-nav';
+import AutoComplete from './auto-complete/auto-complete';
 import TextField from './text-field/text-field';
 import TextArea from './text-area/text-area';
 import SelectField from './select-field/select-field';
@@ -16,6 +17,7 @@ import Toast from '../edit-common/toast/toast';
   declarations: [
     Autosize,
     EditNav,
+    AutoComplete,
     TextField,
     TextArea,
     SelectField,
@@ -23,6 +25,7 @@ import Toast from '../edit-common/toast/toast';
   ],
   exports: [
     EditNav,
+    AutoComplete,
     TextField,
     TextArea,
     SelectField,

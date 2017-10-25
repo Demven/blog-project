@@ -163,6 +163,9 @@ export default class EditArticlePage implements OnInit, OnDestroy {
     this.showContentTypes = this.showContentTypes.bind(this);
     this.hideContentTypes = this.hideContentTypes.bind(this);
     this.onBodyContentUpdate = this.onBodyContentUpdate.bind(this);
+    this.onFieldChange = this.onFieldChange.bind(this);
+    this.onMainImageChange = this.onMainImageChange.bind(this);
+    this.onCategoryChange = this.onCategoryChange.bind(this);
     this.onPublish = this.onPublish.bind(this);
     this.onPreview = this.onPreview.bind(this);
   }

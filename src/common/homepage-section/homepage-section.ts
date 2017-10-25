@@ -9,6 +9,10 @@ export class HomepageSection {
     color: string;
   };
   articles: Array<HomepageSectionArticle>;
+  views: {
+    count: number;
+  };
+  publication_date: string;
 }
 
 @Component({
