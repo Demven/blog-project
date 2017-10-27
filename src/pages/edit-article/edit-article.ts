@@ -290,7 +290,7 @@ export default class EditArticlePage implements OnInit, OnDestroy {
 
   onPublish() {
     axios
-      .post('/api/v1/article/publish', this.article)
+      .post('/api/v1/article', this.article)
       .then(response => {
         if (response.status === 200) {
           console.info('successfully published', response.data);
@@ -309,6 +309,7 @@ export default class EditArticlePage implements OnInit, OnDestroy {
       })
       .catch(error => {
         console.error(error);
+        this.toastMessageEmmiter.emit('Failed to publish the article');
       });
   }
 
