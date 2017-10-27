@@ -9,13 +9,14 @@ import Page404 from './pages/page404/page404';
 
 const appRoutes: Routes = [
   { path: '', component: HomePage },
-  { path: 'contacts', component: ContactsPage },
   { path: 'homepage/edit', component: EditHomePage },
+  { path: 'homepage/preview', component: HomePage },
   { path: 'homepage', redirectTo: '' },
   { path: 'article/new', component: EditArticlePage },
   { path: 'article/preview', component: ArticlePage },
   { path: 'article/:slug', component: ArticlePage },
   { path: 'article/:slug/edit', component: EditArticlePage },
+  { path: 'contacts', component: ContactsPage },
   { path: '**', component: Page404 },
 ];
 

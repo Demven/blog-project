@@ -68,13 +68,10 @@ export default class EditHomePage implements OnInit {
   onHomepageSectionUpdate({ index, homepageSection }: { index: number, homepageSection: HomepageSection }) {
     if (homepageSection) {
       this.homepageSections[index] = homepageSection;
-      console.info('UPDATED SECTIONS', this.homepageSections);
     }
   }
 
   onPublish() {
-    console.info('publish', this.homepageSections);
-
     const updateHomepageSectionsRequests: Array<any> = this
       .homepageSections
       .map((homepageSection: HomepageSection) => axios.post('/api/v1/homepage-section', homepageSection));
@@ -104,8 +101,7 @@ export default class EditHomePage implements OnInit {
   }
 
   onPreview() {
-    console.info('preview', this.homepageSections);
     clientStorage.save(STORAGE_KEY.HOMEPAGE_DATA, this.homepageSections);
-    // window.open('http://localhost:8080/article/preview', '_blank');
+    window.open('http://localhost:8080/homepage/preview', '_blank');
   }
 }
