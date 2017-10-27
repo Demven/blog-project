@@ -49,7 +49,7 @@ router.get('/:slug', (req:Request, res:Response) => {
     });
 });
 
-router.post('/publish', (req:Request, res:Response) => {
+router.post('/', (req:Request, res:Response) => {
   const article = req.body;
   const createMainImage = () => Image.create(article.image);
   const createViewsCount = () => ViewsCount.create({ count: 0 });

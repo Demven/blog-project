@@ -4,8 +4,7 @@ import {
   HostBinding,
   EventEmitter,
 } from '@angular/core';
-// import { Router } from '@angular/router';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { HomepageSection } from '../../common/homepage-section/homepage-section';
 import clientStorage, { STORAGE_KEY } from '../../services/clientStorage';
 import './edit-homepage.pcss';
@@ -38,7 +37,7 @@ export default class EditHomePage implements OnInit {
   homepageSections: Array<HomepageSection>;
   toastMessageEmmiter: EventEmitter<string> = new EventEmitter();
 
-  constructor(/* private router: Router */) {
+  constructor() {
     this.fetchHomePageSections = this.fetchHomePageSections.bind(this);
     this.onPublish = this.onPublish.bind(this);
     this.onPreview = this.onPreview.bind(this);
@@ -51,7 +50,7 @@ export default class EditHomePage implements OnInit {
 
   fetchHomePageSections() {
     axios
-      .get('/api/v1/section')
+      .get('/api/v1/homepage-section')
       .then(response => {
         if (response.status === 200) {
           this.homepageSections = response.data;
@@ -75,27 +74,33 @@ export default class EditHomePage implements OnInit {
 
   onPublish() {
     console.info('publish', this.homepageSections);
-    // axios
-    //   .post('/api/v1/article/publish', this.article)
-    //   .then(response => {
-    //     if (response.status === 200) {
-    //       console.info('successfully published', response.data);
-    //       this.toastMessageEmmiter.emit('Successfully published');
-    //
-    //       if (this.createMode) {
-    //         const articleSlug = response.data.slug;
-    //         this.router.navigate([`/article/${articleSlug}/edit`]);
-    //       } else {
-    //         this.router.navigate([`/article/${this.article.slug}/edit`]);
-    //       }
-    //     } else {
-    //       console.error('Failed to publish', response);
-    //       this.toastMessageEmmiter.emit('Failed to publish the article');
-    //     }
-    //   })
-    //   .catch(error => {
-    //     console.error(error);
-    //   });
+
+    const updateHomepageSectionsRequests: Array<any> = this
+      .homepageSections
+      .map((homepageSection: HomepageSection) => axios.post('/api/v1/homepage-section', homepageSection));
+
+    return axios
+      .all(updateHomepageSectionsRequests)
+      .then((results: Array<AxiosResponse>) => {
+        let isSuccessful = true;
+        results.forEach((sectionResult: AxiosResponse) => {
+          if (sectionResult.status !== 200) {
+            isSuccessful = false;
+          }
+        });
+
+        if (isSuccessful) {
+          console.info('successfully published the Homepage', results);
+          this.toastMessageEmmiter.emit('Successfully published');
+        } else {
+          console.error('Failed to publish', results);
+          this.toastMessageEmmiter.emit('Failed to publish the Homepage');
+        }
+      })
+      .catch(error => {
+        console.error(error);
+        this.toastMessageEmmiter.emit('Failed to publish the Homepage');
+      });
   }
 
   onPreview() {

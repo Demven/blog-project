@@ -29,7 +29,7 @@ export default class Home implements OnInit {
 
   ngOnInit() {
     axios
-      .get('/api/v1/section')
+      .get('/api/v1/homepage-section')
       .then(response => {
         if (response.status === 200) {
           this.homepageSections = response.data;
