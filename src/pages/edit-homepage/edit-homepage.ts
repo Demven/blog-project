@@ -5,7 +5,7 @@ import {
   EventEmitter,
 } from '@angular/core';
 import axios, { AxiosResponse } from 'axios';
-import { HomepageSection } from '../../common/homepage-section/homepage-section';
+import { HomepageSection } from '../home/homepage-section/homepage-section';
 import clientStorage, { STORAGE_KEY } from '../../services/clientStorage';
 import './edit-homepage.pcss';
 
