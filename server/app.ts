@@ -28,7 +28,7 @@ app.use('/api/v1', apiV1Router);
 app.use('/', clientRouter);
 
 const host:string = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
-const port:number = process.env.OPENSHIFT_NODEJS_PORT || 8080;
+const port:number = global.parseInt(process.env.OPENSHIFT_NODEJS_PORT, 10) || 8080;
 app.listen(port, host, () => {
   global.console.info(`Server started on ${host}:${port}`);
 });
