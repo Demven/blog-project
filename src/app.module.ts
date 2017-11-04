@@ -13,15 +13,11 @@ import AppComponent from './app.component';
 import AppRouterModule from './app-router.module';
 import CommonComponentsModule from './common/common.module';
 import ArticleModule from './pages/article/article.module';
+import HomeModule from './pages/home/home.module';
+import ContactsModule from './pages/contacts/contacts.module';
+import Page404Module from './pages/page404/page404.module';
 import EditArticleModule from './pages/edit-article/edit-article.module';
 import EditHomePageModule from './pages/edit-homepage/edit-homepage.module';
-import Page404 from './pages/page404/page404';
-import HomePage from './pages/home/home';
-import ContactsPage from './pages/contacts/contacts';
-import Navbar from './common/navbar/navbar';
-import Footer from './common/footer/footer';
-import HomepageSection from './common/homepage-section/homepage-section';
-import HomepageSectionArticle from './common/homepage-section/homepage-section-article/homepage-section-article';
 
 const store:Store<any> = createStore(
   rootReducer,
@@ -39,18 +35,14 @@ global['store'] = store;
     CommonModule,
     CommonComponentsModule,
     ArticleModule,
+    HomeModule,
+    ContactsModule,
+    Page404Module,
     EditArticleModule,
     EditHomePageModule,
   ],
   declarations: [
     AppComponent,
-    HomePage,
-    Page404,
-    ContactsPage,
-    Navbar,
-    Footer,
-    HomepageSection,
-    HomepageSectionArticle,
   ],
   bootstrap: [ AppComponent ],
 })
