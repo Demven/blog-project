@@ -1,11 +1,13 @@
 class StorageKey {
   ARTICLE_DATA: string;
   HOMEPAGE_DATA: string;
+  AUTH_TOKEN: string;
 }
 
 export const STORAGE_KEY: StorageKey = {
   ARTICLE_DATA: 'ARTICLE_DATA',
   HOMEPAGE_DATA: 'HOMEPAGE_DATA',
+  AUTH_TOKEN: 'AUTH_TOKEN',
 };
 
 function save(key: string, value: any): void {

@@ -4,6 +4,7 @@ import { Router as expressRouter, Request, Response } from 'express';
 import Article from '../../dal/models/article';
 import Image from '../../dal/models/image';
 import ViewsCount from '../../dal/models/views-count';
+import { authorization, processAuthError } from '../authorization';
 
 const router = expressRouter();
 
@@ -49,7 +50,7 @@ router.get('/:slug', (req:Request, res:Response) => {
     });
 });
 
-router.post('/', (req:Request, res:Response) => {
+router.post('/', authorization, processAuthError, (req:Request, res:Response) => {
   const article = req.body;
   const createMainImage = () => Image.create(article.image);
   const createViewsCount = () => ViewsCount.create({ count: 0 });

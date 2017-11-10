@@ -1,8 +1,8 @@
 import { Router as expressRouter, Request, Response } from 'express';
 import * as Promise from 'bluebird';
 import HomepageSection from '../../dal/models/homepage-section';
-import Category from '../../dal/models/category';
 import Article from '../../dal/models/article';
+import { authorization, processAuthError } from '../authorization';
 
 const router = expressRouter();
 
@@ -28,7 +28,7 @@ router.get('/', (req, res) => {
     });
 });
 
-router.post('/', (req:Request, res:Response) => {
+router.post('/', authorization, processAuthError, (req:Request, res:Response) => {
   const homepageSection = req.body;
 
   if (!homepageSection.articles || homepageSection.articles.length !== 5) {

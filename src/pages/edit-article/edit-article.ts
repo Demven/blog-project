@@ -78,7 +78,7 @@ const DEFAULT_ARTICLE:ArticleModel = {
           [label]="'Title'"
           [placeholder]="'Title'"
           [value]="article.title"
-          required
+          [required]="true"
           (change)="onFieldChange($event)"
         ></ds-text-field>
       </div>
@@ -89,7 +89,7 @@ const DEFAULT_ARTICLE:ArticleModel = {
           [label]="'Main Image'"
           [placeholder]="'Url'"
           [value]="article.image.url"
-          required
+          [required]="true"
           (change)="onMainImageChange($event)"
         ></ds-text-field>
         <img
@@ -289,8 +289,9 @@ export default class EditArticlePage implements OnInit, OnDestroy {
   }
 
   onPublish() {
+    const token = clientStorage.get(STORAGE_KEY.AUTH_TOKEN);
     axios
-      .post('/api/v1/article', this.article)
+      .post('/api/v1/article', this.article, { headers: { Authorization: `Bearer ${token}` } })
       .then(response => {
         if (response.status === 200) {
           console.info('successfully published', response.data);

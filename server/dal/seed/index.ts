@@ -1,11 +1,22 @@
 import { Connection } from 'mongoose';
 import * as Promise from 'bluebird';
+import User, { USER_TYPE } from '../models/user';
 import Category from '../models/category';
 import Image from '../models/image';
 import Article from '../models/article';
 import ViewsCount from '../models/views-count';
 import HomepageSection from '../models/homepage-section';
 import connectToDatabase, { closeConnection } from '../../dal';
+
+function createUsers() {
+  return User.create([
+    {
+      name: 'Demven',
+      password: '1234',
+      type: USER_TYPE.ADMIN,
+    },
+  ]);
+}
 
 function createCategories() {
   return Category.create([
@@ -42,7 +53,7 @@ function createImages() {
   ]);
 }
 
-function createArticles([categories, images]: [Array<Object>, Array<Object>]) {
+function createArticles([users, categories, images]: [Array<Object>, Array<Object>, Array<Object>]) {
   return ViewsCount
     .create({ count: 0 })
     .then((viewsCount: Object) => {
@@ -98,10 +109,10 @@ function createHomepageSections([categories, images, articles]: [Array<Object>, 
   ]);
 }
 
-function dropDatabase(connection:Connection) {
+function dropDatabase(connection: Connection) {
   return new Promise(resolve => {
     console.info('Drop database...');
-    connection.db.dropDatabase(() => {
+    (<any>connection.db).dropDatabase(() => {
       console.info('Dropped');
       resolve();
     });
@@ -115,6 +126,7 @@ connectToDatabase()
   .then(() => {
     return Promise
       .all([
+        createUsers(),
         createCategories(),
         createImages(),
       ])
