@@ -46,7 +46,7 @@ class ImageModel {
           [placeholder]="'http://images.com/robot.jpg'"
           [value]="url || content.url"
           (change)="onFieldChange($event)"
-          required
+          [required]="true"
         ></ds-text-field>
       </div>
 

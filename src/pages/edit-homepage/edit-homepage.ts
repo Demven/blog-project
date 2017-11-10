@@ -72,9 +72,12 @@ export default class EditHomePage implements OnInit {
   }
 
   onPublish() {
+    const token = clientStorage.get(STORAGE_KEY.AUTH_TOKEN);
     const updateHomepageSectionsRequests: Array<any> = this
       .homepageSections
-      .map((homepageSection: HomepageSection) => axios.post('/api/v1/homepage-section', homepageSection));
+      .map((homepageSection: HomepageSection) => {
+        return axios.post('/api/v1/homepage-section', homepageSection, { headers: { Authorization: `Bearer ${token}` } });
+      });
 
     return axios
       .all(updateHomepageSectionsRequests)

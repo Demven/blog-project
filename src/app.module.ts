@@ -18,6 +18,10 @@ import ContactsModule from './pages/contacts/contacts.module';
 import Page404Module from './pages/page404/page404.module';
 import EditArticleModule from './pages/edit-article/edit-article.module';
 import EditHomePageModule from './pages/edit-homepage/edit-homepage.module';
+import LoginPageModule from './pages/login/login.module';
+import LogoutPageModule from './pages/logout/logout.module';
+import UserService from './services/user.service';
+import CanActivateGuard from './services/can-activate-guard.service';
 
 const store:Store<any> = createStore(
   rootReducer,
@@ -40,9 +44,15 @@ global['store'] = store;
     Page404Module,
     EditArticleModule,
     EditHomePageModule,
+    LoginPageModule,
+    LogoutPageModule,
   ],
   declarations: [
     AppComponent,
+  ],
+  providers: [
+    UserService,
+    CanActivateGuard,
   ],
   bootstrap: [ AppComponent ],
 })

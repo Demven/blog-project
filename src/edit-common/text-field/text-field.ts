@@ -19,6 +19,7 @@ import './text-field.pcss';
     <input
       class="TextField__field"
       id="{{name}}"
+      [type]="typePassword ? 'password' : 'text'"
       placeholder="{{placeholder}}"
       [attr.required]="required ? 'true' : null"
       (focus)="onFocus($event)"
@@ -38,10 +39,12 @@ export default class TextField {
   @Input() value: string;
   @Input() placeholder: string;
   @Input() required: boolean;
+  @Input() typePassword: boolean;
 
   @Output() focus: EventEmitter<Event> = new EventEmitter();
   @Output() change: EventEmitter<object> = new EventEmitter();
   @Output() blur: EventEmitter<Event> = new EventEmitter();
+  @Output() enterKey: EventEmitter<string> = new EventEmitter();
 
   onFocus(event: Event) {
     this.focus.emit(event);
@@ -52,6 +55,10 @@ export default class TextField {
 
     if (this.name) {
       this.change.emit({ name: this.name, value });
+    }
+
+    if (event.keyCode === 13) {
+      this.enterKey.emit(this.name);
     }
   }
 
