@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "Personal blog",
   "scripts": {
-    "start": "NODE_ENV=production npm run build && node dist/server/app.js",
+    "start": "npm run build && node dist/server/app.js",
     "clean": "rimraf dist",
     "build": "npm run clean && npm run build:server && npm run build:client && npm run build:images",
     "build:client": "webpack --progress --profile --bail",
@@ -31,6 +31,7 @@
     "compression": "^1.7.0",
     "cookie-parser": "^1.4.3",
     "core-js": "2.4.1",
+    "envkey": "^1.0.0",
     "express": "^4.15.3",
     "express-jwt": "^5.3.0",
     "jsonwebtoken": "^8.1.0",

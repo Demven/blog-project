@@ -105,6 +105,6 @@ export default class EditHomePage implements OnInit {
 
   onPreview() {
     clientStorage.save(STORAGE_KEY.HOMEPAGE_DATA, this.homepageSections);
-    window.open('http://localhost:8080/homepage/preview', '_blank');
+    window.open('/homepage/preview', '_blank');
   }
 }

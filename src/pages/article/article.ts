@@ -114,7 +114,6 @@ export default class ArticlePage implements OnInit, OnDestroy {
     this.previewMode = window.location.pathname === '/article/preview';
 
     if (this.previewMode) {
-      console.info('PREVIEW MODE');
       this.useArticleDataFromClientStorage();
     } else {
       this.routerParamsListener = this.route.params.subscribe(this.onArticleRouteInit);

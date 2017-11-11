@@ -38,7 +38,6 @@ export default class Home implements OnInit {
     this.previewMode = window.location.pathname === '/homepage/preview';
 
     if (this.previewMode) {
-      console.info('PREVIEW MODE');
       this.useHomepageDataFromClientStorage();
     } else {
       this.fetchHomepageData();
