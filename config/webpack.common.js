@@ -6,7 +6,6 @@ const helpers = require('./helpers');
 module.exports = {
   entry: {
     'polyfills': './src/polyfills.ts',
-    'vendor': './src/vendor.ts',
     'app': './src/main.ts',
   },
 
@@ -71,7 +70,7 @@ module.exports = {
     ),
 
     new webpack.optimize.CommonsChunkPlugin({
-      name: ['app', 'vendor', 'polyfills'],
+      name: ['app', 'polyfills'],
     }),
 
     new HtmlWebpackPlugin({
