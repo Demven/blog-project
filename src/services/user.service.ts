@@ -14,8 +14,7 @@ export default class UserService {
     return axios
       .post('/api/v1/user/login', { name, password })
       .then(response => {
-        if (response.status === 200/* && response.data.token*/) {
-          console.info('response', response.data);
+        if (response.status === 200 && response.data.token) {
           clientStorage.save(STORAGE_KEY.AUTH_TOKEN, response.data.token);
           this.loggedIn = true;
         }

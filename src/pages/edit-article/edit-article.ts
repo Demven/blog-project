@@ -316,6 +316,6 @@ export default class EditArticlePage implements OnInit, OnDestroy {
 
   onPreview() {
     clientStorage.save(STORAGE_KEY.ARTICLE_DATA, this.article);
-    window.open('http://localhost:8080/article/preview', '_blank');
+    window.open('/article/preview', '_blank');
   }
 }

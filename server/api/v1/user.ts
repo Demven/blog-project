@@ -1,20 +1,19 @@
 import { Router as expressRouter, Request, Response } from 'express';
 import * as jwt from 'jsonwebtoken';
 import User from '../../dal/models/user';
-import { SECRET } from '../authorization';
 
 const router = expressRouter();
 
 const ONE_DAY = 60 * 60 * 24;
 
 function getToken(user:any):string {
-  return jwt.sign({ id: user._id, name: user.name }, SECRET, { expiresIn: ONE_DAY });
+  return jwt.sign({ id: user._id, name: user.name }, process.env.JWT_SECRET, { expiresIn: ONE_DAY });
 }
 
 function decodeToken(token:string) {
   let decodedPayload;
   try {
-    decodedPayload = jwt.verify(token, SECRET);
+    decodedPayload = jwt.verify(token, process.env.JWT_SECRET);
   } catch(error) {
     decodedPayload = null;
   }

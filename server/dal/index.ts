@@ -15,14 +15,10 @@ export default function connectToDatabase() {
   };
 
   let connectionURI:string;
-  if (process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
-    connectionURI = process.env.OPENSHIFT_MONGODB_DB_USERNAME + ':' +
-      process.env.OPENSHIFT_MONGODB_DB_PASSWORD + '@' +
-      process.env.OPENSHIFT_MONGODB_DB_HOST + ':' +
-      process.env.OPENSHIFT_MONGODB_DB_PORT + '/' +
-      process.env.OPENSHIFT_APP_NAME;
+  if (process.env.NODE_ENV === 'production') {
+    connectionURI = `mongodb://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@${process.env.MONGODB_HOST}:${process.env.MONGODB_PORT}/${process.env.MONGODB_APP_NAME}`;
   } else {
-    connectionURI = 'mongodb://localhost/blog';
+    connectionURI = `mongodb://${process.env.MONGODB_HOST}/${process.env.MONGODB_APP_NAME}`;
   }
 
   console.info(`Connect to database: ${connectionURI}...`);
