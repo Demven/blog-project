@@ -1,4 +1,5 @@
 import { Component, HostBinding, Input } from '@angular/core';
+import ImagesService from '../../../../services/images.service';
 import './homepage-section-article.pcss';
 
 export class HomepageSectionArticle {
@@ -24,7 +25,7 @@ export class HomepageSectionArticle {
     >
       <img
         class="HomepageSectionArticle__image"
-        src="{{article.image.url}}"
+        [src]="imagesService.getCroppedImageUrl(article.image.url, imagesService.ASPECT_RATIO.w3h2)"
         alt="{{article.image.description}}"
       />
       <div class="HomepageSectionArticle__image-shadow"></div>
@@ -37,4 +38,6 @@ export default class HomepageSectionArticleComponent {
   @HostBinding('class.HomepageSectionArticle--main') @Input() main: boolean;
 
   @Input() article: HomepageSectionArticle;
+
+  constructor(public imagesService: ImagesService) {}
 }

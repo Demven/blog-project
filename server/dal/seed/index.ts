@@ -1,3 +1,4 @@
+import 'envkey';
 import { Connection } from 'mongoose';
 import * as Promise from 'bluebird';
 import User, { USER_TYPE } from '../models/user';
@@ -41,12 +42,12 @@ function createCategories() {
 function createImages() {
   return Image.create([
     {
-      url: 'http://fotohost.by/images/2017/05/06/hectapod.jpg',
+      url: 'http://res.cloudinary.com/ds-blog/image/upload/v1510450104/hectapod_g8aohi.jpg',
       description: 'spider',
       credits: 'Google Images',
     },
     {
-      url: 'http://fotohost.by/images/2017/05/15/article-image.jpg',
+      url: 'http://res.cloudinary.com/ds-blog/image/upload/v1510450155/article-image_tin8wp.jpg',
       description: 'This is how it looks like to be a humanoid bot',
       credits: 'Google Images',
     },
@@ -77,7 +78,7 @@ function createArticles([users, categories, images]: [Array<Object>, Array<Objec
               },
               {
                 type: 'inline-image',
-                url: 'http://fotohost.by/images/2017/05/15/article-image.jpg',
+                url: 'http://res.cloudinary.com/ds-blog/image/upload/v1510450155/article-image_tin8wp.jpg',
                 credits: 'Google Images',
                 description: 'This is how it looks like to be a humanoid bot',
               },
