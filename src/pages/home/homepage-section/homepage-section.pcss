@@ -2,6 +2,7 @@
 @import '../../../../public/styles/media.pcss';
 
 @custom-media --media-homepage-section-tablet-691-715 (min-width: 691px) and (max-width: 715px);
+@custom-media --media-homepage-section-tablet-691-790 (min-width: 691px) and (max-width: 790px);
 
 .HomepageSection {
   width: 100%;
@@ -10,9 +11,8 @@
   margin-top: 4em;
   position: relative;
   display: flex;
-  flex-direction: column;
+  flex-flow: column wrap;
   justify-content: space-between;
-  flex-wrap: wrap;
   background: var(--color-white);
   font-size: 1rem;
 
@@ -29,5 +29,9 @@
 
   @media (--media-homepage-section-tablet-691-715) {
     font-size: 0.9rem;
+  }
+
+  @media (--media-homepage-section-tablet-691-790) {
+    max-height: 34em;
   }
 }

@@ -13,6 +13,7 @@ import {
 import axios from 'axios';
 import { SelectItem } from '../../edit-common/select-field/select-field';
 import clientStorage, { STORAGE_KEY } from '../../services/clientStorage';
+import ImagesService from '../../services/images.service';
 import './edit-article.pcss';
 
 class ArticleModel {
@@ -94,7 +95,7 @@ const DEFAULT_ARTICLE:ArticleModel = {
         ></ds-text-field>
         <img
           class="EditArticlePage__hero-image"
-          src="{{article.image.url}}"
+          [src]="imagesService.getCroppedImageUrl(article.image.url, imagesService.ASPECT_RATIO.w16h9)"
           *ngIf="article.image.url"
         />
       </div>
@@ -156,7 +157,7 @@ export default class EditArticlePage implements OnInit, OnDestroy {
   createMode: boolean = false;
   toastMessageEmmiter: EventEmitter<string> = new EventEmitter();
 
-  constructor(private route: ActivatedRoute, private router: Router) {
+  constructor(private route: ActivatedRoute, private router: Router, public imagesService: ImagesService) {
     this.onArticleRouteInit = this.onArticleRouteInit.bind(this);
     this.fetchArticle = this.fetchArticle.bind(this);
     this.fetchCategories = this.fetchCategories.bind(this);

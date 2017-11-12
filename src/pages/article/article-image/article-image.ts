@@ -3,6 +3,7 @@ import {
   Input,
   HostBinding,
 } from '@angular/core';
+import ImagesService from '../../../services/images.service';
 import './article-image.pcss';
 
 class ImageModel {
@@ -17,7 +18,7 @@ class ImageModel {
     <figure class="ArticleImage__container">
       <img
         class="ArticleImage__image"
-        src="{{content.url}}"
+        [src]="imagesService.getCroppedImageUrl(content.url, imagesService.ASPECT_RATIO.w16h9)"
         alt="{{content.description}}"
       />
       <figcaption class="ArticleImage__image-info">
@@ -31,4 +32,6 @@ export default class ArticleImage {
   @HostBinding('class.ArticleImage') rootClass: boolean = true;
 
   @Input() content: ImageModel;
+
+  constructor(public imagesService: ImagesService) {}
 }

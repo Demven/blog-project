@@ -8,6 +8,7 @@ import {
 import * as moment from 'moment';
 import axios from 'axios';
 import { AutoCompleteItem } from '../../../../edit-common/auto-complete/auto-complete';
+import ImagesService from '../../../../services/images.service';
 import './edit-homepage-section-article.pcss';
 
 export class HomepageSectionArticle {
@@ -36,7 +37,7 @@ export class Category {
     <div class="EditHomepageSectionArticle__image-wrapper">
       <img
         class="EditHomepageSectionArticle__image"
-        src="{{article.image.url}}"
+        [src]="imagesService.getCroppedImageUrl(article.image.url, imagesService.ASPECT_RATIO.w16h9)"
         alt="{{article.image.description}}"
       />
     </div>
@@ -111,7 +112,7 @@ export default class EditHomepageSectionArticleComponent {
   newArticleValues: Array<AutoCompleteItem>;
   private suggestedArticles: Array<HomepageSectionArticle>;
 
-  constructor() {
+  constructor(public imagesService: ImagesService) {
     this.formatPublicationDate = this.formatPublicationDate.bind(this);
     this.startEdit = this.startEdit.bind(this);
     this.finishEdit = this.finishEdit.bind(this);

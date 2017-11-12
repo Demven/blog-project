@@ -9,6 +9,7 @@ import { select } from '@angular-redux/store';
 import { Observable } from 'rxjs/Observable';
 import axios from 'axios';
 import clientStorage, { STORAGE_KEY } from '../../services/clientStorage';
+import ImagesService from '../../services/images.service';
 import './article.pcss';
 
 class ArticleModel {
@@ -75,12 +76,15 @@ const DEFAULT_ARTICLE: ArticleModel = {
         <div class="ArticlePage__hero">
           <img
             class="ArticlePage__hero-image"
-            src="{{article.image.url}}"
+            [src]="imagesService.getCroppedImageUrl(article.image.url, imagesService.ASPECT_RATIO.w16h9)"
             alt="{{article.image.description}}"
           />
         </div>
 
-        <img class="ArticlePage__hidden-hero-image" src="{{article.image.url}}" />
+        <img
+          class="ArticlePage__hidden-hero-image"
+          [src]="imagesService.getCroppedImageUrl(article.image.url, imagesService.ASPECT_RATIO.w16h9)"
+        />
         
         <div class="ArticlePage__content-container">
           <ds-article-header
@@ -105,7 +109,7 @@ export default class ArticlePage implements OnInit, OnDestroy {
 
   @select(state => state.ui.articleTitleIsVisible) readonly articleTitleIsVisible$: Observable<boolean>;
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, public imagesService: ImagesService) {
     this.onArticleRouteInit = this.onArticleRouteInit.bind(this);
     this.useArticleDataFromClientStorage = this.useArticleDataFromClientStorage.bind(this);
   }

@@ -7,6 +7,7 @@ import {
   EventEmitter,
 } from '@angular/core';
 import { ICON } from '../../../common/svg-sprite/svg-sprite';
+import ImagesService from '../../../services/images.service';
 import './edit-article-image.pcss';
 
 class ImageModel {
@@ -22,7 +23,7 @@ class ImageModel {
     <div class="EditArticleImage__wrapper">
       <img
         class="EditArticleImage__image"
-        src="{{url || content.url}}"
+        [src]="imagesService.getCroppedImageUrl(url || content.url, imagesService.ASPECT_RATIO.w16h9)"
         *ngIf="url || content.url"
       />
       
@@ -112,7 +113,7 @@ export default class EditArticleImage implements OnInit {
   public ICON_DONE: string = ICON.DONE;
   public ICON_CLOSE: string = ICON.CLOSE;
 
-  constructor() {
+  constructor(public imagesService: ImagesService) {
     this.onEdit = this.onEdit.bind(this);
     this.onSave = this.onSave.bind(this);
     this.onDelete = this.onDelete.bind(this);
