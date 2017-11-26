@@ -6,6 +6,8 @@ import {
 import ImagesService from '../../../services/images.service';
 import './article-image.pcss';
 
+export const ARTICLE_IMAGE_TYPE = 'inline-image';
+
 class ImageModel {
   url: string;
   description: string;

@@ -14,6 +14,9 @@ import axios from 'axios';
 import { SelectItem } from '../../edit-common/select-field/select-field';
 import clientStorage, { STORAGE_KEY } from '../../services/clientStorage';
 import ImagesService from '../../services/images.service';
+import { EDIT_ARTICLE_TEXT_TYPE } from './edit-article-text/edit-article-text';
+import { EDIT_ARTICLE_IMAGE_TYPE } from './edit-article-image/edit-article-image';
+import { EDIT_ARTICLE_HEADING_TYPE } from './edit-article-heading/edit-article-heading';
 import './edit-article.pcss';
 
 class ArticleModel {
@@ -131,8 +134,9 @@ const DEFAULT_ARTICLE:ArticleModel = {
       
       <div class="EditArticlePage__add-content">
         <ul class="EditArticlePage__content-types">
-          <li class="EditArticlePage__content-type" (click)="addContent('text')">Text</li>
-          <li class="EditArticlePage__content-type" (click)="addContent('inline-image')">Image</li>
+          <li class="EditArticlePage__content-type" (click)="addContent(this.CONTENT_TYPES.EDIT_ARTICLE_TEXT_TYPE)">Text</li>
+          <li class="EditArticlePage__content-type" (click)="addContent(this.CONTENT_TYPES.EDIT_ARTICLE_IMAGE_TYPE)">Image</li>
+          <li class="EditArticlePage__content-type" (click)="addContent(this.CONTENT_TYPES.EDIT_ARTICLE_HEADING_TYPE)">Heading</li>
         </ul>
         <button
           class="EditArticlePage__add-button"
@@ -156,6 +160,12 @@ export default class EditArticlePage implements OnInit, OnDestroy {
   category: number = 0;
   createMode: boolean = false;
   toastMessageEmmiter: EventEmitter<string> = new EventEmitter();
+
+  CONTENT_TYPES = {
+    EDIT_ARTICLE_TEXT_TYPE: EDIT_ARTICLE_TEXT_TYPE,
+    EDIT_ARTICLE_IMAGE_TYPE: EDIT_ARTICLE_IMAGE_TYPE,
+    EDIT_ARTICLE_HEADING_TYPE: EDIT_ARTICLE_HEADING_TYPE,
+  };
 
   constructor(private route: ActivatedRoute, private router: Router, public imagesService: ImagesService) {
     this.onArticleRouteInit = this.onArticleRouteInit.bind(this);

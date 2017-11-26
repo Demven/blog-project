@@ -5,6 +5,8 @@ import {
 } from '@angular/core';
 import './article-text.pcss';
 
+export const ARTICLE_TEXT_TYPE = 'text';
+
 class TextModel {
   text: string;
 }

@@ -13,8 +13,9 @@ import {
   AfterViewInit,
   OnDestroy,
 } from '@angular/core';
-import EditArticleImage from '../edit-article-image/edit-article-image';
-import EditArticleText from '../edit-article-text/edit-article-text';
+import EditArticleText, { EDIT_ARTICLE_TEXT_TYPE } from '../edit-article-text/edit-article-text';
+import EditArticleImage, { EDIT_ARTICLE_IMAGE_TYPE } from '../edit-article-image/edit-article-image';
+import EditArticleHeading, { EDIT_ARTICLE_HEADING_TYPE } from '../edit-article-heading/edit-article-heading';
 
 class BodyNodeContent {
   type: string;
@@ -80,10 +81,12 @@ export default class EditArticleBodyNode implements OnChanges, AfterViewInit, On
 
   getComponentByNodeType(type:string) {
     switch(type) {
-      case 'text':
+      case EDIT_ARTICLE_TEXT_TYPE:
         return EditArticleText;
-      case 'inline-image':
+      case EDIT_ARTICLE_IMAGE_TYPE:
         return EditArticleImage;
+      case EDIT_ARTICLE_HEADING_TYPE:
+        return EditArticleHeading;
       default:
         return null;
     }

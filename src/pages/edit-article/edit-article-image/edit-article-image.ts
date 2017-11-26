@@ -10,6 +10,8 @@ import { ICON } from '../../../common/svg-sprite/svg-sprite';
 import ImagesService from '../../../services/images.service';
 import './edit-article-image.pcss';
 
+export const EDIT_ARTICLE_IMAGE_TYPE = 'inline-image';
+
 class ImageModel {
   type: string;
   url: string;
