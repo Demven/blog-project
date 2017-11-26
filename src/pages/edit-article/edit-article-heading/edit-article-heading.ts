@@ -7,44 +7,44 @@ import {
   EventEmitter,
 } from '@angular/core';
 import { ICON } from '../../../common/svg-sprite/svg-sprite';
-import './edit-article-text.pcss';
+import './edit-article-heading.pcss';
 
-export const EDIT_ARTICLE_TEXT_TYPE = 'text';
+export const EDIT_ARTICLE_HEADING_TYPE = 'heading';
 
-class TextModel {
+class HeadingModel {
   type: string;
   text: string;
 }
 
 @Component({
-  selector: 'ds-edit-article-text',
+  selector: 'ds-edit-article-heading',
   template: `
-    <div class="EditArticleText__wrapper">
+    <div class="EditArticleHeading__wrapper">
       <p
-        class="EditArticleText__content"
+        class="EditArticleHeading__content"
         (click)="onEdit()"
         *ngIf="!editMode"
       >{{currentValue || content.text}}</p>
       
-      <ds-text-area
+      <ds-text-field
         [name]="index"
-        [rows]="3"
-        [placeholder]="'Text'"
+        [placeholder]="'Heading text'"
         [value]="currentValue || content.text"
-        required
+        [required]="true"
         (change)="onFieldChange($event)"
         *ngIf="editMode"
-      ></ds-text-area>
+      ></ds-text-field>
     </div>
-    <div class="EditArticleText__actions">
+    
+    <div class="EditArticleHeading__actions">
       <button
-        class="EditArticleText__action EditArticleText__delete"
+        class="EditArticleHeading__action EditArticleHeading__delete"
         (click)="onDelete()"
       >
         <ds-icon [name]="ICON_CLOSE"></ds-icon>
       </button>
       <button
-        class="EditArticleText__action EditArticleText__done"
+        class="EditArticleHeading__action EditArticleHeading__done"
         (click)="onSave()"
         *ngIf="editMode"
       >
@@ -53,12 +53,12 @@ class TextModel {
     </div>
   `,
 })
-export default class EditArticleText implements OnInit {
-  @HostBinding('class.EditArticleText') rootClass: boolean = true;
-  @HostBinding('class.EditArticleText--edit-mode') editMode: boolean = false;
+export default class EditArticleHeading implements OnInit {
+  @HostBinding('class.EditArticleHeading') rootClass: boolean = true;
+  @HostBinding('class.EditArticleHeading--edit-mode') editMode: boolean = false;
 
   @Input() index: string;
-  @Input() content: TextModel;
+  @Input() content: HeadingModel;
 
   @Output() update: EventEmitter<Object> = new EventEmitter();
   @Output() remove: EventEmitter<Object> = new EventEmitter();

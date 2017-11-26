@@ -8,6 +8,7 @@ import ArticleBody from './article-body/article-body';
 import ArticleBodyNode from './article-body/article-body-node';
 import ArticleText from './article-text/article-text';
 import ArticleImage from './article-image/article-image';
+import ArticleHeading from './article-heading/article-heading';
 
 @NgModule({
   imports: [
@@ -22,10 +23,12 @@ import ArticleImage from './article-image/article-image';
     ArticleBodyNode,
     ArticleText,
     ArticleImage,
+    ArticleHeading,
   ],
   entryComponents: [
     ArticleText,
     ArticleImage,
+    ArticleHeading,
   ],
   exports: [ ArticlePage ],
 })

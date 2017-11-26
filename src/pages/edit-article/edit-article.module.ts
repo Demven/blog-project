@@ -5,8 +5,9 @@ import EditCommonModule from '../../edit-common/edit-common.module';
 import EditArticlePage from './edit-article';
 import EditArticleBody from './edit-article-body/edit-article-body';
 import EditArticleBodyNode from './edit-article-body/edit-article-body-node';
-import EditArticleImage from './edit-article-image/edit-article-image';
 import EditArticleText from './edit-article-text/edit-article-text';
+import EditArticleImage from './edit-article-image/edit-article-image';
+import EditArticleHeading from './edit-article-heading/edit-article-heading';
 
 @NgModule({
   imports: [
@@ -18,12 +19,14 @@ import EditArticleText from './edit-article-text/edit-article-text';
     EditArticlePage,
     EditArticleBody,
     EditArticleBodyNode,
-    EditArticleImage,
     EditArticleText,
+    EditArticleImage,
+    EditArticleHeading,
   ],
   entryComponents: [
-    EditArticleImage,
     EditArticleText,
+    EditArticleImage,
+    EditArticleHeading,
   ],
   exports: [ EditArticlePage ],
 })

@@ -11,8 +11,9 @@ import {
   AfterViewInit,
   OnDestroy,
 } from '@angular/core';
-import ArticleImage from '../article-image/article-image';
-import ArticleText from '../article-text/article-text';
+import ArticleText, { ARTICLE_TEXT_TYPE } from '../article-text/article-text';
+import ArticleImage, { ARTICLE_IMAGE_TYPE } from '../article-image/article-image';
+import ArticleHeading, { ARTICLE_HEADING_TYPE } from '../article-heading/article-heading';
 
 class BodyNodeContent {
   type: string;
@@ -71,10 +72,12 @@ export default class ArticleBodyNode implements OnChanges, AfterViewInit, OnDest
 
   getComponentByNodeType(type:string) {
     switch(type) {
-      case 'text':
+      case ARTICLE_TEXT_TYPE:
         return ArticleText;
-      case 'inline-image':
+      case ARTICLE_IMAGE_TYPE:
         return ArticleImage;
+      case ARTICLE_HEADING_TYPE:
+        return ArticleHeading;
       default:
         return null;
     }
