@@ -58,8 +58,8 @@ class ImageModel {
         *ngIf="editMode"
       >
         <ds-text-area
-          [label]="'Description'"
           [name]="'description'"
+          [label]="'Description'"
           [rows]="3"
           [placeholder]="'Description'"
           [value]="description || content.description"

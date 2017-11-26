@@ -8,6 +8,7 @@ import EditArticleBodyNode from './edit-article-body/edit-article-body-node';
 import EditArticleText from './edit-article-text/edit-article-text';
 import EditArticleImage from './edit-article-image/edit-article-image';
 import EditArticleHeading from './edit-article-heading/edit-article-heading';
+import EditArticleQuote from './edit-article-quote/edit-article-quote';
 
 @NgModule({
   imports: [
@@ -22,11 +23,13 @@ import EditArticleHeading from './edit-article-heading/edit-article-heading';
     EditArticleText,
     EditArticleImage,
     EditArticleHeading,
+    EditArticleQuote,
   ],
   entryComponents: [
     EditArticleText,
     EditArticleImage,
     EditArticleHeading,
+    EditArticleQuote,
   ],
   exports: [ EditArticlePage ],
 })

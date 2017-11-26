@@ -17,6 +17,7 @@ import ImagesService from '../../services/images.service';
 import { EDIT_ARTICLE_TEXT_TYPE } from './edit-article-text/edit-article-text';
 import { EDIT_ARTICLE_IMAGE_TYPE } from './edit-article-image/edit-article-image';
 import { EDIT_ARTICLE_HEADING_TYPE } from './edit-article-heading/edit-article-heading';
+import { EDIT_ARTICLE_QUOTE_TYPE } from './edit-article-quote/edit-article-quote';
 import './edit-article.pcss';
 
 class ArticleModel {
@@ -137,6 +138,7 @@ const DEFAULT_ARTICLE:ArticleModel = {
           <li class="EditArticlePage__content-type" (click)="addContent(this.CONTENT_TYPES.EDIT_ARTICLE_TEXT_TYPE)">Text</li>
           <li class="EditArticlePage__content-type" (click)="addContent(this.CONTENT_TYPES.EDIT_ARTICLE_IMAGE_TYPE)">Image</li>
           <li class="EditArticlePage__content-type" (click)="addContent(this.CONTENT_TYPES.EDIT_ARTICLE_HEADING_TYPE)">Heading</li>
+          <li class="EditArticlePage__content-type" (click)="addContent(this.CONTENT_TYPES.EDIT_ARTICLE_QUOTE_TYPE)">Quote</li>
         </ul>
         <button
           class="EditArticlePage__add-button"
@@ -165,6 +167,7 @@ export default class EditArticlePage implements OnInit, OnDestroy {
     EDIT_ARTICLE_TEXT_TYPE: EDIT_ARTICLE_TEXT_TYPE,
     EDIT_ARTICLE_IMAGE_TYPE: EDIT_ARTICLE_IMAGE_TYPE,
     EDIT_ARTICLE_HEADING_TYPE: EDIT_ARTICLE_HEADING_TYPE,
+    EDIT_ARTICLE_QUOTE_TYPE: EDIT_ARTICLE_QUOTE_TYPE,
   };
 
   constructor(private route: ActivatedRoute, private router: Router, public imagesService: ImagesService) {
