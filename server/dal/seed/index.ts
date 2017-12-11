@@ -98,14 +98,17 @@ function createHomepageSections([categories, images, articles]: [Array<Object>, 
     {
       category: categories[0],
       articles: [articles[0], articles[0], articles[0], articles[0], articles[0]],
+      order: 1,
     },
     {
       category: categories[1],
       articles: [articles[0], articles[0], articles[0], articles[0], articles[0]],
+      order: 2,
     },
     {
       category: categories[2],
       articles: [articles[0], articles[0], articles[0], articles[0], articles[0]],
+      order: 3,
     },
   ]);
 }
