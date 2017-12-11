@@ -4,7 +4,7 @@
 
 .ArticleHeader {
   width: 100%;
-  padding: 3em 4em 2em;
+  padding: 3em 4em 0;
   box-sizing: border-box;
 
   @media (--media-mobile-any) {
@@ -70,6 +70,21 @@
 
     & .ArticleHeader__comments-count-value {
       margin-left: 0.5em;
+    }
+  }
+
+  & .ArticleHeader__description {
+    font-family: var(--font-dincyr-regular);
+    font-size: 2.5em;
+    margin-top: 1em;
+
+    @media (--media-mobile-any) {
+      margin-top: 0.5em;
+      font-size: 2em;
+    }
+
+    @media (--media-desktop-any) {
+      text-indent: 1em;
     }
   }
 }
