@@ -24,8 +24,8 @@ class ImageModel {
         alt="{{content.description}}"
       />
       <figcaption class="ArticleImage__image-info">
-        <h3 class="ArticleImage__description">{{content.description}}</h3>
-        <h3 class="ArticleImage__credits">(by {{content.credits}})</h3>
+        <h4 class="ArticleImage__description">{{content.description}}</h4>
+        <h4 class="ArticleImage__credits">(by {{content.credits}})</h4>
       </figcaption>
     </figure>
   `,
