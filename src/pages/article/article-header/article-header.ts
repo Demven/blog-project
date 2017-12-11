@@ -31,6 +31,7 @@ import './article-header.pcss';
         />
         <div class="ArticleHeader__views-count-value">{{views}}</div>
       </div>
+      
       <div
         class="ArticleHeader__comments-count"
         *ngIf="false"
@@ -43,12 +44,15 @@ import './article-header.pcss';
         <div class="ArticleHeader__comments-count-value">123</div>
       </div>
     </div>
+    
+    <p class="ArticleHeader__description">{{description}}</p>
   `,
 })
 export default class ArticleHeader implements AfterViewInit, OnDestroy {
   @HostBinding('class.ArticleHeader') rootClass: boolean = true;
 
   @Input() title: string;
+  @Input() description: string;
   @Input() views: number;
   @Input() publicationDate: string;
 

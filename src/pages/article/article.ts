@@ -89,6 +89,7 @@ const DEFAULT_ARTICLE: ArticleModel = {
         <div class="ArticlePage__content-container">
           <ds-article-header
             [title]="article.title"
+            [description]="article.description"
             [views]="article.views.count"
             [publicationDate]="article.publication_date"
           ></ds-article-header>
