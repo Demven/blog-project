@@ -9,6 +9,7 @@ const router = expressRouter();
 router.get('/', (req, res) => {
   HomepageSection
     .find()
+    .sort({ order: 'asc' })
     .populate('category')
     .populate({
       path: 'articles',
