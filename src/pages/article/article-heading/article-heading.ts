@@ -17,7 +17,7 @@ class HeadingModel {
 @Component({
   selector: 'ds-article-heading',
   template: `
-    <p class="ArticleHeading__content">{{getTitleWithNonBreakingSpace(content.text)}}</p>
+    <h3 class="ArticleHeading__content">{{getTitleWithNonBreakingSpace(content.text)}}</h3>
   `,
 })
 export default class ArticleHeading {
