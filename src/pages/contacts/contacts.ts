@@ -1,4 +1,5 @@
-import { Component, HostBinding } from '@angular/core';
+import { Component, HostBinding, OnInit } from '@angular/core';
+import { Meta } from '@angular/platform-browser';
 import './contacts.pcss';
 
 @Component({
@@ -60,6 +61,22 @@ import './contacts.pcss';
     </ds-modal>
   `,
 })
-export default class Contacts {
+export default class Contacts implements OnInit {
   @HostBinding('class.Contacts') rootClass: boolean = true;
+
+  constructor(private metaTags: Meta) {
+    this.updateMetaTags = this.updateMetaTags.bind(this);
+  }
+
+  ngOnInit() {
+    this.updateMetaTags();
+  }
+
+  updateMetaTags() {
+    this.metaTags.updateTag({ name: 'og:title', content: 'Contacts - Dmitry Salnikov' });
+    this.metaTags.updateTag({ name: 'og:description', content: 'My contact information' });
+    this.metaTags.updateTag({ name: 'og:type', content: 'profile' });
+    this.metaTags.updateTag({ name: 'og:url', content: 'http://www.dmitry-salnikov.info/contacts' });
+    this.metaTags.updateTag({ name: 'og:image', content: 'http://www.dmitry-salnikov.info/public/images/contacts.jpg' });
+  }
 }
