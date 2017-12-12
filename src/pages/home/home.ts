@@ -75,7 +75,7 @@ export default class Home implements OnInit {
     this.metaTags.updateTag({ name: 'og:title', content: 'Dmitry Salnikov Blog' });
     this.metaTags.updateTag({ name: 'og:description', content: 'Personal blog about robotics, programming, philosophy and psychology' });
     this.metaTags.updateTag({ name: 'og:type', content: 'website' });
-    this.metaTags.updateTag({ name: 'og:url', content: 'http://www.dmitry-salnikov.info' });
-    this.metaTags.updateTag({ name: 'og:image', content: 'http://www.dmitry-salnikov.info/public/images/logo.png' });
+    this.metaTags.updateTag({ name: 'og:url', content: process.env.WWW_HOST });
+    this.metaTags.updateTag({ name: 'og:image', content: `${process.env.WWW_HOST}/public/images/logo.png` });
   }
 }

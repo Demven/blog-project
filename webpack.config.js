@@ -1,3 +1,5 @@
+require('envkey');
+
 let config;
 if (process.env.NODE_ENV === 'production') {
   console.log('PRODUCTION MODE');
