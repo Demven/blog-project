@@ -76,7 +76,7 @@ export default class Contacts implements OnInit {
     this.metaTags.updateTag({ name: 'og:title', content: 'Contacts - Dmitry Salnikov' });
     this.metaTags.updateTag({ name: 'og:description', content: 'My contact information' });
     this.metaTags.updateTag({ name: 'og:type', content: 'profile' });
-    this.metaTags.updateTag({ name: 'og:url', content: 'http://www.dmitry-salnikov.info/contacts' });
-    this.metaTags.updateTag({ name: 'og:image', content: 'http://www.dmitry-salnikov.info/public/images/contacts.jpg' });
+    this.metaTags.updateTag({ name: 'og:url', content: `${process.env.WWW_HOST}/contacts` });
+    this.metaTags.updateTag({ name: 'og:image', content: `${process.env.WWW_HOST}/public/images/contacts.jpg` });
   }
 }

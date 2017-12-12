@@ -168,7 +168,7 @@ export default class ArticlePage implements OnInit, OnDestroy {
     this.metaTags.updateTag({ name: 'og:title', content: this.article.title });
     this.metaTags.updateTag({ name: 'og:description', content: this.article.description });
     this.metaTags.updateTag({ name: 'og:type', content: 'article' });
-    this.metaTags.updateTag({ name: 'og:url', content: `http://www.dmitry-salnikov.info/article/${this.article.slug}` });
+    this.metaTags.updateTag({ name: 'og:url', content: `${process.env.WWW_HOST}/article/${this.article.slug}` });
     this.metaTags.updateTag({ name: 'og:image', content: this.imagesService.getCroppedImageUrl(this.article.image.url, this.imagesService.ASPECT_RATIO.w16h9) });
   }
 }
