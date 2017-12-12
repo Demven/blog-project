@@ -3,6 +3,7 @@ import {
   HostBinding,
   OnInit,
 } from '@angular/core';
+import { Meta } from '@angular/platform-browser';
 import axios from 'axios';
 import { HomepageSection } from './homepage-section/homepage-section';
 import clientStorage, { STORAGE_KEY } from '../../services/clientStorage';
@@ -29,9 +30,10 @@ export default class Home implements OnInit {
   homepageSections: Array<HomepageSection>;
   previewMode: boolean = false;
 
-  constructor() {
+  constructor(private metaTags: Meta) {
     this.useHomepageDataFromClientStorage = this.useHomepageDataFromClientStorage.bind(this);
     this.fetchHomepageData = this.fetchHomepageData.bind(this);
+    this.updateMetaTags = this.updateMetaTags.bind(this);
   }
 
   ngOnInit() {
@@ -42,6 +44,8 @@ export default class Home implements OnInit {
     } else {
       this.fetchHomepageData();
     }
+
+    this.updateMetaTags();
   }
 
   useHomepageDataFromClientStorage() {
@@ -65,5 +69,13 @@ export default class Home implements OnInit {
       .catch(error => {
         console.error(error);
       });
+  }
+
+  updateMetaTags() {
+    this.metaTags.updateTag({ name: 'og:title', content: 'Dmitry Salnikov Blog' });
+    this.metaTags.updateTag({ name: 'og:description', content: 'Personal blog about robotics, programming, philosophy and psychology' });
+    this.metaTags.updateTag({ name: 'og:type', content: 'website' });
+    this.metaTags.updateTag({ name: 'og:url', content: 'http://www.dmitry-salnikov.info' });
+    this.metaTags.updateTag({ name: 'og:image', content: 'http://www.dmitry-salnikov.info/public/images/logo.png' });
   }
 }

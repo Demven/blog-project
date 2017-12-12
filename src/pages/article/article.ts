@@ -4,6 +4,7 @@ import {
   OnDestroy,
   HostBinding,
 } from '@angular/core';
+import { Meta } from '@angular/platform-browser';
 import { ActivatedRoute, Params } from '@angular/router';
 import { select } from '@angular-redux/store';
 import { Observable } from 'rxjs/Observable';
@@ -110,9 +111,14 @@ export default class ArticlePage implements OnInit, OnDestroy {
 
   @select(state => state.ui.articleTitleIsVisible) readonly articleTitleIsVisible$: Observable<boolean>;
 
-  constructor(private route: ActivatedRoute, public imagesService: ImagesService) {
+  constructor(
+    private route: ActivatedRoute,
+    public imagesService: ImagesService,
+    private metaTags: Meta,
+  ) {
     this.onArticleRouteInit = this.onArticleRouteInit.bind(this);
     this.useArticleDataFromClientStorage = this.useArticleDataFromClientStorage.bind(this);
+    this.updateMetaTags = this.updateMetaTags.bind(this);
   }
 
   ngOnInit() {
@@ -139,6 +145,7 @@ export default class ArticlePage implements OnInit, OnDestroy {
       .then(response => {
         if (response.status === 200) {
           this.article = response.data;
+          this.updateMetaTags();
           console.info('article data', this.article);
         } else {
           console.error('Could not get article data', response);
@@ -153,6 +160,15 @@ export default class ArticlePage implements OnInit, OnDestroy {
     const articleData = clientStorage.get(STORAGE_KEY.ARTICLE_DATA);
     if (articleData) {
       this.article = articleData;
+      this.updateMetaTags();
     }
+  }
+
+  updateMetaTags() {
+    this.metaTags.updateTag({ name: 'og:title', content: this.article.title });
+    this.metaTags.updateTag({ name: 'og:description', content: this.article.description });
+    this.metaTags.updateTag({ name: 'og:type', content: 'article' });
+    this.metaTags.updateTag({ name: 'og:url', content: `http://www.dmitry-salnikov.info/article/${this.article.slug}` });
+    this.metaTags.updateTag({ name: 'og:image', content: this.imagesService.getCroppedImageUrl(this.article.image.url, this.imagesService.ASPECT_RATIO.w16h9) });
   }
 }
