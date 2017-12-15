@@ -6,6 +6,7 @@ import {
   HostBinding,
   EventEmitter,
 } from '@angular/core';
+import MarkdownService from '../../../services/markdown.service';
 import { ICON } from '../../../common/svg-sprite/svg-sprite';
 import './edit-article-text.pcss';
 
@@ -23,8 +24,9 @@ class TextModel {
       <p
         class="EditArticleText__content"
         (click)="onEdit()"
+        [innerHtml]="markdownService.format(currentValue || content.text) | dsKeepHtml"
         *ngIf="!editMode"
-      >{{currentValue || content.text}}</p>
+      ></p>
       
       <ds-text-area
         [name]="index"
@@ -68,7 +70,7 @@ export default class EditArticleText implements OnInit {
 
   public currentValue: string;
 
-  constructor() {
+  constructor(public markdownService:MarkdownService) {
     this.onEdit = this.onEdit.bind(this);
     this.onSave = this.onSave.bind(this);
     this.onDelete = this.onDelete.bind(this);

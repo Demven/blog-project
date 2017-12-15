@@ -22,6 +22,7 @@ import LoginPageModule from './pages/login/login.module';
 import LogoutPageModule from './pages/logout/logout.module';
 import UserService from './services/user.service';
 import ImagesService from './services/images.service';
+import MarkdownService from './services/markdown.service';
 import CanActivateGuard from './services/can-activate-guard.service';
 
 const store:Store<any> = createStore(
@@ -54,6 +55,7 @@ global['store'] = store;
   providers: [
     UserService,
     ImagesService,
+    MarkdownService,
     CanActivateGuard,
   ],
   bootstrap: [ AppComponent ],

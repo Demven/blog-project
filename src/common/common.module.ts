@@ -6,6 +6,7 @@ import SvgSprite from './svg-sprite/svg-sprite';
 import Icon from './icon/icon';
 import Navbar from './navbar/navbar';
 import Footer from './footer/footer';
+import KeepHtmlPipe from './pipes/keep-html.pipe';
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import Footer from './footer/footer';
     Icon,
     Navbar,
     Footer,
+    KeepHtmlPipe,
   ],
   exports: [
     Label,
@@ -26,6 +28,7 @@ import Footer from './footer/footer';
     Icon,
     Navbar,
     Footer,
+    KeepHtmlPipe,
     RouterModule,
   ],
 })

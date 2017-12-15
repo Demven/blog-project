@@ -1,5 +1,6 @@
 @import '../../../../public/styles/typography.pcss';
 @import '../../../../public/styles/media.pcss';
+@import '../../../../public/styles/colors.pcss';
 
 .ArticleText {
   display: block;
@@ -21,6 +22,14 @@
 
     @media (--media-desktop-any) {
       text-indent: 1em;
+    }
+
+    & strong {
+      font-family: var(--font-dincyr-bold);
+    }
+
+    & a {
+      color: var(--color-aquamarine);
     }
   }
 }
