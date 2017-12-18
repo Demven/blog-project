@@ -10,6 +10,7 @@ import ArticleText from './article-text/article-text';
 import ArticleImage from './article-image/article-image';
 import ArticleHeading from './article-heading/article-heading';
 import ArticleQuote from './article-quote/article-quote';
+import ArticleList from './article-list/article-list';
 
 @NgModule({
   imports: [
@@ -26,12 +27,14 @@ import ArticleQuote from './article-quote/article-quote';
     ArticleImage,
     ArticleHeading,
     ArticleQuote,
+    ArticleList,
   ],
   entryComponents: [
     ArticleText,
     ArticleImage,
     ArticleHeading,
     ArticleQuote,
+    ArticleList,
   ],
   exports: [ ArticlePage ],
 })
