@@ -1,0 +1,65 @@
+@import '../../../../public/styles/typography.pcss';
+@import '../../../../public/styles/colors.pcss';
+@import '../../../../public/styles/media.pcss';
+
+.ArticleList {
+  display: block;
+  margin-top: 2em;
+  padding: 0 4em;
+
+  @media (--media-mobile-any) {
+    margin-top: 1em;
+    padding: 0 2em;
+  }
+
+  & .ArticleList__text {
+    font-family: var(--font-dincyr-regular);
+    font-size: 2.5em;
+
+    @media (--media-mobile-any) {
+      font-size: 2em;
+    }
+
+    @media (--media-desktop-any) {
+      text-indent: 1em;
+    }
+
+    & strong {
+      font-family: var(--font-dincyr-bold);
+      font-weight: normal;
+    }
+
+    & a {
+      color: var(--color-aquamarine);
+    }
+  }
+
+  & .ArticleList__items {
+    margin-top: 10px;
+    margin-bottom: 0;
+    font-family: var(--font-dincyr-regular);
+    font-size: 2.5em;
+
+    @media (--media-mobile-any) {
+      font-size: 2em;
+      padding-left: 30px;
+    }
+
+    @media (--media-desktop-any) {
+      padding-left: 50px;
+    }
+  }
+
+  & .ArticleList__item {
+    margin-top: 10px;
+
+    & strong {
+      font-family: var(--font-dincyr-bold);
+      font-weight: normal;
+    }
+
+    & a {
+      color: var(--color-aquamarine);
+    }
+  }
+}

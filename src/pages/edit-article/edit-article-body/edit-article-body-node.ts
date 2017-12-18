@@ -17,6 +17,7 @@ import EditArticleText, { EDIT_ARTICLE_TEXT_TYPE } from '../edit-article-text/ed
 import EditArticleImage, { EDIT_ARTICLE_IMAGE_TYPE } from '../edit-article-image/edit-article-image';
 import EditArticleHeading, { EDIT_ARTICLE_HEADING_TYPE } from '../edit-article-heading/edit-article-heading';
 import EditArticleQuote, { EDIT_ARTICLE_QUOTE_TYPE } from '../edit-article-quote/edit-article-quote';
+import EditArticleList, { EDIT_ARTICLE_LIST_TYPE } from '../edit-article-list/edit-article-list';
 
 class BodyNodeContent {
   type: string;
@@ -90,6 +91,8 @@ export default class EditArticleBodyNode implements OnChanges, AfterViewInit, On
         return EditArticleHeading;
       case EDIT_ARTICLE_QUOTE_TYPE:
         return EditArticleQuote;
+      case EDIT_ARTICLE_LIST_TYPE:
+        return EditArticleList;
       default:
         return null;
     }
