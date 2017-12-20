@@ -1,8 +1,8 @@
 import {
   Component,
-  Compiler,
   ViewContainerRef,
   ViewChild,
+  HostBinding,
   Input,
   Output,
   EventEmitter,
@@ -13,11 +13,13 @@ import {
   AfterViewInit,
   OnDestroy,
 } from '@angular/core';
-import EditArticleText, { EDIT_ARTICLE_TEXT_TYPE } from '../edit-article-text/edit-article-text';
-import EditArticleImage, { EDIT_ARTICLE_IMAGE_TYPE } from '../edit-article-image/edit-article-image';
-import EditArticleHeading, { EDIT_ARTICLE_HEADING_TYPE } from '../edit-article-heading/edit-article-heading';
-import EditArticleQuote, { EDIT_ARTICLE_QUOTE_TYPE } from '../edit-article-quote/edit-article-quote';
-import EditArticleList, { EDIT_ARTICLE_LIST_TYPE } from '../edit-article-list/edit-article-list';
+import EditArticleText, { EDIT_ARTICLE_TEXT_TYPE } from '../../edit-article-text/edit-article-text';
+import EditArticleImage, { EDIT_ARTICLE_IMAGE_TYPE } from '../../edit-article-image/edit-article-image';
+import EditArticleHeading, { EDIT_ARTICLE_HEADING_TYPE } from '../../edit-article-heading/edit-article-heading';
+import EditArticleQuote, { EDIT_ARTICLE_QUOTE_TYPE } from '../../edit-article-quote/edit-article-quote';
+import EditArticleList, { EDIT_ARTICLE_LIST_TYPE } from '../../edit-article-list/edit-article-list';
+import { ICON } from "../../../../common/svg-sprite/svg-sprite";
+import './edit-article-body-node.pcss';
 
 class BodyNodeContent {
   type: string;
@@ -26,15 +28,27 @@ class BodyNodeContent {
 @Component({
   selector: 'ds-edit-article-body-node',
   template: `
-    <div #target></div>
+    <div
+      class="EditArticleBodyNode__before-node-container"
+      #target
+    >
+      <ds-edit-article-add-content
+        [index]="index"
+        [small]="true"
+        (addContent)="onAddContent($event)"
+      ></ds-edit-article-add-content>
+    </div>
   `,
 })
 export default class EditArticleBodyNode implements OnChanges, AfterViewInit, OnDestroy {
+  @HostBinding('class.EditArticleBodyNode') rootClass: boolean = true;
+
   @Input() index: number;
   @Input() content: BodyNodeContent;
 
   @Output() update: EventEmitter<Event> = new EventEmitter();
   @Output() remove: EventEmitter<Event> = new EventEmitter();
+  @Output() addContent: EventEmitter<object> = new EventEmitter();
 
   @ViewChild('target', { read: ViewContainerRef }) target: ViewContainerRef;
 
@@ -42,10 +56,11 @@ export default class EditArticleBodyNode implements OnChanges, AfterViewInit, On
 
   private isViewInitialized:boolean = false;
 
-  constructor(private componentFactoryResolver: ComponentFactoryResolver,
-              private compiler: Compiler,
-              private changeDetector:ChangeDetectorRef)
-  {}
+  public ICON_ADD: string = ICON.ADD;
+
+  constructor(private componentFactoryResolver: ComponentFactoryResolver, private changeDetector:ChangeDetectorRef) {
+    this.onAddContent = this.onAddContent.bind(this);
+  }
 
   updateComponent() {
     if (!this.isViewInitialized) {
@@ -96,5 +111,9 @@ export default class EditArticleBodyNode implements OnChanges, AfterViewInit, On
       default:
         return null;
     }
+  }
+
+  onAddContent(event: object) {
+    this.addContent.emit(event);
   }
 }
