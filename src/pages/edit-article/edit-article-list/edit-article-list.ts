@@ -104,7 +104,7 @@ class ListModel {
         (click)="onAdd()"
         *ngIf="editMode"
       >
-        <ds-icon [name]="ICON_CLOSE"></ds-icon>
+        <ds-icon [name]="ICON_ADD"></ds-icon>
       </button>
     </div>
   `,
@@ -119,6 +119,7 @@ export default class EditArticleList implements OnInit {
   @Output() update: EventEmitter<Object> = new EventEmitter();
   @Output() remove: EventEmitter<Object> = new EventEmitter();
 
+  public ICON_ADD: string = ICON.ADD;
   public ICON_DONE: string = ICON.DONE;
   public ICON_CLOSE: string = ICON.CLOSE;
   public ICON_REMOVE: string = ICON.REMOVE;

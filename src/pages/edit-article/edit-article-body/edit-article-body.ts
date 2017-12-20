@@ -16,6 +16,7 @@ import './edit-article-body.pcss';
       [content]="node"
       (update)="onBodyContentUpdate($event)"
       (remove)="onBodyContentRemove($event)"
+      (addContent)="onAddContent($event)"
     ></ds-edit-article-body-node>
   `,
 })
@@ -26,6 +27,7 @@ export default class EditArticleBody {
 
   @Output() update: EventEmitter<Object> = new EventEmitter();
   @Output() remove: EventEmitter<Object> = new EventEmitter();
+  @Output() addContent: EventEmitter<object> = new EventEmitter();
 
   onBodyContentUpdate(event: object) {
     this.update.emit(event);
@@ -33,5 +35,9 @@ export default class EditArticleBody {
 
   onBodyContentRemove(event: object) {
     this.remove.emit(event);
+  }
+
+  onAddContent(event: object) {
+    this.addContent.emit(event);
   }
 }

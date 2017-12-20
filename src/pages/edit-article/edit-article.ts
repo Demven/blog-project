@@ -14,11 +14,6 @@ import axios from 'axios';
 import { SelectItem } from '../../edit-common/select-field/select-field';
 import clientStorage, { STORAGE_KEY } from '../../services/clientStorage';
 import ImagesService from '../../services/images.service';
-import { EDIT_ARTICLE_TEXT_TYPE } from './edit-article-text/edit-article-text';
-import { EDIT_ARTICLE_IMAGE_TYPE } from './edit-article-image/edit-article-image';
-import { EDIT_ARTICLE_HEADING_TYPE } from './edit-article-heading/edit-article-heading';
-import { EDIT_ARTICLE_QUOTE_TYPE } from './edit-article-quote/edit-article-quote';
-import { EDIT_ARTICLE_LIST_TYPE, LIST_TYPE } from './edit-article-list/edit-article-list';
 import './edit-article.pcss';
 
 class ArticleModel {
@@ -76,7 +71,7 @@ const DEFAULT_ARTICLE:ArticleModel = {
       (publish)="onPublish()"
       (preview)="onPreview()"
     ></ds-edit-nav>
-    
+
     <main class="EditArticlePage__main">
       <div class="EditArticlePage__input-field">
         <ds-text-field
@@ -104,7 +99,7 @@ const DEFAULT_ARTICLE:ArticleModel = {
           *ngIf="article.image.url"
         />
       </div>
-      
+
       <div class="EditArticlePage__input-field">
         <ds-text-area
           [name]="'description'"
@@ -132,29 +127,20 @@ const DEFAULT_ARTICLE:ArticleModel = {
         [nodes]="body"
         (update)="onBodyContentUpdate($event)"
         (remove)="onBodyContentRemove($event)"
+        (addContent)="onAddContent($event)"
       ></ds-edit-article-body>
-      
-      <div class="EditArticlePage__add-content">
-        <ul class="EditArticlePage__content-types">
-          <li class="EditArticlePage__content-type" (click)="addContent(this.CONTENT_TYPES.EDIT_ARTICLE_TEXT_TYPE)">Text</li>
-          <li class="EditArticlePage__content-type" (click)="addContent(this.CONTENT_TYPES.EDIT_ARTICLE_IMAGE_TYPE)">Image</li>
-          <li class="EditArticlePage__content-type" (click)="addContent(this.CONTENT_TYPES.EDIT_ARTICLE_HEADING_TYPE)">Heading</li>
-          <li class="EditArticlePage__content-type" (click)="addContent(this.CONTENT_TYPES.EDIT_ARTICLE_QUOTE_TYPE)">Quote</li>
-          <li class="EditArticlePage__content-type" (click)="addContent(this.CONTENT_TYPES.EDIT_ARTICLE_LIST_TYPE, { listType: LIST_TYPE.BULLET })">List</li>
-        </ul>
-        <button
-          class="EditArticlePage__add-button"
-          (click)="contentTypesVisible ? hideContentTypes() : showContentTypes()"
-        ></button>
-      </div>
-      
+
+      <ds-edit-article-add-content
+        [index]="body.length"
+        (addContent)="onAddContent($event)"
+      ></ds-edit-article-add-content>
+
       <ds-toast [messageEmmiter]="toastMessageEmmiter"></ds-toast>
     </main>
   `,
 })
 export default class EditArticlePage implements OnInit, OnDestroy {
   @HostBinding('class.EditArticlePage') rootClass: boolean = true;
-  @HostBinding('class.EditArticlePage--content-types-visible') contentTypesVisible: boolean = false;
 
   slug: string;
   article: ArticleModel = DEFAULT_ARTICLE;
@@ -165,25 +151,15 @@ export default class EditArticlePage implements OnInit, OnDestroy {
   createMode: boolean = false;
   toastMessageEmmiter: EventEmitter<string> = new EventEmitter();
 
-  CONTENT_TYPES = {
-    EDIT_ARTICLE_TEXT_TYPE: EDIT_ARTICLE_TEXT_TYPE,
-    EDIT_ARTICLE_IMAGE_TYPE: EDIT_ARTICLE_IMAGE_TYPE,
-    EDIT_ARTICLE_HEADING_TYPE: EDIT_ARTICLE_HEADING_TYPE,
-    EDIT_ARTICLE_QUOTE_TYPE: EDIT_ARTICLE_QUOTE_TYPE,
-    EDIT_ARTICLE_LIST_TYPE: EDIT_ARTICLE_LIST_TYPE,
-  };
-  LIST_TYPE = LIST_TYPE;
-
   constructor(private route: ActivatedRoute, private router: Router, public imagesService: ImagesService) {
     this.onArticleRouteInit = this.onArticleRouteInit.bind(this);
     this.fetchArticle = this.fetchArticle.bind(this);
     this.fetchCategories = this.fetchCategories.bind(this);
-    this.showContentTypes = this.showContentTypes.bind(this);
-    this.hideContentTypes = this.hideContentTypes.bind(this);
     this.onBodyContentUpdate = this.onBodyContentUpdate.bind(this);
     this.onFieldChange = this.onFieldChange.bind(this);
     this.onMainImageChange = this.onMainImageChange.bind(this);
     this.onCategoryChange = this.onCategoryChange.bind(this);
+    this.onAddContent = this.onAddContent.bind(this);
     this.onPublish = this.onPublish.bind(this);
     this.onPreview = this.onPreview.bind(this);
   }
@@ -278,16 +254,8 @@ export default class EditArticlePage implements OnInit, OnDestroy {
     }
   }
 
-  showContentTypes():void {
-    this.contentTypesVisible = true;
-  }
-
-  hideContentTypes():void {
-    this.contentTypesVisible = false;
-  }
-
-  addContent(contentType:string, additionalData:object = {}): void {
-    this.article.body.push({ type: contentType, ...additionalData });
+  onAddContent({ index, bodyNode }: { index: number, bodyNode: object }): void {
+    this.article.body.splice(index, 0, bodyNode); // insert bodyNode at certain position
     this.body = [...this.article.body];
   }
 
