@@ -64,7 +64,7 @@ class ListModel {
         *ngIf="editMode"
       >
         <li
-          *ngFor="let item of items; let i = index"
+          *ngFor="let item of items; let i = index; trackBy: trackListItem"
           class="EditArticleList__item-field"
         >
           <ds-text-area
@@ -127,6 +127,8 @@ export default class EditArticleList implements OnInit {
   public text: string;
   public items: Array<string>;
 
+  private deleted: boolean = false;
+
   constructor(public markdownService:MarkdownService) {
     this.onFieldChange = this.onFieldChange.bind(this);
     this.onListItemChange = this.onListItemChange.bind(this);
@@ -135,6 +137,7 @@ export default class EditArticleList implements OnInit {
     this.onAdd = this.onAdd.bind(this);
     this.onDelete = this.onDelete.bind(this);
     this.onDeleteItem = this.onDeleteItem.bind(this);
+    this.trackListItem = this.trackListItem.bind(this);
   }
 
   ngOnInit() {
@@ -187,6 +190,31 @@ export default class EditArticleList implements OnInit {
   }
 
   onDeleteItem(index:number) {
-    this.items.splice(index, 1);
+    this.deleted = true;
+
+    this.items.splice(index, 1); // will trigger re-render for all items with random trackId (see trackListItem())
+    window.setTimeout(() => {
+      this.items = [...this.items]; // will trigger re-render for all items with 'index' trackId
+    }, 100);
+  }
+
+  /**
+   * Prevents re-render items when text value changes.
+   * But allows re-render when one of items is deleted.
+   * @returns {string} - unique identifier for ngFor item
+   */
+  trackListItem(index: number):string {
+    let itemId;
+    if (this.deleted) {
+      itemId = (Math.random()*1000).toFixed(0);
+    } else {
+      itemId = `${index}`;
+    }
+
+    if (this.deleted && (index + 1 === this.items.length)) {
+      this.deleted = false;
+    }
+
+    return itemId;
   }
 }
