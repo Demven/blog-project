@@ -72,10 +72,11 @@ export default class Home implements OnInit {
   }
 
   updateMetaTags() {
-    this.metaTags.updateTag({ name: 'og:title', content: 'Dmitry Salnikov Blog' });
-    this.metaTags.updateTag({ name: 'og:description', content: 'Personal blog about robotics, programming, philosophy and psychology' });
-    this.metaTags.updateTag({ name: 'og:type', content: 'website' });
-    this.metaTags.updateTag({ name: 'og:url', content: process.env.WWW_HOST });
-    this.metaTags.updateTag({ name: 'og:image', content: `${process.env.WWW_HOST}/public/images/logo.png` });
+    this.metaTags.updateTag({ name: 'description', content: 'Personal blog about robotics, programming, philosophy and psychology' });
+    this.metaTags.updateTag({ property: 'og:title', content: 'Dmitry Salnikov - Personal Blog' });
+    this.metaTags.updateTag({ property: 'og:description', content: 'Personal blog about robotics, programming, philosophy and psychology' });
+    this.metaTags.updateTag({ property: 'og:type', content: 'website' });
+    this.metaTags.updateTag({ property: 'og:url', content: process.env.WWW_HOST });
+    this.metaTags.updateTag({ property: 'og:image', content: `${process.env.WWW_HOST}/public/images/logo.png` });
   }
 }
