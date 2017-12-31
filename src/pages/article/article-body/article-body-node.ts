@@ -16,6 +16,7 @@ import ArticleImage, { ARTICLE_IMAGE_TYPE } from '../article-image/article-image
 import ArticleHeading, { ARTICLE_HEADING_TYPE } from '../article-heading/article-heading';
 import ArticleQuote, { ARTICLE_QUOTE_TYPE } from '../article-quote/article-quote';
 import ArticleList, { ARTICLE_LIST_TYPE } from '../article-list/article-list';
+import ArticleMath, { ARTICLE_MATH_TYPE } from '../article-math/article-math';
 
 class BodyNodeContent {
   type: string;
@@ -84,6 +85,8 @@ export default class ArticleBodyNode implements OnChanges, AfterViewInit, OnDest
         return ArticleQuote;
       case ARTICLE_LIST_TYPE:
         return ArticleList;
+      case ARTICLE_MATH_TYPE:
+        return ArticleMath;
       default:
         return null;
     }
