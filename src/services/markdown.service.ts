@@ -1,5 +1,13 @@
 import { Injectable } from '@angular/core';
 
+function formatSubscript(text:string):string {
+  return text.replace(/\^\^(\d+)\^\^/g, '<sub>$1</sub>');
+}
+
+function formatSuperscript(text:string):string {
+  return text.replace(/\^(\d+)\^/g, '<sup>$1</sup>');
+}
+
 function formatLinks(text:string):string {
   return text.replace(/\[([^\]]+)]\(([^(]+)\)/g, '<a href="$2" target="_blank">$1</a>');
 }
@@ -23,7 +31,9 @@ function formatItalic(text:string):string {
 @Injectable()
 export default class MarkdownService {
   format(text:string):string {
-    const links = formatLinks(text);
+    const subscript = formatSubscript(text);
+    const superscript = formatSuperscript(subscript);
+    const links = formatLinks(superscript);
     const lineThrough = formatLineThrough(links);
     const underline = formatUnderline(lineThrough);
     const bold = formatBold(underline);
