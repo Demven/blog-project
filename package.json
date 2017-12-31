@@ -1,6 +1,6 @@
 {
   "name": "dmitry-salnikov-blog-project",
-  "version": "1.7.1",
+  "version": "1.7.2",
   "description": "Personal blog",
   "scripts": {
     "start": "npm run build && node dist/server/app.js",
