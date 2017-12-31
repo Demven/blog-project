@@ -10,6 +10,7 @@ import { EDIT_ARTICLE_IMAGE_TYPE } from '../edit-article-image/edit-article-imag
 import { EDIT_ARTICLE_HEADING_TYPE } from '../edit-article-heading/edit-article-heading';
 import { EDIT_ARTICLE_QUOTE_TYPE } from '../edit-article-quote/edit-article-quote';
 import { EDIT_ARTICLE_LIST_TYPE, LIST_TYPE } from '../edit-article-list/edit-article-list';
+import { EDIT_ARTICLE_MATH_TYPE } from '../edit-article-math/edit-article-math';
 import { ICON } from "../../../common/svg-sprite/svg-sprite";
 import './edit-article-add-content.pcss';
 
@@ -31,6 +32,9 @@ import './edit-article-add-content.pcss';
       </li>
       <li class="EditArticleAddContent__content-type" (click)="onAddContent(this.CONTENT_TYPES.EDIT_ARTICLE_LIST_TYPE, { listType: LIST_TYPE.BULLET })">
         List
+      </li>
+      <li class="EditArticleAddContent__content-type" (click)="onAddContent(this.CONTENT_TYPES.EDIT_ARTICLE_MATH_TYPE)">
+        Math
       </li>
     </ul>
     <button
@@ -56,6 +60,7 @@ export default class EditArticleAddContent {
     EDIT_ARTICLE_HEADING_TYPE: EDIT_ARTICLE_HEADING_TYPE,
     EDIT_ARTICLE_QUOTE_TYPE: EDIT_ARTICLE_QUOTE_TYPE,
     EDIT_ARTICLE_LIST_TYPE: EDIT_ARTICLE_LIST_TYPE,
+    EDIT_ARTICLE_MATH_TYPE: EDIT_ARTICLE_MATH_TYPE,
   };
   public LIST_TYPE = LIST_TYPE;
   public ICON_ADD: string = ICON.ADD;

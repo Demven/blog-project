@@ -1,0 +1,23 @@
+@import '../../../../public/styles/typography.pcss';
+@import '../../../../public/styles/media.pcss';
+
+.ArticleMath {
+  display: block;
+  margin-top: 2em;
+  padding: 0 4em;
+
+  @media (--media-mobile-any) {
+    margin-top: 1em;
+    padding: 0 2em;
+  }
+
+  & .ArticleMath__content {
+    font-family: var(--font-dincyr-regular);
+    font-size: 2.5em;
+    text-align: center;
+
+    @media (--media-mobile-any) {
+      font-size: 2em;
+    }
+  }
+}

@@ -11,6 +11,7 @@ import ArticleImage from './article-image/article-image';
 import ArticleHeading from './article-heading/article-heading';
 import ArticleQuote from './article-quote/article-quote';
 import ArticleList from './article-list/article-list';
+import ArticleMath from './article-math/article-math';
 
 @NgModule({
   imports: [
@@ -28,6 +29,7 @@ import ArticleList from './article-list/article-list';
     ArticleHeading,
     ArticleQuote,
     ArticleList,
+    ArticleMath,
   ],
   entryComponents: [
     ArticleText,
@@ -35,6 +37,7 @@ import ArticleList from './article-list/article-list';
     ArticleHeading,
     ArticleQuote,
     ArticleList,
+    ArticleMath,
   ],
   exports: [ ArticlePage ],
 })

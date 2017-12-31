@@ -18,6 +18,7 @@ import EditArticleImage, { EDIT_ARTICLE_IMAGE_TYPE } from '../../edit-article-im
 import EditArticleHeading, { EDIT_ARTICLE_HEADING_TYPE } from '../../edit-article-heading/edit-article-heading';
 import EditArticleQuote, { EDIT_ARTICLE_QUOTE_TYPE } from '../../edit-article-quote/edit-article-quote';
 import EditArticleList, { EDIT_ARTICLE_LIST_TYPE } from '../../edit-article-list/edit-article-list';
+import EditArticleMath, { EDIT_ARTICLE_MATH_TYPE } from '../../edit-article-math/edit-article-math';
 import { ICON } from "../../../../common/svg-sprite/svg-sprite";
 import './edit-article-body-node.pcss';
 
@@ -108,6 +109,8 @@ export default class EditArticleBodyNode implements OnChanges, AfterViewInit, On
         return EditArticleQuote;
       case EDIT_ARTICLE_LIST_TYPE:
         return EditArticleList;
+      case EDIT_ARTICLE_MATH_TYPE:
+        return EditArticleMath;
       default:
         return null;
     }
