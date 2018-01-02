@@ -78,5 +78,7 @@ export default class Home implements OnInit {
     this.metaTags.updateTag({ property: 'og:type', content: 'website' });
     this.metaTags.updateTag({ property: 'og:url', content: process.env.WWW_HOST });
     this.metaTags.updateTag({ property: 'og:image', content: `${process.env.WWW_HOST}/public/images/share-logo.jpg` });
+    this.metaTags.updateTag({ property: 'og:image:width', content: '600' });
+    this.metaTags.updateTag({ property: 'og:image:height', content: '338' });
   }
 }

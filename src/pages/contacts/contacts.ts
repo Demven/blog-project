@@ -79,5 +79,7 @@ export default class Contacts implements OnInit {
     this.metaTags.updateTag({ property: 'og:type', content: 'profile' });
     this.metaTags.updateTag({ property: 'og:url', content: `${process.env.WWW_HOST}/contacts` });
     this.metaTags.updateTag({ property: 'og:image', content: `${process.env.WWW_HOST}/public/images/contacts.jpg` });
+    this.metaTags.updateTag({ property: 'og:image:width', content: '960' });
+    this.metaTags.updateTag({ property: 'og:image:height', content: '720' });
   }
 }
