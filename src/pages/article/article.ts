@@ -171,5 +171,7 @@ export default class ArticlePage implements OnInit, OnDestroy {
     this.metaTags.updateTag({ property: 'og:type', content: 'article' });
     this.metaTags.updateTag({ property: 'og:url', content: `${process.env.WWW_HOST}/article/${this.article.slug}` });
     this.metaTags.updateTag({ property: 'og:image', content: this.imagesService.getCroppedImageUrl(this.article.image.url, this.imagesService.ASPECT_RATIO.w16h9) });
+    this.metaTags.updateTag({ property: 'og:image:width', content: '1024' });
+    this.metaTags.updateTag({ property: 'og:image:height', content: '576' });
   }
 }
