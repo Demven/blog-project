@@ -28,7 +28,7 @@ clientRouter.get('*', (req, res) => {
 app.use('/api/v1', apiV1Router);
 app.use('/', clientRouter);
 
-const port:number = global.parseInt(process.env.PORT, 10) || 8080;
+const port:number = global.parseInt(process.env.APP_PORT, 10);
 
 app.listen(port, () => {
   global.console.info(`Server started on port:${port}`);
