@@ -30,6 +30,8 @@ app.use('/', clientRouter);
 
 const port:number = global.parseInt(process.env.PORT, 10);
 
+console.log('++++++++++++ PORT', port);
+
 app.listen(port, () => {
   global.console.info(`Server started on port:${port}`);
 });
