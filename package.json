@@ -3,7 +3,9 @@
   "version": "1.7.6",
   "description": "Personal blog",
   "scripts": {
-    "start": "npm run build && node dist/server/app.js",
+    "postinstall": "npm run build",
+    "start": "node dist/server/app.js",
+    "dev": "npm run build && node dist/server/app.js",
     "clean": "rimraf dist",
     "build": "npm run clean && npm run build:server && npm run build:client && npm run build:images",
     "build:client": "webpack --progress --profile --bail",
@@ -76,9 +78,5 @@
     "typescript": "^2.6.1",
     "webpack": "3.8.1",
     "webpack-merge": "3.0.0"
-  },
-  "engines": {
-    "node": "8.9.0",
-    "npm": "5.5.1"
   }
 }
