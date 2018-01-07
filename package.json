@@ -7,10 +7,11 @@
     "start": "node dist/server/app.js",
     "dev": "npm run build && node dist/server/app.js",
     "clean": "rimraf dist",
-    "build": "npm run clean && npm run build:server && npm run build:client && npm run build:images",
+    "build": "npm run clean && npm run build:server && npm run build:client && npm run build:images && npm run build:assets-scripts",
     "build:client": "webpack --progress --profile --bail",
     "build:server": "tsc --p tsconfig-server.json",
     "build:images": "cpy public/images/* dist/client/public/images",
+    "build:assets-scripts": "cpy public/scripts/* dist/client/public/scripts",
     "db:reset": "npm run build && node dist/server/dal/seed",
     "lint:styles": "stylelint src/**/*.pcss",
     "lint:ts": "tslint -c tslint.json src/**/*.ts"
