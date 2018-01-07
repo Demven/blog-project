@@ -71,10 +71,9 @@ export default class EditArticleMath implements OnInit {
   public currentValue: string;
   public generatedId:string = `math-${Math.floor(Math.random()*10000)}`;
 
-  private loadingMathJax:boolean = false;
-
   constructor(private mathJaxService: MathJaxService) {
     this.renderEquation = this.renderEquation.bind(this);
+    this.onFieldChange = this.onFieldChange.bind(this);
     this.onEdit = this.onEdit.bind(this);
     this.onSave = this.onSave.bind(this);
     this.onDelete = this.onDelete.bind(this);
@@ -83,7 +82,7 @@ export default class EditArticleMath implements OnInit {
   ngOnInit() {
     if (!this.content.equation && !this.currentValue) {
       this.editMode = true;
-    } else if (!this.loadingMathJax) {
+    } else {
       this.renderEquation();
     }
   }

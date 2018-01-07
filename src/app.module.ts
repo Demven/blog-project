@@ -24,6 +24,7 @@ import UserService from './services/user.service';
 import ImagesService from './services/images.service';
 import MarkdownService from './services/markdown.service';
 import MathJaxService from './services/mathJax.service';
+import CodeHighlightService from './services/code-highlight.service';
 import CanActivateGuard from './services/can-activate-guard.service';
 
 const store:Store<any> = createStore(
@@ -58,6 +59,7 @@ global['store'] = store;
     ImagesService,
     MarkdownService,
     MathJaxService,
+    CodeHighlightService,
     CanActivateGuard,
   ],
   bootstrap: [ AppComponent ],

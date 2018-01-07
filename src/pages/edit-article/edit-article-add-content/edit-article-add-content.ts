@@ -11,6 +11,7 @@ import { EDIT_ARTICLE_HEADING_TYPE } from '../edit-article-heading/edit-article-
 import { EDIT_ARTICLE_QUOTE_TYPE } from '../edit-article-quote/edit-article-quote';
 import { EDIT_ARTICLE_LIST_TYPE, LIST_TYPE } from '../edit-article-list/edit-article-list';
 import { EDIT_ARTICLE_MATH_TYPE } from '../edit-article-math/edit-article-math';
+import { EDIT_ARTICLE_CODE_TYPE } from '../edit-article-code/edit-article-code';
 import { ICON } from "../../../common/svg-sprite/svg-sprite";
 import './edit-article-add-content.pcss';
 
@@ -35,6 +36,9 @@ import './edit-article-add-content.pcss';
       </li>
       <li class="EditArticleAddContent__content-type" (click)="onAddContent(this.CONTENT_TYPES.EDIT_ARTICLE_MATH_TYPE)">
         Math
+      </li>
+      <li class="EditArticleAddContent__content-type" (click)="onAddContent(this.CONTENT_TYPES.EDIT_ARTICLE_CODE_TYPE)">
+        Code
       </li>
     </ul>
     <button
@@ -61,6 +65,7 @@ export default class EditArticleAddContent {
     EDIT_ARTICLE_QUOTE_TYPE: EDIT_ARTICLE_QUOTE_TYPE,
     EDIT_ARTICLE_LIST_TYPE: EDIT_ARTICLE_LIST_TYPE,
     EDIT_ARTICLE_MATH_TYPE: EDIT_ARTICLE_MATH_TYPE,
+    EDIT_ARTICLE_CODE_TYPE: EDIT_ARTICLE_CODE_TYPE,
   };
   public LIST_TYPE = LIST_TYPE;
   public ICON_ADD: string = ICON.ADD;

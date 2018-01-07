@@ -12,6 +12,7 @@ import EditArticleHeading from './edit-article-heading/edit-article-heading';
 import EditArticleQuote from './edit-article-quote/edit-article-quote';
 import EditArticleList from './edit-article-list/edit-article-list';
 import EditArticleMath from './edit-article-math/edit-article-math';
+import EditArticleCode from './edit-article-code/edit-article-code';
 
 @NgModule({
   imports: [
@@ -30,6 +31,7 @@ import EditArticleMath from './edit-article-math/edit-article-math';
     EditArticleQuote,
     EditArticleList,
     EditArticleMath,
+    EditArticleCode,
   ],
   entryComponents: [
     EditArticleText,
@@ -38,6 +40,7 @@ import EditArticleMath from './edit-article-math/edit-article-math';
     EditArticleQuote,
     EditArticleList,
     EditArticleMath,
+    EditArticleCode,
   ],
   exports: [ EditArticlePage ],
 })
