@@ -119,6 +119,7 @@ export default class EditArticleImage implements OnInit {
     this.onEdit = this.onEdit.bind(this);
     this.onSave = this.onSave.bind(this);
     this.onDelete = this.onDelete.bind(this);
+    this.onFieldChange = this.onFieldChange.bind(this);
   }
 
   ngOnInit() {
@@ -128,8 +129,12 @@ export default class EditArticleImage implements OnInit {
   }
 
   onFieldChange({ name, value }: { name: string, value: string }) {
-    if (name && value) {
+    if (name) {
       this[name] = value;
+
+      if (value === '') {
+        this.content[name] = value;
+      }
     }
   }
 
