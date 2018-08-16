@@ -23,9 +23,13 @@ class ImageModel {
         [src]="imagesService.getCroppedImageUrl(content.url, imagesService.ASPECT_RATIO.w16h9)"
         alt="{{content.description}}"
       />
-      <figcaption class="ArticleImage__image-info">
-        <h4 class="ArticleImage__description">{{content.description}}</h4>
-        <h4 class="ArticleImage__credits">(by {{content.credits}})</h4>
+      
+      <figcaption
+        class="ArticleImage__image-info"
+        *ngIf="content.description || content.credits"
+      >
+        <h4 class="ArticleImage__description" *ngIf="content.description">{{content.description}}</h4>
+        <h4 class="ArticleImage__credits" *ngIf="content.credits">(by {{content.credits}})</h4>
       </figcaption>
     </figure>
   `,
