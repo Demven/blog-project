@@ -8,7 +8,6 @@
   "rules":{
     "directive-selector": [true, "attribute", "ds", "camelCase"],
     "component-selector": [true, "element", "ds", "kebab-case"],
-    "experimentalDecorators": true,
     "use-input-property-decorator": true,
     "use-output-property-decorator": true,
     "use-host-property-decorator": true,
