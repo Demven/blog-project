@@ -30,7 +30,7 @@ class ListModel {
       <p
         class="EditArticleList__content-text"
         (click)="onEdit()"
-        [innerHtml]="markdownService.format(text || content.text) | dsKeepHtml"
+        [innerHtml]="markdownService.format(text || content.text || '') | dsKeepHtml"
         *ngIf="!editMode"
       ></p>
       <ul
@@ -150,8 +150,12 @@ export default class EditArticleList implements OnInit {
   }
 
   onFieldChange({ name, value }: { name: string, value: string }) {
-    if (name && value) {
+    if (name) {
       this[name] = value;
+
+      if (value === '') {
+        this.content.text = value;
+      }
     }
   }
 

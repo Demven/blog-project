@@ -22,7 +22,10 @@ class ListModel {
       class="ArticleList__text"
       [innerHtml]="markdownService.format(content.text) | dsKeepHtml"
     ></p>
-    <ul class="ArticleList__items">
+    <ul
+      class="ArticleList__items"
+      *ngIf="content.items && content.items[0]"
+    >
       <li
         *ngFor="let item of content.items"
         class="ArticleList__item"
