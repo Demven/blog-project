@@ -3,6 +3,7 @@ import {
   Input,
   HostBinding,
   OnInit,
+  AfterViewInit,
   ChangeDetectionStrategy,
 } from '@angular/core';
 import CodeHighlightService from '../../../services/code-highlight.service';
@@ -27,7 +28,7 @@ class CodeModel {
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class ArticleCode implements OnInit {
+export default class ArticleCode implements OnInit, AfterViewInit {
   @HostBinding('class.ArticleCode') rootClass: boolean = true;
 
   @Input() content: CodeModel;
@@ -45,6 +46,9 @@ export default class ArticleCode implements OnInit {
 
   ngOnInit() {
     this.codeType = (<any>this.CODE_TYPES.find((type:any) => type.value === this.content.codeType)).text;
+  }
+
+  ngAfterViewInit() {
     this.codeHighlightService.renderCode();
   }
 }
