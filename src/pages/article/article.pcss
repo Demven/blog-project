@@ -20,6 +20,14 @@
     left: 0;
     overflow: hidden;
 
+    @media (--media-mobile-any) {
+      @media (--media-portrait) {
+        width: 100%;
+        height: 50vh;
+        max-height: initial;
+      }
+    }
+
     &:after {
       content: '';
       width: 100%;
@@ -36,8 +44,12 @@
 
     @media (--media-mobile-any) {
       @media (--media-portrait) {
-        width: auto;
+        width: 88.88vh;
         height: 50vh;
+        position: absolute;
+        left: 50%;
+        top: 0;
+        transform: translateX(-50%);
       }
     }
   }
