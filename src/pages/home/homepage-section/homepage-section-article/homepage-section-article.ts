@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input } from '@angular/core';
+import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import ImagesService from '../../../../services/images.service';
 import './homepage-section-article.pcss';
 
@@ -16,6 +16,9 @@ export class HomepageSectionArticle {
   publication_date: string;
 }
 
+const MAX_MOBILE_WIDTH = 56; // characters
+const MAX_SMALL_MOBILE_WIDTH = 38; // characters
+
 @Component({
   selector: 'ds-homepage-section-article',
   template: `
@@ -29,15 +32,36 @@ export class HomepageSectionArticle {
         alt="{{article.image.description}}"
       />
       <div class="HomepageSectionArticle__image-shadow"></div>
-      <h2 class="HomepageSectionArticle__title">{{article.title}}</h2>
+      <h2 class="HomepageSectionArticle__title">{{title}}</h2>
     </a>
   `,
 })
-export default class HomepageSectionArticleComponent {
+export default class HomepageSectionArticleComponent implements OnInit {
   @HostBinding('class.HomepageSectionArticle') rootClass: boolean = true;
   @HostBinding('class.HomepageSectionArticle--main') @Input() main: boolean;
 
   @Input() article: HomepageSectionArticle;
+  title: string = '';
 
   constructor(public imagesService: ImagesService) {}
+
+  ngOnInit() {
+    this.title = this.article.title;
+
+    if (!this.main) {
+      this.truncateTitle();
+    }
+  }
+
+  truncateTitle() {
+    const viewportWidth = window.innerWidth;
+    const isMobile = viewportWidth <= 690;
+    const isSmallMobile = viewportWidth <= 320;
+
+    if (isSmallMobile && this.article.title.length > (MAX_SMALL_MOBILE_WIDTH + 4)) {
+      this.title = `${this.article.title.substring(0, MAX_SMALL_MOBILE_WIDTH)} ...`;
+    } else if (isMobile && this.article.title.length > (MAX_MOBILE_WIDTH + 4)) {
+      this.title = `${this.article.title.substring(0, MAX_MOBILE_WIDTH)} ...`;
+    }
+  }
 }
