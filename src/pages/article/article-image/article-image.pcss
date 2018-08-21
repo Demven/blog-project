@@ -3,11 +3,13 @@
 @import '../../../../public/styles/media.pcss';
 
 .ArticleImage {
+  display: block;
+
   & .ArticleImage__container {
     width: 100%;
     display: flex;
     flex-direction: column;
-    margin: 4em 0 0;
+    margin: 4em 0 2em;
   }
 
   & .ArticleImage__image {
@@ -17,9 +19,7 @@
   & .ArticleImage__image-info {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
-    padding: 1em 4em 0 0;
-    text-align: right;
+    padding: 16px 4em 0;
     font-family: var(--font-dincyr-regular);
     color: var(--color-dark-grey);
 
@@ -29,10 +29,43 @@
   }
 
   & .ArticleImage__description {
-    font-size: 1.5em;
+    font-size: 18px;
+    line-height: 22px;
   }
 
   & .ArticleImage__credits {
-    font-size: 1.2em;
+    padding-left: 26px;
+    position: relative;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 12px;
+
+    &:before {
+      content: '';
+      display: block;
+      width: 17px;
+      height: 12px;
+      position: absolute;
+      left: 0;
+      background: var(--color-black-dark);
+      border-radius: 2px;
+    }
+
+    &:after {
+      content: '';
+      width: 7px;
+      height: 7px;
+      position: absolute;
+      left: 5px;
+      top: 3px;
+      background: var(--color-white);
+      border-radius: 50%;
+    }
+  }
+
+  &.ArticleImage--with-description {
+    & .ArticleImage__credits {
+      margin-top: 12px;
+    }
   }
 }
