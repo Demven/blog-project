@@ -1,5 +1,6 @@
-import { Component, HostBinding } from '@angular/core';
+import { Component, HostBinding, Input } from '@angular/core';
 import scrollTo from '../../services/pageScroller';
+import { Category } from '../../pages/home/home';
 import './navbar.pcss';
 
 @Component({
@@ -11,15 +12,7 @@ import './navbar.pcss';
           class="Navbar__menu-link"
           (click)="onMenuItemClick($event, 0)"
         >
-          Robotics
-        </a>
-      </menuitem>
-      <menuitem class="Navbar__menu-item">
-        <a
-          class="Navbar__menu-link"
-          (click)="onMenuItemClick($event, 2)"
-        >
-          Thoughts
+          {{categories && categories[0].title}}
         </a>
       </menuitem>
       <menuitem class="Navbar__menu-item">
@@ -27,7 +20,15 @@ import './navbar.pcss';
           class="Navbar__menu-link"
           (click)="onMenuItemClick($event, 1)"
         >
-          Programming
+          {{categories && categories[1].title}}
+        </a>
+      </menuitem>
+      <menuitem class="Navbar__menu-item">
+        <a
+          class="Navbar__menu-link"
+          (click)="onMenuItemClick($event, 2)"
+        >
+          {{categories && categories[2].title}}
         </a>
       </menuitem>
       <menuitem class="Navbar__menu-item">
@@ -55,6 +56,7 @@ import './navbar.pcss';
 })
 export default class Navbar {
   @HostBinding('class.Navbar') rootClass: boolean = true;
+  @Input() categories: Array<Category>;
 
   getOffsetToCategory(index:number):number {
     return document.querySelectorAll('ds-homepage-section')[index]['offsetTop'] - 20;

@@ -9,10 +9,16 @@ import { HomepageSection } from './homepage-section/homepage-section';
 import clientStorage, { STORAGE_KEY } from '../../services/clientStorage';
 import './home.pcss';
 
+export class Category {
+  title: string;
+  slug: string;
+  color: string;
+}
+
 @Component({
   selector: 'ds-page-home',
   template: `
-    <ds-navbar></ds-navbar>
+    <ds-navbar [categories]="categories"></ds-navbar>
     
     <div class="Home__content">
       <ds-homepage-section
@@ -28,6 +34,7 @@ export default class Home implements OnInit {
   @HostBinding('class.Home') rootClass: boolean = true;
 
   homepageSections: Array<HomepageSection>;
+  categories: Array<Category>;
   previewMode: boolean = false;
 
   constructor(private metaTags: Meta) {
@@ -62,6 +69,7 @@ export default class Home implements OnInit {
       .then(response => {
         if (response.status === 200) {
           this.homepageSections = response.data;
+          this.categories = this.homepageSections.map(section => section.category);
         } else {
           console.error('Could not get homepage sections', response);
         }
