@@ -7,7 +7,7 @@ import {
 import { Meta } from '@angular/platform-browser';
 import { ActivatedRoute, Params } from '@angular/router';
 import { select } from '@angular-redux/store';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import axios from 'axios';
 import clientStorage, { STORAGE_KEY } from '../../services/clientStorage';
 import ImagesService from '../../services/images.service';
