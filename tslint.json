@@ -20,9 +20,6 @@
     "pipe-naming": [true, "camelCase", "ds"],
     "component-class-suffix": false,
     "directive-class-suffix": true,
-    "templates-use-public": true,
-    "no-access-missing-member": true,
-    "invoke-injectable": true,
     "trailing-comma": [true, {"multiline": "always", "singleline": "never"}],
     "semicolon": [true, "always"],
     "object-curly-spacing": [true, "always"]
