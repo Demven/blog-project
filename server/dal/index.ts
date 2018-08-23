@@ -10,7 +10,6 @@ require('mongoose').Promise = require('bluebird');
 
 export default function connectToDatabase() {
   const options = {
-    useMongoClient: true,
     promiseLibrary: Promise,
   };
 
@@ -21,7 +20,7 @@ export default function connectToDatabase() {
     connectionURI = `mongodb://${process.env.MONGODB_HOST}/${process.env.MONGODB_APP_NAME}`;
   }
 
-  console.info(`Connect to database: ${connectionURI}...`);
+  console.info(`Connect to the database: ${connectionURI}...`);
 
   return new Promise((resolve, reject) => {
     mongoose.connect(connectionURI, options, (error: Error) => {

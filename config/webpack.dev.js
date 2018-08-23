@@ -1,10 +1,10 @@
-const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const commonConfig = require('./webpack.common.js');
 const helpers = require('./helpers');
 
 module.exports = webpackMerge(commonConfig, {
+  mode: 'development',
   devtool: 'cheap-module-eval-source-map',
 
   output: {
@@ -16,16 +16,10 @@ module.exports = webpackMerge(commonConfig, {
 
   plugins: [
     new ExtractTextPlugin('[name].css'),
-    new webpack.DefinePlugin({
-      'process.env': {
-        'NODE_ENV': JSON.stringify(process.env.NODE_ENV),
-        'WWW_HOST': JSON.stringify(process.env.WWW_HOST),
-      }
-    }),
   ],
 
   devServer: {
     historyApiFallback: true,
     stats: 'minimal'
-  }
+  },
 });
