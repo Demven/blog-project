@@ -53,7 +53,14 @@ module.exports = {
               loader: 'css-loader',
               options : { autoprefixer: false, sourceMap: true, importLoaders: 1 }
             },
-            'postcss-loader',
+            {
+              loader: 'postcss-loader',
+              options: {
+                config: {
+                  path: 'postcss.config.js'
+                }
+              }
+            }
           ]
         })
       },
@@ -61,20 +68,27 @@ module.exports = {
   },
 
   plugins: [
-    // Workaround for angular/angular#11580
-    new webpack.ContextReplacementPlugin(
-      // The (\\|\/) piece accounts for path separators in *nix and Windows
-      /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
-      helpers.root('./src'), // location of your src
-      {} // a map of your routes
-    ),
-
-    new webpack.optimize.CommonsChunkPlugin({
-      name: ['app', 'polyfills'],
-    }),
-
     new HtmlWebpackPlugin({
       template: 'src/index.html'
     }),
-  ]
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+        'WWW_HOST': JSON.stringify(process.env.WWW_HOST),
+      }
+    }),
+  ],
+
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          chunks: 'initial',
+          test: /[\\/]node_modules[\\/]/,
+          minChunks: 2,
+          name: 'vendor'
+        }
+      }
+    },
+  },
 };

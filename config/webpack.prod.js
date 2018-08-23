@@ -1,10 +1,12 @@
 const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const commonConfig = require('./webpack.common.js');
 const helpers = require('./helpers');
 
 module.exports = webpackMerge(commonConfig, {
+  mode: 'production',
   devtool: 'source-map',
 
   output: {
@@ -15,23 +17,20 @@ module.exports = webpackMerge(commonConfig, {
   },
 
   plugins: [
-    new webpack.NoEmitOnErrorsPlugin(),
-    new webpack.optimize.UglifyJsPlugin({ // https://github.com/angular/angular/issues/10618
-      mangle: {
-        keep_fnames: true
-      }
-    }),
     new ExtractTextPlugin('[name].[hash].css'),
-    new webpack.DefinePlugin({
-      'process.env': {
-        'NODE_ENV': JSON.stringify(process.env.NODE_ENV),
-        'WWW_HOST': JSON.stringify(process.env.WWW_HOST),
-      }
-    }),
     new webpack.LoaderOptionsPlugin({
       htmlLoader: {
         minimize: false // workaround for ng2
       }
     })
-  ]
+  ],
+
+  optimization: {
+    noEmitOnErrors: true,
+    minimizer: [
+      new UglifyJsPlugin({
+        sourceMap: false,
+      })
+    ]
+  },
 });
