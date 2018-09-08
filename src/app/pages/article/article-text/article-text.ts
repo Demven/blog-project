@@ -2,6 +2,7 @@ import {
   Component,
   Input,
   HostBinding,
+  ViewEncapsulation,
 } from '@angular/core';
 import { MarkdownService } from '../../../services/markdown.service';
 
@@ -20,6 +21,7 @@ class TextModel {
       [innerHtml]="markdownService.format(content.text) | dsKeepHtml"
     ></p>
   `,
+  encapsulation: ViewEncapsulation.None,
 })
 export class ArticleText {
   @HostBinding('class.ArticleText') rootClass = true;

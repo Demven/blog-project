@@ -4,6 +4,7 @@ import {
   Input,
   Output,
   EventEmitter,
+  ViewEncapsulation,
 } from '@angular/core';
 
 @Component({
@@ -30,6 +31,7 @@ import {
     >{{value}}</textarea>
     <div class="TextArea__error">{{errorText}}</div>
   `,
+  encapsulation: ViewEncapsulation.None,
 })
 export class TextArea {
   @HostBinding('class.TextArea') rootClass = true;

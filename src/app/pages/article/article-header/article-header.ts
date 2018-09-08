@@ -6,6 +6,7 @@ import {
   ElementRef,
   AfterViewInit,
   OnDestroy,
+  ViewEncapsulation,
 } from '@angular/core';
 import { NgRedux } from '@angular-redux/store';
 import * as moment from 'moment';
@@ -47,6 +48,7 @@ import { articleTitleIsHiddenAction, articleTitleIsVisibleAction } from '../../.
     
     <p class="ArticleHeader__description">{{description}}</p>
   `,
+  encapsulation: ViewEncapsulation.None,
 })
 export class ArticleHeader implements AfterViewInit, OnDestroy {
   @HostBinding('class.ArticleHeader') rootClass = true;

@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input } from '@angular/core';
+import { Component, HostBinding, Input, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'ds-icon',
@@ -7,6 +7,7 @@ import { Component, HostBinding, Input } from '@angular/core';
       <use [attr.xlink:href]="'#' + name" />
     </svg>
   `,
+  encapsulation: ViewEncapsulation.None,
 })
 export class Icon {
   @HostBinding('class.Icon') rootClass = true;

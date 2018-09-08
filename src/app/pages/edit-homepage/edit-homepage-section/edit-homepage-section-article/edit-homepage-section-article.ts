@@ -4,6 +4,7 @@ import {
   Input,
   Output,
   EventEmitter,
+  ViewEncapsulation,
 } from '@angular/core';
 import * as moment from 'moment';
 import axios from 'axios';
@@ -96,6 +97,7 @@ export class Category {
       ></ds-auto-complete>
     </div>
   `,
+  encapsulation: ViewEncapsulation.None,
 })
 export class EditHomePageSectionArticle {
   @HostBinding('class.EditHomePageSectionArticle') rootClass = true;

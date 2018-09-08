@@ -4,6 +4,7 @@ import {
   Output,
   HostBinding,
   EventEmitter,
+  ViewEncapsulation,
 } from '@angular/core';
 
 @Component({
@@ -19,6 +20,7 @@ import {
       (addContent)="onAddContent($event)"
     ></ds-edit-article-body-node>
   `,
+  encapsulation: ViewEncapsulation.None,
 })
 export class EditArticleBody {
   @HostBinding('class.EditArticleBody') rootClass = true;

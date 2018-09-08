@@ -5,6 +5,7 @@ import {
   OnInit,
   HostBinding,
   EventEmitter,
+  ViewEncapsulation,
 } from '@angular/core';
 import { MarkdownService } from '../../../services/markdown.service';
 import { ICON } from '../../../common/svg-sprite/svg-sprite';
@@ -54,6 +55,7 @@ class TextModel {
       </button>
     </div>
   `,
+  encapsulation: ViewEncapsulation.None,
 })
 export class EditArticleText implements OnInit {
   @HostBinding('class.EditArticleText') rootClass = true;

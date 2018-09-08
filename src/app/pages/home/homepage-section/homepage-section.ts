@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input } from '@angular/core';
+import { Component, HostBinding, Input, ViewEncapsulation } from '@angular/core';
 import { HomepageSectionArticle } from './homepage-section-article/homepage-section-article'; // import of model, not component
 
 export class HomepageSection {
@@ -30,6 +30,7 @@ export class HomepageSection {
       [main]="i === 0"
     ></ds-homepage-section-article>
   `,
+  encapsulation: ViewEncapsulation.None,
 })
 export class HomepageSectionComponent {
   @HostBinding('class.HomepageSection') rootClass = true;

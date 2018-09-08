@@ -4,6 +4,7 @@ import {
   Output,
   HostBinding,
   EventEmitter,
+  ViewEncapsulation,
 } from '@angular/core';
 import { EDIT_ARTICLE_TEXT_TYPE } from '../edit-article-text/edit-article-text';
 import { EDIT_ARTICLE_IMAGE_TYPE } from '../edit-article-image/edit-article-image';
@@ -48,6 +49,7 @@ import { ICON } from '../../../common/svg-sprite/svg-sprite';
       <ds-icon [name]="ICON_ADD"></ds-icon>
     </button>
   `,
+  encapsulation: ViewEncapsulation.None,
 })
 export class EditArticleAddContent {
   @HostBinding('class.EditArticleAddContent') rootClass = true;

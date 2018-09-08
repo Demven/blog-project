@@ -5,6 +5,7 @@ import {
   OnInit,
   HostBinding,
   EventEmitter,
+  ViewEncapsulation,
 } from '@angular/core';
 import { ICON } from '../../../common/svg-sprite/svg-sprite';
 import { MarkdownService } from '../../../services/markdown.service';
@@ -108,6 +109,7 @@ class ListModel {
       </button>
     </div>
   `,
+  encapsulation: ViewEncapsulation.None,
 })
 export class EditArticleList implements OnInit {
   @HostBinding('class.EditArticleList') rootClass = true;

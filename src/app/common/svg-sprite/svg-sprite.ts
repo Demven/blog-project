@@ -1,4 +1,4 @@
-import { Component, HostBinding } from '@angular/core';
+import { Component, HostBinding, ViewEncapsulation } from '@angular/core';
 
 export const ICON = {
   ADD: 'symbol_add',
@@ -45,9 +45,10 @@ export const ICON = {
       </symbol>
     </svg>
   `,
+  encapsulation: ViewEncapsulation.None,
 })
 export class SvgSprite {
   @HostBinding('class.SvgSprite') rootClass = true;
 
-  public ICON:object = ICON;
+  public ICON = ICON;
 }

@@ -1,4 +1,5 @@
 $default-feature: min-width;
+
 @function new-breakpoint($query: $feature $value) {
   @if length($query) == 1 {
     $query: $default-feature nth($query, 1);

@@ -3,6 +3,7 @@ import {
   OnInit,
   HostBinding,
   EventEmitter,
+  ViewEncapsulation,
 } from '@angular/core';
 import axios, { AxiosResponse } from 'axios';
 import { HomepageSection } from '../home/homepage-section/homepage-section'; // import of model, not component
@@ -30,6 +31,7 @@ import clientStorage, { STORAGE_KEY } from '../../services/clientStorage';
       <ds-toast [messageEmmiter]="toastMessageEmmiter"></ds-toast>
     </main>
   `,
+  encapsulation: ViewEncapsulation.None,
 })
 export class EditHomePage implements OnInit {
   @HostBinding('class.EditHomePage') rootClass = true;

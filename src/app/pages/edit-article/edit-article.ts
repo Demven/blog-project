@@ -4,6 +4,7 @@ import {
   OnDestroy,
   HostBinding,
   EventEmitter,
+  ViewEncapsulation,
 } from '@angular/core';
 import {
   Router,
@@ -138,6 +139,7 @@ const DEFAULT_ARTICLE:ArticleModel = {
       <ds-toast [messageEmmiter]="toastMessageEmmiter"></ds-toast>
     </main>
   `,
+  encapsulation: ViewEncapsulation.None,
 })
 export class EditArticlePage implements OnInit, OnDestroy {
   @HostBinding('class.EditArticlePage') rootClass = true;

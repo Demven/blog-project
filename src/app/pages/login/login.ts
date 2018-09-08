@@ -2,6 +2,7 @@ import {
   Component,
   HostBinding,
   EventEmitter,
+  ViewEncapsulation,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
@@ -53,6 +54,7 @@ import { UserService } from '../../services/user.service';
       <ds-toast [messageEmmiter]="toastMessageEmmiter"></ds-toast>
     </ds-modal>
   `,
+  encapsulation: ViewEncapsulation.None,
 })
 export class LoginPage {
   @HostBinding('class.LoginPage') rootClass = true;

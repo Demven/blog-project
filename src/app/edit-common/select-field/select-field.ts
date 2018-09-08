@@ -3,6 +3,7 @@ import {
   Input,
   Output,
   EventEmitter,
+  ViewEncapsulation,
 } from '@angular/core';
 
 export class SelectItem {
@@ -45,6 +46,7 @@ export class SelectItem {
       <div class="SelectField__error">{{errorText}}</div>
     </div>
   `,
+  encapsulation: ViewEncapsulation.None,
 })
 export class SelectField {
   @Input() name: string;

@@ -1,4 +1,4 @@
-import { Component, HostBinding } from '@angular/core';
+import { Component, HostBinding, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'ds-footer',
@@ -18,6 +18,7 @@ import { Component, HostBinding } from '@angular/core';
 
     <h3 class="Footer__blog">Personal blog</h3>
   `,
+  encapsulation: ViewEncapsulation.None,
 })
 export class Footer {
   @HostBinding('class.Footer') rootClass = true;

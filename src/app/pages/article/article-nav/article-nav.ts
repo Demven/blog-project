@@ -2,6 +2,7 @@ import {
   Component,
   Input,
   HostBinding,
+  ViewEncapsulation,
 } from '@angular/core';
 
 @Component({
@@ -22,6 +23,7 @@ import {
 
     <a class="ArticleNav__close-button" routerLink="/"></a>
   `,
+  encapsulation: ViewEncapsulation.None,
 })
 export class ArticleNav {
   @HostBinding('class.ArticleNav') rootClass = true;

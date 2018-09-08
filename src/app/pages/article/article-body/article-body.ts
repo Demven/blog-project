@@ -2,6 +2,7 @@ import {
   Component,
   Input,
   HostBinding,
+  ViewEncapsulation,
 } from '@angular/core';
 
 @Component({
@@ -13,6 +14,7 @@ import {
       [content]="node"
     ></ds-article-body-node>
   `,
+  encapsulation: ViewEncapsulation.None,
 })
 export class ArticleBody {
   @HostBinding('class.ArticleBody') rootClass = true;

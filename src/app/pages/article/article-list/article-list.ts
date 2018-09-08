@@ -2,6 +2,7 @@ import {
   Component,
   Input,
   HostBinding,
+  ViewEncapsulation,
 } from '@angular/core';
 import { MarkdownService } from '../../../services/markdown.service';
 
@@ -33,6 +34,7 @@ class ListModel {
       ></li>
     </ul>
   `,
+  encapsulation: ViewEncapsulation.None,
 })
 export class ArticleList {
   @HostBinding('class.ArticleList') rootClass = true;
