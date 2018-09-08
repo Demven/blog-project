@@ -1,0 +1,71 @@
+@import '../../../../styles/typography';
+@import '../../../../styles/colors';
+@import '../../../../styles/media';
+
+.EditArticleText {
+  display: flex;
+  flex-direction: row;
+
+  & .EditArticleText__wrapper {
+    width: 660px;
+  }
+
+  & .EditArticleText__content {
+    padding: 8px 10px 8px 0;
+    font-family: $font-dincyr-regular;
+    font-size: 16px;
+    color: $color-black-darker;
+    cursor: pointer;
+
+    & strong {
+      font-family: $font-dincyr-bold;
+    }
+
+    & a {
+      color: $color-aquamarine;
+    }
+  }
+
+  & .EditArticleText__actions {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    flex-grow: 1;
+  }
+
+  & .EditArticleText__action {
+    -webkit-appearance: none;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    margin: 0;
+    outline: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: relative;
+
+    & .icon {
+      width: 32px;
+      height: 32px;
+      color: $color-black-medium;
+    }
+  }
+
+  & .EditArticleText__done {
+    &:hover {
+      & .icon {
+        color: $color-green;
+      }
+    }
+  }
+
+  & .EditArticleText__delete {
+    &:hover {
+      & .icon {
+        color: $color-red;
+      }
+    }
+  }
+}

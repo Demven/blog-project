@@ -1,0 +1,94 @@
+@import '../../../styles/colors';
+@import '../../../styles/media';
+
+$modal-offset: 2em;
+
+.Modal {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: $modal-offset;
+  box-sizing: border-box;
+
+  @include media($mobile-any) {
+    padding: 1em;
+  }
+
+  & .Modal__content {
+    width: 100%;
+    min-height: calc(100vh - #{$modal-offset} * 2);
+    position: relative;
+    background: $color-white;
+    box-shadow: 0 0 8px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+
+  & .Modal__top-gradient {
+    width: 100%;
+    height: 20em;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0));
+    z-index: 5;
+  }
+
+  & .Modal__close-button {
+    width: 6em;
+    height: 6em;
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    color: $color-white;
+    z-index: 10;
+
+    &:before {
+      content: '';
+      width: 0.2em;
+      height: 6.6em;
+      position: absolute;
+      top: -0.3em;
+      left: 2.9em;
+      background: currentColor;
+      transform: rotate(45deg);
+    }
+
+    &:after {
+      content: '';
+      width: 0.2em;
+      height: 6.6em;
+      position: absolute;
+      top: -0.3em;
+      right: 2.9em;
+      background: currentColor;
+      transform: rotate(-45deg);
+    }
+
+    &:hover {
+      cursor: pointer;
+      opacity: 0.7;
+    }
+
+    @include media($tablet-any) {
+      font-size: 0.8em;
+    }
+
+    @include media($mobile-any) {
+      font-size: 0.6em;
+    }
+
+    @include media($sub-mobile) {
+      font-size: 0.55em;
+    }
+  }
+
+  &--flat {
+    & .Modal__content {
+      box-shadow: none;
+    }
+  }
+
+  &--all-space-on-mobile {
+    padding: 0;
+  }
+}

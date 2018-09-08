@@ -1,0 +1,58 @@
+@import '../../../styles/media';
+@import '../../../styles/colors';
+@import '../../../styles/typography';
+
+.TextField {
+  display: flex;
+  flex-direction: column;
+
+  & .TextField__label {
+    font-family: $font-dincyr-bold;
+    font-size: 14px;
+    color: $color-aquamarine;
+  }
+
+  & .TextField__field {
+    -webkit-appearance: none;
+    width: 100%;
+    padding: 8px 10px 8px 0;
+    outline: none;
+    font-family: $font-dincyr-regular;
+    font-size: 16px;
+    border: 0;
+    border-bottom: 1px solid $color-dark-grey;
+    color: $color-black-darker;
+    transition: border-color 0.3s;
+    box-sizing: border-box;
+
+    &:focus {
+      border-bottom: 2px solid $color-aquamarine;
+    }
+
+    &::placeholder {
+      color: $color-dark-grey;
+    }
+  }
+
+  & .TextField__error {
+    display: none;
+    padding-top: 5px;
+    font-family: $font-dincyr-regular;
+    font-size: 12px;
+    color: $color-red;
+  }
+
+  &.TextField--with-error {
+    & .TextField__label {
+      color: $color-red;
+    }
+
+    & .TextField__field {
+      border-color: $color-red;
+    }
+
+    & .TextField__error {
+      display: block;
+    }
+  }
+}

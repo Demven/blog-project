@@ -1,0 +1,60 @@
+@import '../../../styles/media';
+@import '../../../styles/colors';
+@import '../../../styles/typography';
+
+.TextArea {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+
+  & .TextArea__label {
+    font-family: $font-dincyr-bold;
+    font-size: 14px;
+    color: $color-aquamarine;
+  }
+
+  & .TextArea__field {
+    -webkit-appearance: none;
+    width: 100%;
+    max-width: 100%;
+    padding: 8px 10px 8px 0;
+    outline: none;
+    font-family: $font-dincyr-regular;
+    font-size: 16px;
+    border: 0;
+    border-bottom: 1px solid $color-dark-grey;
+    color: $color-black-darker;
+    transition: border-color 0.3s;
+    box-sizing: border-box;
+
+    &:focus {
+      border-bottom: 2px solid $color-aquamarine;
+    }
+
+    &::placeholder {
+      color: $color-dark-grey;
+    }
+  }
+
+  & .TextArea__error {
+    display: none;
+    padding-top: 5px;
+    font-family: $font-dincyr-regular;
+    font-size: 12px;
+    color: $color-red;
+  }
+
+  &.TextArea--with-error {
+    & .TextArea__label {
+      color: $color-red;
+    }
+
+    & .TextArea__field {
+      border-color: $color-red;
+    }
+
+    & .TextArea__error {
+      display: block;
+    }
+  }
+}

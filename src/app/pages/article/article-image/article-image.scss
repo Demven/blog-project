@@ -1,0 +1,71 @@
+@import '../../../../styles/typography';
+@import '../../../../styles/colors';
+@import '../../../../styles/media';
+
+.ArticleImage {
+  display: block;
+
+  & .ArticleImage__container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 4em 0 2em;
+  }
+
+  & .ArticleImage__image {
+    width: 100%;
+  }
+
+  & .ArticleImage__image-info {
+    display: flex;
+    flex-direction: column;
+    padding: 16px 4em 0;
+    font-family: $font-dincyr-regular;
+    color: $color-dark-grey;
+
+    @include media($mobile-any) {
+      padding: 1em 2em 0;
+    }
+  }
+
+  & .ArticleImage__description {
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  & .ArticleImage__credits {
+    padding-left: 26px;
+    position: relative;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 12px;
+
+    &:before {
+      content: '';
+      display: block;
+      width: 17px;
+      height: 12px;
+      position: absolute;
+      left: 0;
+      background: $color-black-dark;
+      border-radius: 2px;
+    }
+
+    &:after {
+      content: '';
+      width: 7px;
+      height: 7px;
+      position: absolute;
+      left: 5px;
+      top: 3px;
+      background: $color-white;
+      border-radius: 50%;
+    }
+  }
+
+  &.ArticleImage--with-description {
+    & .ArticleImage__credits {
+      margin-top: 12px;
+    }
+  }
+}

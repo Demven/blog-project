@@ -1,0 +1,65 @@
+@import '../../../../styles/typography';
+@import '../../../../styles/colors';
+@import '../../../../styles/media';
+
+.ArticleList {
+  display: block;
+  margin-top: 2em;
+  padding: 0 4em;
+
+  @include media($mobile-any) {
+    margin-top: 1em;
+    padding: 0 2em;
+  }
+
+  & .ArticleList__text {
+    font-family: $font-dincyr-regular;
+    font-size: 2.2em;
+
+    @include media($mobile-any) {
+      font-size: 2em;
+    }
+
+    @include media($desktop-any) {
+      text-indent: 1em;
+    }
+
+    & strong {
+      font-family: $font-dincyr-bold;
+      font-weight: normal;
+    }
+
+    & a {
+      color: $color-aquamarine;
+    }
+  }
+
+  & .ArticleList__items {
+    margin-top: 10px;
+    margin-bottom: 0;
+    font-family: $font-dincyr-regular;
+    font-size: 2.2em;
+
+    @include media($mobile-any) {
+      font-size: 2em;
+      padding-left: 30px;
+    }
+
+    @include media($desktop-any) {
+      padding-left: 50px;
+    }
+  }
+
+  & .ArticleList__item {
+    margin-top: 10px;
+
+    & strong {
+      font-family: $font-dincyr-bold;
+      font-weight: normal;
+    }
+
+    & a {
+      color: $color-aquamarine;
+    }
+  }
+}

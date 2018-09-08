@@ -14,7 +14,7 @@ function decodeToken(token:string) {
   let decodedPayload;
   try {
     decodedPayload = jwt.verify(token, process.env.JWT_SECRET);
-  } catch(error) {
+  } catch (error) {
     decodedPayload = null;
   }
 

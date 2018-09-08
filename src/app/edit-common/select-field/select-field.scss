@@ -1,0 +1,107 @@
+@import '../../../styles/media';
+@import '../../../styles/colors';
+@import '../../../styles/typography';
+
+.SelectField {
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  & .SelectField__label {
+    font-family: $font-dincyr-bold;
+    font-size: 14px;
+    color: $color-aquamarine;
+  }
+
+  & .SelectField__field {
+    width: 100%;
+    padding: 8px 10px 8px 0;
+    position: relative;
+    font-family: $font-dincyr-regular;
+    font-size: 16px;
+    text-transform: capitalize;
+    border-bottom: 1px solid $color-dark-grey;
+    color: $color-black-darker;
+    transition: border-color 0.3s;
+    box-sizing: border-box;
+    cursor: pointer;
+
+    &:focus {
+      outline: none;
+      border-bottom: 2px solid $color-aquamarine;
+    }
+
+    &:after {
+      content: '';
+      display: block;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 6px solid $color-grey;
+      position: absolute;
+      top: 50%;
+      right: 0;
+    }
+
+    &:hover:after {
+      border-top-color: $color-dark-grey;
+    }
+  }
+
+  & .SelectField__list {
+    width: 100%;
+    display: none;
+    flex-direction: column;
+    padding: 10px 0;
+    margin: 0;
+    position: absolute;
+    top: 30px;
+    list-style: none;
+    background: $color-white;
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+  }
+
+  & .SelectField__item {
+    width: 100%;
+    padding: 6px 10px;
+    font-family: $font-dincyr-regular;
+    font-size: 16px;
+    text-transform: capitalize;
+    box-sizing: border-box;
+    transition: background-color 0.4s;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $color-light-grey;
+    }
+  }
+
+  & .SelectField__error {
+    display: none;
+    padding-top: 5px;
+    font-family: $font-dincyr-regular;
+    font-size: 12px;
+    color: $color-red;
+  }
+
+  &.SelectField--open {
+    & .SelectField__list {
+      display: flex;
+    }
+  }
+
+  &.SelectField--with-error {
+    & .SelectField__label {
+      color: $color-red;
+    }
+
+    & .SelectField__field {
+      border-color: $color-red;
+    }
+
+    & .SelectField__error {
+      display: block;
+    }
+  }
+}
