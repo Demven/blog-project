@@ -1,0 +1,120 @@
+@import '../../../../styles/media';
+@import '../../../../styles/colors';
+@import '../../../../styles/typography';
+
+.ArticleNav {
+  width: 100vw;
+  height: 7em;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: $color-white;
+  box-shadow: 0 0 8px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.5s;
+  transform: translateY(-200%);
+  z-index: 100;
+
+  @include media($mobile-any) {
+    font-size: 0.8rem;
+  }
+
+  @include media($sub-mobile) {
+    font-size: 0.75rem;
+  }
+
+  &.ArticleNav--open {
+    transform: translateY(0);
+  }
+
+  & .ArticleNav__logo-container {
+    width: 5.6em;
+    height: 5.6em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 1.4em;
+    border: 0.3em solid $color-black;
+    border-radius: 50%;
+    box-sizing: border-box;
+  }
+
+  & .ArticleNav__logo {
+    width: 3.6em;
+  }
+
+  & .ArticleNav__title {
+    width: 85%;
+    font-family: $font-dincyr-bold;
+    font-size: 2.4em;
+    line-height: 1.3em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: $color-black-darker;
+    transform: translateY(-0.08em);
+
+    @include media($mobile-any) {
+      width: 70%;
+    }
+
+    @include media($sub-mobile) {
+      width: 68%;
+    }
+  }
+
+  & .ArticleNav__close-button {
+    width: 6em;
+    height: 6em;
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    color: $color-black-darker;
+    font-size: 0.9em;
+
+    &:before {
+      content: '';
+      width: 0.2em;
+      height: 6.6em;
+      position: absolute;
+      top: -0.3em;
+      left: 2.9em;
+      background: currentColor;
+      transform: rotate(45deg);
+    }
+
+    &:after {
+      content: '';
+      width: 0.2em;
+      height: 6.6em;
+      position: absolute;
+      top: -0.3em;
+      right: 2.9em;
+      background: currentColor;
+      transform: rotate(-45deg);
+    }
+
+    &:hover {
+      cursor: pointer;
+      opacity: 0.7;
+    }
+
+    @include media($tablet-any) {
+      font-size: 0.8em;
+    }
+
+    @include media($mobile-any) {
+      font-size: 0.6rem;
+      top: 1.7em;
+      right: 1.5em;
+    }
+
+    @include media($sub-mobile) {
+      font-size: 0.55rem;
+      top: 1.8em;
+      right: 1em;
+    }
+  }
+}

@@ -1,0 +1,31 @@
+@import '../../../styles/typography';
+@import '../../../styles/colors';
+@import '../../../styles/media';
+
+.SvgSprite {
+  display: none;
+
+  & .SvgSprite__add {
+    & .SvgSprite__add__path {
+      fill: currentColor;
+    }
+  }
+
+  & .SvgSprite__close {
+    & .SvgSprite__close__path {
+      fill: currentColor;
+    }
+  }
+
+  & .SvgSprite__done {
+    & .SvgSprite__done__path {
+      fill: currentColor;
+    }
+  }
+
+  & .SvgSprite__remove {
+    & .SvgSprite__remove__path {
+      fill: currentColor;
+    }
+  }
+}

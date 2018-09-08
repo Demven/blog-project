@@ -1,0 +1,26 @@
+@import '../../../styles/colors';
+@import '../../../styles/typography';
+
+.Toast {
+  width: auto;
+  height: auto;
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) translateY(100%);
+  padding: 28px 45px;
+  border-radius: 4px;
+  font-family: $font-dincyr-bold;
+  font-size: 15px;
+  line-height: 15px;
+  text-align: center;
+  background: $color-black-darkest;
+  color: $color-white;
+  opacity: 0;
+  transition: transform cubic-bezier(0.68, -0.55, 0.27, 1.55) 0.5s, opacity 0.3s;
+
+  &--visible {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-30px);
+  }
+}

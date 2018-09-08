@@ -1,0 +1,58 @@
+@import '../../../../styles/typography';
+@import '../../../../styles/media';
+
+.ArticleQuote {
+  display: block;
+  margin-top: 2em;
+  margin-bottom: 1em;
+  padding: 0 4em;
+  text-align: right;
+
+  @include media($mobile-any) {
+    margin-top: 1em;
+    padding: 0 2em;
+    text-align: left;
+  }
+
+  @include media($tablet) {
+    text-align: left;
+  }
+
+  & .ArticleQuote__content-text {
+    max-width: 70%;
+    margin-left: auto;
+    font-family: $font-dincyr-regular;
+    font-size: 2.5em;
+    font-style: italic;
+
+    @include media($tablet) {
+      max-width: 90%;
+      margin-left: 0;
+    }
+
+    @include media($mobile-any) {
+      max-width: 90%;
+      font-size: 1.8em;
+      margin-left: 0;
+    }
+
+    @include media($sub-mobile) {
+      max-width: 100%;
+    }
+  }
+
+  & .ArticleQuote__content-credit {
+    margin-top: 0.4em;
+    font-family: $font-dincyr-regular;
+    font-size: 2.2em;
+
+    @include media($tablet-any) {
+      margin-top: 0.3em;
+      font-size: 2.2em;
+    }
+
+    @include media($mobile-any) {
+      font-size: 1.8em;
+    }
+  }
+}

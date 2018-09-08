@@ -1,4 +1,4 @@
-const slug = require('slug');
+const generateSlug = require('slug');
 import * as Promise from 'bluebird';
 import { Router as expressRouter, Request, Response } from 'express';
 import Article from '../../dal/models/article';
@@ -12,9 +12,9 @@ router.get('/:slug', (req:Request, res:Response) => {
   const slug:string = req.params.slug;
   const ignorePageView = req.query.ignore ? req.query.ignore === 'pageview' : false;
 
-  function findArticleAndPopulate(slug: string) {
+  function findArticleAndPopulate(articleSlug: string) {
     return Article
-      .findOne({ slug })
+      .findOne({ slug: articleSlug })
       .populate('image category views')
       .exec();
   }
@@ -61,7 +61,7 @@ router.post('/', authorization, processAuthError, (req:Request, res:Response) =>
       .findOne({ slug: article.slug })
       .populate('image category')
       .then((articleFromDb: any) => {
-        let imagePromise = Promise.resolve(article.image);
+        let imagePromise:any = Promise.resolve(article.image);
         if (articleFromDb.image.url !== article.image.url) {
           imagePromise = Image
             .findOne({ url: article.image.url })
@@ -83,9 +83,9 @@ router.post('/', authorization, processAuthError, (req:Request, res:Response) =>
 
             (<any>Article)
               .updateOne({ slug: article.slug }, article)
-              .then((article:Object) => {
-                if (article) {
-                  res.json(article);
+              .then((updatedArticle:Object) => {
+                if (updatedArticle) {
+                  res.json(updatedArticle);
                 } else {
                   res.sendStatus(500);
                 }
@@ -100,7 +100,7 @@ router.post('/', authorization, processAuthError, (req:Request, res:Response) =>
       });
   } else {
     // create
-    article.slug = slug(article.title).toLowerCase();
+    article.slug = generateSlug(article.title).toLowerCase();
 
     Promise
       .all([
@@ -113,9 +113,9 @@ router.post('/', authorization, processAuthError, (req:Request, res:Response) =>
 
         Article
           .create(article)
-          .then(article => {
-            if (article) {
-              res.json(article);
+          .then(createdArticle => {
+            if (createdArticle) {
+              res.json(createdArticle);
             } else {
               res.sendStatus(500);
             }

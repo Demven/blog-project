@@ -1,0 +1,231 @@
+@import '../../../styles/typography';
+@import '../../../styles/colors';
+@import '../../../styles/media';
+
+$modal-offset: 2em;
+
+.Contacts {
+  & .Contacts__modal-content {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+
+    @include media($tablet-any) {
+      flex-direction: column;
+    }
+
+    @include media($mobile-any) {
+      flex-direction: column;
+    }
+  }
+
+  & .Contacts__hero-image {
+    height: 100%;
+    min-height: calc(100vh - #{$modal-offset} * 2);
+    transform: translateX(-4.5em);
+
+    @include media($desktop-narrow) {
+      transform: translateX(-10.5em);
+    }
+
+    @include media($tablet-any) {
+      width: 100%;
+      min-height: initial;
+      transform: initial;
+    }
+
+    @include media($mobile-any) {
+      width: 100%;
+      min-height: initial;
+      transform: initial;
+    }
+  }
+
+  & .Contacts__info-background {
+    width: 58%;
+    height: 145%;
+    position: absolute;
+    top: 0;
+    right: -8%;
+    background: white;
+    transform: rotate(18deg);
+    transform-origin: right;
+
+    @include media($tablet-any) {
+      width: 145%;
+      height: 30em;
+      top: initial;
+      right: initial;
+      position: static;
+      transform: rotate(-14deg);
+      transform-origin: left;
+    }
+
+    @include media($mobile-any) {
+      width: 145%;
+      height: 30em;
+      top: initial;
+      right: initial;
+      position: static;
+      transform: rotate(-12deg);
+      transform-origin: left;
+    }
+  }
+
+  & .Contacts__info-container {
+    width: 43%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding-top: 5em;
+
+    @include media($tablet-any) {
+      width: 100%;
+      position: relative;
+      margin-top: -32em;
+    }
+
+    @include media($mobile-any) {
+      width: 100%;
+      position: relative;
+      margin-top: -32em;
+    }
+
+    @include media($sub-mobile) {
+      margin-top: -33em;
+    }
+  }
+
+  & .Contacts__greeting {
+    padding: 0.125em 0.5em 0.3em;
+    font-family: $font-dincyr-bold;
+    font-size: 4em;
+    line-height: 1em;
+    letter-spacing: 1px;
+    background: $color-black;
+    color: $color-white;
+    margin-bottom: 0.75em;
+
+    @include media($desktop-narrow) {
+      font-size: 3em;
+    }
+
+    @include media($tablet-any) {
+      margin-left: -0.6em;
+    }
+
+    @include media($mobile-any) {
+      width: 293px;
+      font-size: 2.6em;
+      margin-bottom: 0.5em;
+      margin-left: 0;
+    }
+
+    @include media($sub-mobile) {
+      width: 252px;
+      font-size: 2.2em;
+    }
+  }
+
+  & .Contacts__text {
+    width: 90%;
+    font-family: $font-dincyr-regular;
+    font-size: 2.8em;
+    line-height: 1.15em;
+    text-align: center;
+    color: $color-black-darker;
+    margin: 1.07em 0 0;
+
+    @include media($desktop-narrow) {
+      font-size: 2.4em;
+    }
+
+    @include media($tablet-any) {
+      width: 20em;
+      text-align: left;
+      margin-left: 1.8em;
+    }
+
+    @include media($mobile-any) {
+      width: 319px;
+      padding: 0;
+      margin: 1em 0 0;
+      font-size: 2.4em;
+      text-align: left;
+      box-sizing: border-box;
+    }
+
+    @include media($sub-mobile) {
+      width: 274px;
+      font-size: 2em;
+    }
+  }
+
+  & .Contacts__email-link {
+    color: $color-black-darker;
+
+    &:hover {
+      color: $color-black-medium;
+    }
+  }
+
+  & .Contacts__socials {
+    display: flex;
+    flex-direction: column;
+    margin-top: 6em;
+
+    @include media($tablet-any) {
+      width: 55em;
+      flex-direction: row;
+      margin-bottom: 4em;
+      margin-left: 4em;
+    }
+
+    @include media($mobile-any) {
+      width: auto;
+      flex-direction: column;
+      margin: 4em 0 3em 2em;
+    }
+
+    @include media($sub-mobile) {
+      margin: 3em 0;
+    }
+  }
+
+  & .Contacts__social-link {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.6em;
+    text-decoration: none;
+
+    @include media($tablet-any) {
+      margin-right: 2.8em;
+    }
+
+    @include media($mobile-any) {
+      margin-right: 0;
+    }
+
+    @include media($sub-mobile) {
+      font-size: 0.8em;
+    }
+  }
+
+  & .Contacts__social-logo {
+    width: 4em;
+    height: 4em;
+    margin-right: 1em;
+  }
+
+  & .Contacts__social-path {
+    font-family: $font-dincyr-regular;
+    font-size: 2.4em;
+    line-height: 1.2em;
+    color: $color-black-darker;
+  }
+}

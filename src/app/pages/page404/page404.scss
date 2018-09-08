@@ -1,0 +1,29 @@
+@import '../../../styles/typography';
+@import '../../../styles/colors';
+@import '../../../styles/media';
+
+.Page404 {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+
+  & .Page404__content {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 2em;
+
+    @include media($mobile-any) {
+      padding: 0 1.2em;
+    }
+
+    @include media($tablet-any) {
+      padding: 0 4em;
+    }
+
+    @include media($desktop-any) {
+      padding: 0 8em;
+    }
+  }
+}
