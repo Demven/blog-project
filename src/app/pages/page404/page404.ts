@@ -1,4 +1,4 @@
-import { Component, HostBinding } from '@angular/core';
+import { Component, HostBinding, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'ds-page-home',
@@ -9,6 +9,7 @@ import { Component, HostBinding } from '@angular/core';
       <h2>Page Not Found</h2>
     </div>
   `,
+  encapsulation: ViewEncapsulation.None,
 })
 export class Page404 {
   @HostBinding('class.Page404') rootClass = true;

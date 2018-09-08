@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input } from '@angular/core';
+import { Component, HostBinding, Input, ViewEncapsulation } from '@angular/core';
 import scrollTo from '../../services/pageScroller';
 import { Category } from '../../pages/home/home';
 
@@ -53,6 +53,7 @@ import { Category } from '../../pages/home/home';
     
     <h3 class="Navbar__blog-name">Dmitry Salnikov</h3>
   `,
+  encapsulation: ViewEncapsulation.None,
 })
 export class Navbar {
   @HostBinding('class.Navbar') rootClass = true;

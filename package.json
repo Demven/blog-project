@@ -6,7 +6,7 @@
     "dev": "npm run build && npm start",
     "clean": "rimraf dist",
     "build": "npm run clean && npm run build:server && npm run build:client",
-    "build:client": "ng build",
+    "build:client": "ng build --configuration production",
     "build:server": "tsc --p server/tsconfig.json",
     "start": "node dist/server/app.js",
     "test": "ng lint",

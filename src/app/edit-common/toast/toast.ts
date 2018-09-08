@@ -4,12 +4,14 @@ import {
   Input,
   OnInit,
   EventEmitter,
+  ViewEncapsulation,
 } from '@angular/core';
 
 @Component({
   selector: 'ds-toast',
   styleUrls: ['./toast.scss'],
   template: `{{message}}`,
+  encapsulation: ViewEncapsulation.None,
 })
 export class Toast implements OnInit {
   @HostBinding('class.Toast') rootClass = true;

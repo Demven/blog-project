@@ -3,6 +3,7 @@ import {
   OnInit,
   OnDestroy,
   HostBinding,
+  ViewEncapsulation,
 } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import { ActivatedRoute, Params } from '@angular/router';
@@ -100,6 +101,7 @@ const DEFAULT_ARTICLE: ArticleModel = {
       </div>
     </ds-modal>
   `,
+  encapsulation: ViewEncapsulation.None,
 })
 export class ArticlePage implements OnInit, OnDestroy {
   @HostBinding('class.ArticlePage') rootClass = true;

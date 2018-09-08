@@ -4,6 +4,7 @@ import {
   Input,
   Output,
   EventEmitter,
+  ViewEncapsulation,
 } from '@angular/core';
 
 export class AutoCompleteItem {
@@ -44,6 +45,7 @@ export class AutoCompleteItem {
     
     <div class="AutoComplete__error">{{errorText}}</div>
   `,
+  encapsulation: ViewEncapsulation.None,
 })
 export class AutoComplete {
   @HostBinding('class.AutoComplete') rootClass = true;

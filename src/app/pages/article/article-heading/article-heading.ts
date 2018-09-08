@@ -2,6 +2,7 @@ import {
   Component,
   Input,
   HostBinding,
+  ViewEncapsulation,
 } from '@angular/core';
 
 export const ARTICLE_HEADING_TYPE = 'heading';
@@ -19,6 +20,7 @@ class HeadingModel {
   template: `
     <h3 class="ArticleHeading__content">{{getTitleWithNonBreakingSpace(content.text)}}</h3>
   `,
+  encapsulation: ViewEncapsulation.None,
 })
 export class ArticleHeading {
   @HostBinding('class.ArticleHeading') rootClass = true;

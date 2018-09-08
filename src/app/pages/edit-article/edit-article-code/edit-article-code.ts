@@ -5,6 +5,7 @@ import {
   OnInit,
   HostBinding,
   EventEmitter,
+  ViewEncapsulation,
 } from '@angular/core';
 import { ICON } from '../../../common/svg-sprite/svg-sprite';
 import { CodeHighlightService } from '../../../services/code-highlight.service';
@@ -76,6 +77,7 @@ class CodeModel {
       </button>
     </div>
   `,
+  encapsulation: ViewEncapsulation.None,
 })
 export class EditArticleCode implements OnInit {
   @HostBinding('class.EditArticleCode') rootClass = true;

@@ -5,6 +5,7 @@ import {
   OnInit,
   HostBinding,
   EventEmitter,
+  ViewEncapsulation,
 } from '@angular/core';
 import { ICON } from '../../../common/svg-sprite/svg-sprite';
 
@@ -76,6 +77,7 @@ class QuoteModel {
       </button>
     </div>
   `,
+  encapsulation: ViewEncapsulation.None,
 })
 export class EditArticleQuote implements OnInit {
   @HostBinding('class.EditArticleQuote') rootClass = true;

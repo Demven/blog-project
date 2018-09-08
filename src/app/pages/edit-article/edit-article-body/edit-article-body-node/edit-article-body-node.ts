@@ -12,6 +12,7 @@ import {
   OnChanges,
   AfterViewInit,
   OnDestroy,
+  ViewEncapsulation,
 } from '@angular/core';
 import { EditArticleText, EDIT_ARTICLE_TEXT_TYPE } from '../../edit-article-text/edit-article-text';
 import { EditArticleImage, EDIT_ARTICLE_IMAGE_TYPE } from '../../edit-article-image/edit-article-image';
@@ -41,6 +42,7 @@ class BodyNodeContent {
       ></ds-edit-article-add-content>
     </div>
   `,
+  encapsulation: ViewEncapsulation.None,
 })
 export class EditArticleBodyNode implements OnChanges, AfterViewInit, OnDestroy {
   @HostBinding('class.EditArticleBodyNode') rootClass = true;

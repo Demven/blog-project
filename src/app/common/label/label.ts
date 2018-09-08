@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input } from '@angular/core';
+import { Component, HostBinding, Input, ViewEncapsulation } from '@angular/core';
 
 export const LABEL_COLOR = {
   BLUE: 'blue',
@@ -12,6 +12,7 @@ export const LABEL_COLOR = {
   template: `
     <div class="Label__title">{{title}}</div>
   `,
+  encapsulation: ViewEncapsulation.None,
 })
 export class Label {
   @HostBinding('class.Label') rootClass = true;

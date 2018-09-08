@@ -3,6 +3,7 @@ import {
   Input,
   HostBinding,
   OnInit,
+  ViewEncapsulation,
 } from '@angular/core';
 import { ImagesService } from '../../../services/images.service';
 
@@ -40,6 +41,7 @@ class ImageModel {
       </figcaption>
     </figure>
   `,
+  encapsulation: ViewEncapsulation.None,
 })
 export class ArticleImage implements OnInit {
   @HostBinding('class.ArticleImage') rootClass = true;

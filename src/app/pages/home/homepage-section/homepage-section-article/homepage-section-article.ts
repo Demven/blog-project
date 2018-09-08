@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import { Component, HostBinding, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { ImagesService } from '../../../../services/images.service';
 
 export class HomepageSectionArticle {
@@ -35,6 +35,7 @@ const MAX_SMALL_MOBILE_WIDTH = 38; // characters
       <h2 class="HomepageSectionArticle__title">{{title}}</h2>
     </a>
   `,
+  encapsulation: ViewEncapsulation.None,
 })
 export class HomepageSectionArticleComponent implements OnInit {
   @HostBinding('class.HomepageSectionArticle') rootClass = true;

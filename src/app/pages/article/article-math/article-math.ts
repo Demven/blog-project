@@ -4,6 +4,7 @@ import {
   HostBinding,
   OnInit,
   ChangeDetectionStrategy,
+  ViewEncapsulation,
 } from '@angular/core';
 import { MathJaxService } from '../../../services/mathJax.service';
 
@@ -23,6 +24,7 @@ class MathModel {
     >\`{{content.equation}}\`</p>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
 })
 export class ArticleMath implements OnInit {
   @HostBinding('class.ArticleMath') rootClass = true;

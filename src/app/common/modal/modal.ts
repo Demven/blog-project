@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input } from '@angular/core';
+import { Component, HostBinding, Input, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'ds-modal',
@@ -11,6 +11,7 @@ import { Component, HostBinding, Input } from '@angular/core';
       <ng-content></ng-content>
     </div>
   `,
+  encapsulation: ViewEncapsulation.None,
 })
 export class Modal {
   @HostBinding('class.Modal') rootClass = true;

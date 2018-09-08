@@ -2,6 +2,7 @@ import {
   Component,
   HostBinding,
   OnInit,
+  ViewEncapsulation,
 } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import axios from 'axios';
@@ -29,6 +30,7 @@ export class Category {
 
     <ds-footer></ds-footer>
   `,
+  encapsulation: ViewEncapsulation.None,
 })
 export class HomePage implements OnInit {
   @HostBinding('class.HomePage') rootClass = true;

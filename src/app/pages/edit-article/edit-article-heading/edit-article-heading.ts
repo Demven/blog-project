@@ -5,6 +5,7 @@ import {
   OnInit,
   HostBinding,
   EventEmitter,
+  ViewEncapsulation,
 } from '@angular/core';
 import { ICON } from '../../../common/svg-sprite/svg-sprite';
 
@@ -52,6 +53,7 @@ class HeadingModel {
       </button>
     </div>
   `,
+  encapsulation: ViewEncapsulation.None,
 })
 export class EditArticleHeading implements OnInit {
   @HostBinding('class.EditArticleHeading') rootClass = true;

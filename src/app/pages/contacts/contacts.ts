@@ -1,4 +1,4 @@
-import { Component, HostBinding, OnInit } from '@angular/core';
+import { Component, HostBinding, OnInit, ViewEncapsulation } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 
 @Component({
@@ -60,6 +60,7 @@ import { Meta } from '@angular/platform-browser';
       </div>
     </ds-modal>
   `,
+  encapsulation: ViewEncapsulation.None,
 })
 export class ContactsPage implements OnInit {
   @HostBinding('class.Contacts') rootClass = true;

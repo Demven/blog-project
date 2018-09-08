@@ -5,6 +5,7 @@ import {
   OnInit,
   AfterViewInit,
   ChangeDetectionStrategy,
+  ViewEncapsulation,
 } from '@angular/core';
 import { CodeHighlightService } from '../../../services/code-highlight.service';
 
@@ -27,6 +28,7 @@ class CodeModel {
     </div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
 })
 export class ArticleCode implements OnInit, AfterViewInit {
   @HostBinding('class.ArticleCode') rootClass = true;

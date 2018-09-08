@@ -4,6 +4,7 @@ import {
   Input,
   Output,
   EventEmitter,
+  ViewEncapsulation,
 } from '@angular/core';
 import { HomepageSectionArticle, Category } from './edit-homepage-section-article/edit-homepage-section-article';
 
@@ -33,6 +34,7 @@ export class HomepageSection {
       (update)="onSectionArticleUpdate($event)"
     ></ds-edit-homepage-section-article>
   `,
+  encapsulation: ViewEncapsulation.None,
 })
 export class EditHomePageSection {
   @HostBinding('class.EditHomePageSection') rootClass = true;

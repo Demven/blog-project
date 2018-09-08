@@ -4,6 +4,7 @@ import {
   Input,
   Output,
   EventEmitter,
+  ViewEncapsulation,
 } from '@angular/core';
 
 @Component({
@@ -29,6 +30,7 @@ import {
       (click)="onPreview()"
     >Preview</button>
   `,
+  encapsulation: ViewEncapsulation.None,
 })
 export class EditNav {
   @HostBinding('class.EditNav') rootClass = true;

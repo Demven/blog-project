@@ -4,6 +4,7 @@ import {
   Input,
   Output,
   EventEmitter,
+  ViewEncapsulation,
 } from '@angular/core';
 
 @Component({
@@ -29,6 +30,7 @@ import {
     />
     <div class="TextField__error">{{errorText}}</div>
   `,
+  encapsulation: ViewEncapsulation.None,
 })
 export class TextField {
   @HostBinding('class.TextField') rootClass = true;
