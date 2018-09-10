@@ -7,7 +7,7 @@ module.exports = {
   entry: { server: './server/server.ts' },
   resolve: { extensions: ['.js', '.ts'] },
   target: 'node',
-  mode: 'none',
+  mode: process.env.NODE_ENV,
   // this makes sure we include node_modules and other 3rd party libraries
   externals: [nodeExternals()],
   output: {
