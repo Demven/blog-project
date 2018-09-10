@@ -1,5 +1,6 @@
 import { Component, HostBinding, OnInit, ViewEncapsulation } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
+import { env } from '../../../environments';
 
 @Component({
   selector: 'ds-page-contacts',
@@ -78,9 +79,8 @@ export class ContactsPage implements OnInit {
     this.metaTags.updateTag({ property: 'og:title', content: 'Contacts - Dmitry Salnikov' });
     this.metaTags.updateTag({ property: 'og:description', content: 'My contact information' });
     this.metaTags.updateTag({ property: 'og:type', content: 'profile' });
-    // TODO: fix process.env
-    // this.metaTags.updateTag({ property: 'og:url', content: `${process.env.WWW_HOST}/contacts` });
-    // this.metaTags.updateTag({ property: 'og:image', content: `${process.env.WWW_HOST}/public/images/contacts.jpg` });
+    this.metaTags.updateTag({ property: 'og:url', content: `${env.WWW_HOST}/contacts` });
+    this.metaTags.updateTag({ property: 'og:image', content: `${env.WWW_HOST}/public/images/contacts.jpg` });
     this.metaTags.updateTag({ property: 'og:image:width', content: '960' });
     this.metaTags.updateTag({ property: 'og:image:height', content: '720' });
   }

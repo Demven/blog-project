@@ -49,7 +49,7 @@ export class HomepageSectionArticleComponent implements OnInit {
   ngOnInit() {
     this.title = this.article.title;
 
-    if (!this.main) {
+    if (!this.main && typeof window !== 'undefined') {
       this.truncateTitle();
     }
   }

@@ -8,6 +8,7 @@ import { Meta } from '@angular/platform-browser';
 import axios from 'axios';
 import { HomepageSection } from './homepage-section/homepage-section'; // import of model, not component
 import clientStorage, { STORAGE_KEY } from '../../services/clientStorage';
+import { env } from '../../../environments';
 
 export class Category {
   title: string;
@@ -46,7 +47,9 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit() {
-    this.previewMode = window.location.pathname === '/homepage/preview';
+    if (typeof window !== 'undefined') {
+      this.previewMode = window.location.pathname === '/homepage/preview';
+    }
 
     if (this.previewMode) {
       this.useHomepageDataFromClientStorage();
@@ -67,7 +70,7 @@ export class HomePage implements OnInit {
 
   fetchHomepageData() {
     axios
-      .get('/api/v1/homepage-section')
+      .get(`${env.WWW_HOST}/api/v1/homepage-section`)
       .then(response => {
         if (response.status === 200) {
           this.homepageSections = response.data;
@@ -86,9 +89,8 @@ export class HomePage implements OnInit {
     this.metaTags.updateTag({ property: 'og:title', content: 'Dmitry Salnikov - Personal Blog' });
     this.metaTags.updateTag({ property: 'og:description', content: 'Personal blog about robotics, programming, philosophy and psychology' });
     this.metaTags.updateTag({ property: 'og:type', content: 'website' });
-    // TODO: fix process.env
-    // this.metaTags.updateTag({ property: 'og:url', content: process.env.WWW_HOST });
-    // this.metaTags.updateTag({ property: 'og:image', content: `${process.env.WWW_HOST}/public/images/share-logo.jpg` });
+    this.metaTags.updateTag({ property: 'og:url', content: env.WWW_HOST });
+    this.metaTags.updateTag({ property: 'og:image', content: `${env.WWW_HOST}/assets/images/share-logo.jpg` });
     this.metaTags.updateTag({ property: 'og:image:width', content: '600' });
     this.metaTags.updateTag({ property: 'og:image:height', content: '338' });
   }

@@ -1,6 +1,6 @@
-import { Schema, model } from 'mongoose';
+import * as mongoose from 'mongoose';
 
-export const ViewsCountSchema = new Schema({
+export const ViewsCountSchema = new mongoose.Schema({
   count: {
     type: Number,
     required: true,
@@ -8,4 +8,4 @@ export const ViewsCountSchema = new Schema({
   },
 });
 
-export default model('ViewsCount', ViewsCountSchema);
+export default mongoose.model('ViewsCount', ViewsCountSchema);

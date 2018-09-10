@@ -1,6 +1,6 @@
-import { Schema, model } from 'mongoose';
+import * as mongoose from 'mongoose';
 
-export const CategorySchema = new Schema({
+export const CategorySchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
@@ -12,4 +12,4 @@ export const CategorySchema = new Schema({
   color: String,
 });
 
-export default model('Category', CategorySchema);
+export default mongoose.model('Category', CategorySchema);

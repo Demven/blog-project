@@ -71,11 +71,15 @@ export class ArticleHeader implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    window.document.addEventListener('scroll', this.onArticleScroll);
+    if (typeof window !== 'undefined') {
+      window.document.addEventListener('scroll', this.onArticleScroll);
+    }
   }
 
   ngOnDestroy() {
-    window.document.removeEventListener('scroll', this.onArticleScroll);
+    if (typeof window !== 'undefined') {
+      window.document.removeEventListener('scroll', this.onArticleScroll);
+    }
   }
 
   onArticleScroll() {

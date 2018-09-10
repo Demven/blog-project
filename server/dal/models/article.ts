@@ -1,7 +1,7 @@
-import { Schema, model } from 'mongoose';
+import * as mongoose from 'mongoose';
 const uniqueValidator = require('mongoose-unique-validator');
 
-export const ArticleSchema = new Schema({
+export const ArticleSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
@@ -16,17 +16,17 @@ export const ArticleSchema = new Schema({
     unique: true,
   },
   image: {
-    type: Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'Image',
     required: true,
   },
   category: {
-    type: Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'Category',
     required: true,
   },
   views: {
-    type: Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'ViewsCount',
     required: true,
   },
@@ -42,10 +42,10 @@ export const ArticleSchema = new Schema({
     type: Boolean,
     default: false,
   },
-  body: [Schema.Types.Mixed],
+  body: [mongoose.Schema.Types.Mixed],
 });
 
 ArticleSchema.plugin(uniqueValidator);
 
-export default model('Article', ArticleSchema);
+export default mongoose.model('Article', ArticleSchema);
 

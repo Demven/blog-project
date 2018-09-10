@@ -8,6 +8,10 @@ export class CanActivateGuard implements CanActivate {
   constructor(private router: Router) {}
 
   canActivate() {
+    if (typeof window === 'undefined') {
+      return false;
+    }
+
     const token = clientStorage.get(STORAGE_KEY.AUTH_TOKEN);
 
     return axios

@@ -1,12 +1,12 @@
-import { Schema, model } from 'mongoose';
+import * as mongoose from 'mongoose';
 
-export const HomepageSectionSchema = new Schema({
+export const HomepageSectionSchema = new mongoose.Schema({
   category: {
-    type: Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'Category',
     required: true,
   },
-  articles: [{ type: Schema.Types.ObjectId, ref: 'Article' }],
+  articles: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Article' }],
   order: {
     type: Number,
     unique: true,
@@ -14,4 +14,4 @@ export const HomepageSectionSchema = new Schema({
   },
 });
 
-export default model('HomepageSection', HomepageSectionSchema);
+export default mongoose.model('HomepageSection', HomepageSectionSchema);
