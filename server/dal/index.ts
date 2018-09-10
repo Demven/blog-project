@@ -12,6 +12,8 @@ export default function connectToDatabase() {
   console.info('dal:', process.env); // TODO: delete
   console.info('process.env.MONGODB_USERNAME:', process.env.MONGODB_USERNAME); // TODO: delete
 
+  console.info(process.env.NODE_ENV, process.env.NODE_ENV === 'production');
+
   if (process.env.NODE_ENV === 'production') {
     console.info('NODE_ENV: PRODUCTIIIION');
   }
