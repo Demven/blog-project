@@ -33,6 +33,12 @@ app.engine('html', ngExpressEngine({
 app.set('view engine', 'html');
 app.set('views', `${DIST_FOLDER}/client`);
 
+// TODO: delete this
+app.get('*', (req, res, next) => {
+  console.info(req.path);
+  next();
+});
+
 app.get('*.*', express.static(`${DIST_FOLDER}/client`));
 
 app.use(bodyParser.json());
