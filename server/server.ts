@@ -12,6 +12,8 @@ import { enableProdMode } from '@angular/core';
 import { ngExpressEngine } from '@nguniversal/express-engine';
 import { provideModuleMap } from '@nguniversal/module-map-ngfactory-loader';
 
+console.info('SERVER', process.env.NODE_ENV, process.env.NODE_ENV === 'production', process.env.NODE_MODULES_CACHE);
+
 enableProdMode();
 
 // import Angular compiled app
