@@ -9,6 +9,8 @@ require('./models/views-count');
 require('mongoose').Promise = require('bluebird');
 
 export default function connectToDatabase() {
+  console.info('dal:', process.env); // TODO: delete
+
   const options = {
     promiseLibrary: Promise,
   };
