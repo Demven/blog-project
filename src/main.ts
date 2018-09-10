@@ -1,11 +1,12 @@
 import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppModule } from './app/app.module';
+import { env } from './environments';
 
-// TODO: fix issue with envkey
-// if (process.env.NODE_ENV === 'production') {
-enableProdMode();
-// }
+if (env.NODE_ENV === 'production') {
+  enableProdMode();
+}
 
-platformBrowserDynamic().bootstrapModule(AppModule)
-  .catch(err => console.log(err));
+platformBrowserDynamic()
+  .bootstrapModule(AppModule)
+  .catch(error => console.error(error));

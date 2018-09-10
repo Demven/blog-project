@@ -26,6 +26,7 @@ import { MarkdownService } from './services/markdown.service';
 import { MathJaxService } from './services/mathJax.service';
 import { CodeHighlightService } from './services/code-highlight.service';
 import { CanActivateGuard } from './services/can-activate-guard.service';
+import { env } from '../environments';
 
 const store:Store<any> = createStore(
   rootReducer,
@@ -33,11 +34,14 @@ const store:Store<any> = createStore(
   applyMiddleware(),
 );
 
-window['store'] = store;
+if (typeof window !== 'undefined') {
+  window['store'] = store;
+  window['env'] = env;
+}
 
 @NgModule({
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'blog-project' }),
     AppRouterModule,
     NgReduxModule,
     CommonModule,

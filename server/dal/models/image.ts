@@ -1,6 +1,6 @@
-import { Schema, model } from 'mongoose';
+import * as mongoose from 'mongoose';
 
-export const ImageSchema = new Schema({
+export const ImageSchema = new mongoose.Schema({
   url: {
     type: String,
     required: true,
@@ -9,4 +9,4 @@ export const ImageSchema = new Schema({
   credits: String,
 });
 
-export default model('Image', ImageSchema);
+export default mongoose.model('Image', ImageSchema);

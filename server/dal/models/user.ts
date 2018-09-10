@@ -1,11 +1,11 @@
-import { Schema, model } from 'mongoose';
+import * as mongoose from 'mongoose';
 
 export const USER_TYPE = {
   ADMIN: 'admin',
   AUTHOR: 'author',
 };
 
-export const UserSchema = new Schema({
+export const UserSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -20,4 +20,4 @@ export const UserSchema = new Schema({
   },
 });
 
-export default model('User', UserSchema);
+export default mongoose.model('User', UserSchema);

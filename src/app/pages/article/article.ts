@@ -12,6 +12,7 @@ import { Observable } from 'rxjs';
 import axios from 'axios';
 import clientStorage, { STORAGE_KEY } from '../../services/clientStorage';
 import { ImagesService } from '../../services/images.service';
+import { env } from '../../../environments';
 
 class ArticleModel {
   slug: string;
@@ -124,7 +125,9 @@ export class ArticlePage implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.previewMode = window.location.pathname === '/article/preview';
+    if (typeof window !== 'undefined') {
+      this.previewMode = window.location.pathname === '/article/preview';
+    }
 
     if (this.previewMode) {
       this.useArticleDataFromClientStorage();
@@ -171,8 +174,7 @@ export class ArticlePage implements OnInit, OnDestroy {
     this.metaTags.updateTag({ property: 'og:title', content: this.article.title });
     this.metaTags.updateTag({ property: 'og:description', content: this.article.description });
     this.metaTags.updateTag({ property: 'og:type', content: 'article' });
-    // TODO: fix procee.env
-    // this.metaTags.updateTag({ property: 'og:url', content: `${process.env.WWW_HOST}/article/${this.article.slug}` });
+    this.metaTags.updateTag({ property: 'og:url', content: `${env.WWW_HOST}/article/${this.article.slug}` });
     this.metaTags.updateTag({ property: 'og:image', content: this.imagesService.getCroppedImageUrl(this.article.image.url, this.imagesService.ASPECT_RATIO.w16h9) });
     this.metaTags.updateTag({ property: 'og:image:width', content: '1024' });
     this.metaTags.updateTag({ property: 'og:image:height', content: '576' });

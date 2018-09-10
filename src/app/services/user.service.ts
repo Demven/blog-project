@@ -7,7 +7,9 @@ export class UserService {
   private loggedIn = false;
 
   constructor() {
-    this.loggedIn = !!clientStorage.get(STORAGE_KEY.AUTH_TOKEN);
+    if (typeof window !== 'undefined') {
+      this.loggedIn = !!clientStorage.get(STORAGE_KEY.AUTH_TOKEN);
+    }
   }
 
   login(name:string, password:string) {
