@@ -9,27 +9,6 @@ require('./models/views-count');
 require('mongoose').Promise = require('bluebird');
 
 export default function connectToDatabase() {
-  console.info('dal:', process.env); // TODO: delete
-  console.info('process.env.MONGODB_USERNAME:', process.env.MONGODB_USERNAME); // TODO: delete
-
-  console.info(process.env.NODE_ENV, process.env.NODE_ENV === 'production');
-
-  if (process.env.NODE_ENV === 'production') {
-    console.info('NODE_ENV: PRODUCTIIIION');
-  }
-
-  if (process.env.MONGODB_USERNAME) {
-    console.info('UUUUUUSERNAME true');
-  }
-
-  if (typeof process.env.MONGODB_USERNAME === 'string') {
-    console.info('UUUUUUSERNAME string');
-  }
-
-  if (process.env.NODE_ENV === 'production' && process.env.MONGODB_USERNAME) {
-    console.info('all TRUUUUUUUE');
-  }
-
   const options = {
     promiseLibrary: Promise,
   };
