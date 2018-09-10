@@ -29,7 +29,8 @@ module.exports = {
         "MONGODB_PORT",
         "MONGODB_USERNAME",
         "NODE_ENV",
-        "WWW_HOST"
+        "WWW_HOST",
+        "PORT"
       ],
       // optional, set additional vars on `process.env`
       define: {}
