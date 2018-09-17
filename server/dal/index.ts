@@ -2,6 +2,7 @@ import * as mongoose from 'mongoose';
 import * as Promise from 'bluebird';
 require('./models/image');
 require('./models/category');
+require('./models/keyword');
 require('./models/article');
 require('./models/homepage-section');
 require('./models/views-count');

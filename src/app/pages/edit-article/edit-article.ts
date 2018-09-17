@@ -15,6 +15,8 @@ import axios from 'axios';
 import { SelectItem } from '../../edit-common/select-field/select-field';
 import clientStorage, { STORAGE_KEY } from '../../services/clientStorage';
 import { ImagesService } from '../../services/images.service';
+import { AutoCompleteItem } from '../../edit-common/auto-complete/auto-complete';
+import { ICON } from '../../common/svg-sprite/svg-sprite';
 
 class ArticleModel {
   slug: string;
@@ -26,6 +28,7 @@ class ArticleModel {
     credits: string;
   };
   category: Category;
+  keywords: Array<Keyword>;
   views: {
     count: number;
   };
@@ -36,6 +39,13 @@ class Category {
   title: string;
   slug: string;
   color: string;
+  _v: number;
+  _id: string;
+}
+
+class Keyword {
+  name: string;
+  slug: string;
   _v: number;
   _id: string;
 }
@@ -56,6 +66,7 @@ const DEFAULT_ARTICLE:ArticleModel = {
     _v: 0,
     _id: '',
   },
+  keywords: [],
   views: {
     count: 0,
   },
@@ -123,6 +134,35 @@ const DEFAULT_ARTICLE:ArticleModel = {
           (select)="onCategoryChange($event)"
         ></ds-select-field>
       </div>
+      
+      <div class="EditArticlePage__input-field">
+        <ds-auto-complete     
+          [name]="'keyword'"
+          [label]="'Keywords'"
+          [placeholder]="'Start typing to choose a keyword'"
+          [value]="keyword"
+          [values]="suggestedKeywords"
+          required
+          (change)="onKeywordChange($event)"
+          (select)="onKeywordSelect($event)"
+          (enter)="onCreateKeyword($event)"
+        ></ds-auto-complete>
+        
+        <ul class="EditArticlePage__keywords">
+          <li
+            class="EditArticlePage__keyword"
+            *ngFor="let keyword of article.keywords; let i = index"
+          >
+            <span class="EditArticlePage__text">{{keyword.name}}</span>
+            <button
+              class="EditArticlePage__remove-keyword"
+              (click)="onRemoveKeyword(i)"
+            >
+              <ds-icon [name]="ICON_CLOSE"></ds-icon>
+            </button>
+          </li>
+        </ul>
+      </div>
 
       <ds-edit-article-body
         [nodes]="body"
@@ -148,19 +188,28 @@ export class EditArticlePage implements OnInit, OnDestroy {
   article: ArticleModel = DEFAULT_ARTICLE;
   body: Array<Object> = [];
   categories: Array<SelectItem> = [];
-  private routerParamsListener: any;
   category = 0;
+  keyword = '';
+  suggestedKeywords: Array<AutoCompleteItem> = [];
   createMode = false;
   toastMessageEmmiter: EventEmitter<string> = new EventEmitter();
+  private routerParamsListener: any;
+  public ICON_CLOSE: string = ICON.CLOSE;
 
   constructor(private route: ActivatedRoute, private router: Router, public imagesService: ImagesService) {
     this.onArticleRouteInit = this.onArticleRouteInit.bind(this);
     this.fetchArticle = this.fetchArticle.bind(this);
     this.fetchCategories = this.fetchCategories.bind(this);
+    this.fetchSuggestedKeywords = this.fetchSuggestedKeywords.bind(this);
     this.onBodyContentUpdate = this.onBodyContentUpdate.bind(this);
+    this.onBodyContentRemove = this.onBodyContentRemove.bind(this);
     this.onFieldChange = this.onFieldChange.bind(this);
     this.onMainImageChange = this.onMainImageChange.bind(this);
     this.onCategoryChange = this.onCategoryChange.bind(this);
+    this.onKeywordChange = this.onKeywordChange.bind(this);
+    this.onKeywordSelect = this.onKeywordSelect.bind(this);
+    this.onCreateKeyword = this.onCreateKeyword.bind(this);
+    this.onRemoveKeyword = this.onRemoveKeyword.bind(this);
     this.onAddContent = this.onAddContent.bind(this);
     this.onPublish = this.onPublish.bind(this);
     this.onPreview = this.onPreview.bind(this);
@@ -224,7 +273,29 @@ export class EditArticlePage implements OnInit, OnDestroy {
           }
         } else {
           console.error('Could not get categories data', response);
-          this.toastMessageEmmiter.emit('Could not get categories data');
+          this.toastMessageEmmiter.emit('Could not fetch existing categories');
+        }
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
+
+  fetchSuggestedKeywords(keywordFragment: string) {
+    return axios
+      .get(`/api/v1/keyword?search=${encodeURIComponent(keywordFragment)}&limit=5`)
+      .then(response => {
+        if (response.status === 200) {
+          const keywords = response.data;
+
+          this.suggestedKeywords = keywords.map((keyword: Keyword) => ({
+            ...keyword,
+            text: keyword.name,
+            value: keyword.slug,
+          }));
+        } else {
+          console.error('Could not get keywords data', response);
+          this.toastMessageEmmiter.emit('Could not fetch suggested keywords');
         }
       })
       .catch(error => {
@@ -256,6 +327,51 @@ export class EditArticlePage implements OnInit, OnDestroy {
     }
   }
 
+  onKeywordChange({ name, value }: { name: string, value: string }) {
+    if (name === 'keyword') {
+      this.keyword = value;
+
+      this.fetchSuggestedKeywords(value);
+    }
+  }
+
+  onKeywordSelect({ name, selectedIndex }: { name: string, selectedIndex: number }) {
+    if (name === 'keyword') {
+      const selectedKeyword: object = {
+        ...this.suggestedKeywords[selectedIndex],
+        text: undefined,
+        value: undefined,
+      };
+
+      this.keyword = '';
+      this.article.keywords.push(<Keyword>selectedKeyword);
+    }
+  }
+
+  onCreateKeyword({ name, value }: { name: string, value: string }) {
+    if (name === 'keyword') {
+      const token = clientStorage.get(STORAGE_KEY.AUTH_TOKEN);
+      axios
+        .post('/api/v1/keyword', { keyword: value }, { headers: { Authorization: `Bearer ${token}` } })
+        .then(response => {
+          if (response.status === 200) {
+            this.article.keywords.push(response.data);
+            this.keyword = '';
+          } else {
+            this.toastMessageEmmiter.emit('Failed to create keyword');
+          }
+        })
+        .catch(error => {
+          console.error('Failed to create keyword', value, error);
+          this.toastMessageEmmiter.emit('Failed to create keyword');
+        });
+    }
+  }
+
+  onRemoveKeyword(index: number) {
+    this.article.keywords.splice(index, 1);
+  }
+
   onAddContent({ index, bodyNode }: { index: number, bodyNode: object }): void {
     this.article.body.splice(index, 0, bodyNode); // insert bodyNode at certain position
     this.body = [...this.article.body];
@@ -263,7 +379,6 @@ export class EditArticlePage implements OnInit, OnDestroy {
 
   onBodyContentUpdate({ index, content }: { index: string, content: object }) {
     if (index && content) {
-      console.info('update', index, content);
       this.article.body[+index] = content;
       this.body[+index] = content;
     }

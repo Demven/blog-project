@@ -25,6 +25,11 @@ export const ArticleSchema = new mongoose.Schema({
     ref: 'Category',
     required: true,
   },
+  keywords: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Keyword',
+    required: true,
+  }],
   views: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'ViewsCount',

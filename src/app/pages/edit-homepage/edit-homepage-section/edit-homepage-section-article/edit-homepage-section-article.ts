@@ -111,7 +111,7 @@ export class EditHomePageSectionArticle {
   @Output() update: EventEmitter<Object> = new EventEmitter();
 
   newArticleTitle = '';
-  newArticleValues: Array<AutoCompleteItem>;
+  newArticleValues: Array<AutoCompleteItem> = [];
   private suggestedArticles: Array<HomepageSectionArticle>;
 
   constructor(public imagesService: ImagesService) {

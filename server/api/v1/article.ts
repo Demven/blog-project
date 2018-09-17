@@ -15,7 +15,7 @@ router.get('/:slug', (req:Request, res:Response) => {
   function findArticleAndPopulate(articleSlug: string) {
     return Article
       .findOne({ slug: articleSlug })
-      .populate('image category views')
+      .populate('image category keywords views')
       .exec();
   }
 
@@ -59,7 +59,7 @@ router.post('/', authorization, processAuthError, (req:Request, res:Response) =>
     // update
     Article
       .findOne({ slug: article.slug })
-      .populate('image category')
+      .populate('image category keywords')
       .then((articleFromDb: any) => {
         let imagePromise:any = Promise.resolve(article.image);
         if (articleFromDb.image.url !== article.image.url) {
