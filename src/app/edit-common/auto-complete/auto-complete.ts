@@ -34,7 +34,10 @@ export class AutoCompleteItem {
       value="{{value}}"
     />
 
-    <ul class="AutoComplete__list">
+    <ul
+      class="AutoComplete__list"
+      *ngIf="values.length"
+    >
       <li
         class="AutoComplete__item"
         *ngFor="let itemValue of values; let i = index"
@@ -63,6 +66,7 @@ export class AutoComplete {
   @Output() change: EventEmitter<object> = new EventEmitter();
   @Output() blur: EventEmitter<Event> = new EventEmitter();
   @Output() select: EventEmitter<object> = new EventEmitter();
+  @Output() enter: EventEmitter<object> = new EventEmitter();
 
   constructor() {
     this.openList = this.openList.bind(this);
@@ -93,12 +97,18 @@ export class AutoComplete {
   }
 
   onKeyUp(event: KeyboardEvent) {
+    const value = (<HTMLTextAreaElement>event.target).value;
+
     if (event.key === 'Escape') {
       this.closeList();
       return;
     }
 
-    const value = (<HTMLTextAreaElement>event.target).value;
+    if (event.key === 'Enter') {
+      this.closeList();
+      this.enter.emit({ name: this.name, value });
+      return;
+    }
 
     if (this.name) {
       if (value.trim()) {
@@ -117,8 +127,6 @@ export class AutoComplete {
 
   onSelect(event:any): void {
     const selectedIndex = event.target.dataset.index;
-
-    console.info('onSelect', selectedIndex);
 
     this.select.emit({ name: this.name, selectedIndex });
     this.closeList();

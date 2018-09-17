@@ -28,4 +28,54 @@
   & .EditArticlePage__input-field {
     margin-top: 35px;
   }
+
+  & .EditArticlePage__keywords {
+    padding: 0;
+    margin-top: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+  }
+
+  & .EditArticlePage__keyword {
+    margin-top: 8px;
+    margin-right: 8px;
+    padding: 4px 6px 5px 10px;
+    display: flex;
+    align-items: center;
+    font-family: $font-dincyr-bold;
+    font-size: 16px;
+    line-height: 16px;
+    text-transform: capitalize;
+    border-radius: 4px;
+    color: $color-black-medium;
+    background: $color-white;
+    border: 1px solid #888888;
+    cursor: default;
+    transition: background 0.3s, color 0.3s, border 0.3s;
+  }
+
+  & .EditArticlePage__remove-keyword {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    padding: 0;
+    margin: 0 0 0 4px;
+    outline: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: relative;
+
+    & .icon {
+      width: 18px;
+      height: 18px;
+      color: $color-black-light;
+      transition: color 0.3s;
+
+      &:hover {
+        color: $color-red;
+      }
+    }
+  }
 }
