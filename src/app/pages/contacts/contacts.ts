@@ -75,13 +75,32 @@ export class ContactsPage implements OnInit {
   }
 
   updateMetaTags() {
-    this.metaTags.updateTag({ name: 'description', content: 'My contact information' });
-    this.metaTags.updateTag({ property: 'og:title', content: 'Contacts - Dmitry Salnikov' });
-    this.metaTags.updateTag({ property: 'og:description', content: 'My contact information' });
+    const url = `${env.WWW_HOST}/contacts`;
+    const title = 'Contacts - Dmitry Salnikov';
+    const description = 'My contact information';
+    const keywords = 'Dmitry Salnikov, Tech, Science, Programming, Thoughts, JavaScript, CSS, HTML, Blog';
+    const imageUrl = `${env.WWW_HOST}/public/images/contacts.jpg`;
+
+    this.metaTags.updateTag({ name: 'description', content: description });
+    this.metaTags.updateTag({ name: 'keywords', content: keywords });
+    this.metaTags.removeTag('name="author"');
+
+    this.metaTags.updateTag({ property: 'og:title', content: title });
+    this.metaTags.updateTag({ property: 'og:description', content: description });
     this.metaTags.updateTag({ property: 'og:type', content: 'profile' });
-    this.metaTags.updateTag({ property: 'og:url', content: `${env.WWW_HOST}/contacts` });
-    this.metaTags.updateTag({ property: 'og:image', content: `${env.WWW_HOST}/public/images/contacts.jpg` });
+    this.metaTags.updateTag({ property: 'og:url', content: url });
+    this.metaTags.updateTag({ property: 'og:image', content: imageUrl });
     this.metaTags.updateTag({ property: 'og:image:width', content: '960' });
     this.metaTags.updateTag({ property: 'og:image:height', content: '720' });
+
+    this.metaTags.removeTag('property="article:published_time"');
+    this.metaTags.removeTag('property="article:author"');
+    this.metaTags.removeTag('property="article:section"');
+    this.metaTags.removeTag('property="article:tag"');
+
+    this.metaTags.updateTag({ name: 'twitter:title', content: title });
+    this.metaTags.updateTag({ name: 'twitter:description', content: description });
+    this.metaTags.updateTag({ name: 'twitter:url', content: url });
+    this.metaTags.updateTag({ name: 'twitter:image', content: imageUrl });
   }
 }

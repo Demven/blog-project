@@ -85,13 +85,32 @@ export class HomePage implements OnInit {
   }
 
   updateMetaTags() {
-    this.metaTags.updateTag({ name: 'description', content: 'Personal blog about robotics, programming, philosophy and psychology' });
-    this.metaTags.updateTag({ property: 'og:title', content: 'Dmitry Salnikov - Personal Blog' });
-    this.metaTags.updateTag({ property: 'og:description', content: 'Personal blog about robotics, programming, philosophy and psychology' });
+    const url = env.WWW_HOST;
+    const title = 'Dmitry Salnikov - Personal Blog';
+    const description = 'Personal blog about robotics, programming, philosophy and psychology';
+    const keywords = 'Dmitry Salnikov, Tech, Science, Programming, Thoughts, JavaScript, CSS, HTML, Blog';
+    const imageUrl = `${env.WWW_HOST}/assets/images/share-logo.jpg`;
+
+    this.metaTags.updateTag({ name: 'description', content: description });
+    this.metaTags.updateTag({ name: 'keywords', content: keywords });
+    this.metaTags.removeTag('name="author"');
+
+    this.metaTags.updateTag({ property: 'og:title', content: title });
+    this.metaTags.updateTag({ property: 'og:description', content: description });
     this.metaTags.updateTag({ property: 'og:type', content: 'website' });
-    this.metaTags.updateTag({ property: 'og:url', content: env.WWW_HOST });
-    this.metaTags.updateTag({ property: 'og:image', content: `${env.WWW_HOST}/assets/images/share-logo.jpg` });
+    this.metaTags.updateTag({ property: 'og:url', content: url });
+    this.metaTags.updateTag({ property: 'og:image', content: imageUrl });
     this.metaTags.updateTag({ property: 'og:image:width', content: '600' });
     this.metaTags.updateTag({ property: 'og:image:height', content: '338' });
+
+    this.metaTags.removeTag('property="article:published_time"');
+    this.metaTags.removeTag('property="article:author"');
+    this.metaTags.removeTag('property="article:section"');
+    this.metaTags.removeTag('property="article:tag"');
+
+    this.metaTags.updateTag({ name: 'twitter:title', content: title });
+    this.metaTags.updateTag({ name: 'twitter:description', content: description });
+    this.metaTags.updateTag({ name: 'twitter:url', content: url });
+    this.metaTags.updateTag({ name: 'twitter:image', content: imageUrl });
   }
 }

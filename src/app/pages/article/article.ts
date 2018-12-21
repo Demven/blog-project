@@ -14,6 +14,11 @@ import clientStorage, { STORAGE_KEY } from '../../services/clientStorage';
 import { ImagesService } from '../../services/images.service';
 import { env } from '../../../environments';
 
+class Keyword {
+  name: string;
+  slug: string;
+}
+
 class ArticleModel {
   slug: string;
   title: string;
@@ -28,6 +33,7 @@ class ArticleModel {
     slug: string;
     color: string;
   };
+  keywords: Array<Keyword>;
   views: {
     count: number;
   };
@@ -49,6 +55,7 @@ const DEFAULT_ARTICLE: ArticleModel = {
     slug: '',
     color: '',
   },
+  keywords: [],
   views: {
     count: 0,
   },
@@ -170,13 +177,33 @@ export class ArticlePage implements OnInit, OnDestroy {
   }
 
   updateMetaTags() {
-    this.metaTags.updateTag({ name: 'description', content: this.article.description });
-    this.metaTags.updateTag({ property: 'og:title', content: this.article.title });
-    this.metaTags.updateTag({ property: 'og:description', content: this.article.description });
+    const url = `${env.WWW_HOST}/article/${this.article.slug}`;
+    const title = this.article.title;
+    const description = this.article.description;
+    const keywords = this.article.keywords.map((keyword: Keyword) => keyword.name).join(',');
+    const imageUrl = this.imagesService.getCroppedImageUrl(this.article.image.url, this.imagesService.ASPECT_RATIO.w16h9);
+    const author = 'Dmitry Salnikov';
+
+    this.metaTags.updateTag({ name: 'description', content: description });
+    this.metaTags.updateTag({ name: 'keywords', content: keywords });
+    this.metaTags.updateTag({ name: 'author', content: author });
+
+    this.metaTags.updateTag({ property: 'og:title', content: title });
+    this.metaTags.updateTag({ property: 'og:description', content: description });
     this.metaTags.updateTag({ property: 'og:type', content: 'article' });
-    this.metaTags.updateTag({ property: 'og:url', content: `${env.WWW_HOST}/article/${this.article.slug}` });
-    this.metaTags.updateTag({ property: 'og:image', content: this.imagesService.getCroppedImageUrl(this.article.image.url, this.imagesService.ASPECT_RATIO.w16h9) });
+    this.metaTags.updateTag({ property: 'og:url', content: url });
+    this.metaTags.updateTag({ property: 'og:image', content: imageUrl });
     this.metaTags.updateTag({ property: 'og:image:width', content: '1024' });
     this.metaTags.updateTag({ property: 'og:image:height', content: '576' });
+
+    this.metaTags.updateTag({ property: 'article:published_time', content: title });
+    this.metaTags.updateTag({ property: 'article:author', content: author });
+    this.metaTags.updateTag({ property: 'article:section', content: this.article.category.title });
+    this.metaTags.updateTag({ property: 'article:tag', content: keywords });
+
+    this.metaTags.updateTag({ name: 'twitter:title', content: title });
+    this.metaTags.updateTag({ name: 'twitter:description', content: description });
+    this.metaTags.updateTag({ name: 'twitter:url', content: url });
+    this.metaTags.updateTag({ name: 'twitter:image', content: imageUrl });
   }
 }
