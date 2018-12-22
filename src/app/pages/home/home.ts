@@ -44,6 +44,7 @@ export class HomePage implements OnInit {
     this.useHomepageDataFromClientStorage = this.useHomepageDataFromClientStorage.bind(this);
     this.fetchHomepageData = this.fetchHomepageData.bind(this);
     this.updateMetaTags = this.updateMetaTags.bind(this);
+    this.updateCanonicalUrl = this.updateCanonicalUrl.bind(this);
   }
 
   ngOnInit() {
@@ -58,6 +59,7 @@ export class HomePage implements OnInit {
     }
 
     this.updateMetaTags();
+    this.updateCanonicalUrl();
   }
 
   useHomepageDataFromClientStorage() {
@@ -112,5 +114,11 @@ export class HomePage implements OnInit {
     this.metaTags.updateTag({ name: 'twitter:description', content: description });
     this.metaTags.updateTag({ name: 'twitter:url', content: url });
     this.metaTags.updateTag({ name: 'twitter:image', content: imageUrl });
+  }
+
+  updateCanonicalUrl() {
+    const canonicalUrl = env.WWW_HOST;
+
+    document.querySelector('link[rel="canonical"]').setAttribute('href', canonicalUrl);
   }
 }
