@@ -68,10 +68,12 @@ export class ContactsPage implements OnInit {
 
   constructor(private metaTags: Meta) {
     this.updateMetaTags = this.updateMetaTags.bind(this);
+    this.updateCanonicalUrl = this.updateCanonicalUrl.bind(this);
   }
 
   ngOnInit() {
     this.updateMetaTags();
+    this.updateCanonicalUrl();
   }
 
   updateMetaTags() {
@@ -102,5 +104,11 @@ export class ContactsPage implements OnInit {
     this.metaTags.updateTag({ name: 'twitter:description', content: description });
     this.metaTags.updateTag({ name: 'twitter:url', content: url });
     this.metaTags.updateTag({ name: 'twitter:image', content: imageUrl });
+  }
+
+  updateCanonicalUrl() {
+    const canonicalUrl = `${env.WWW_HOST}/contacts`;
+
+    document.querySelector('link[rel="canonical"]').setAttribute('href', canonicalUrl);
   }
 }

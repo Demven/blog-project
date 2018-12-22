@@ -129,6 +129,7 @@ export class ArticlePage implements OnInit, OnDestroy {
     this.onArticleRouteInit = this.onArticleRouteInit.bind(this);
     this.useArticleDataFromClientStorage = this.useArticleDataFromClientStorage.bind(this);
     this.updateMetaTags = this.updateMetaTags.bind(this);
+    this.updateCanonicalUrl = this.updateCanonicalUrl.bind(this);
   }
 
   ngOnInit() {
@@ -158,6 +159,7 @@ export class ArticlePage implements OnInit, OnDestroy {
         if (response.status === 200) {
           this.article = response.data;
           this.updateMetaTags();
+          this.updateCanonicalUrl();
           console.info('article data', this.article);
         } else {
           console.error('Could not get article data', response);
@@ -173,6 +175,7 @@ export class ArticlePage implements OnInit, OnDestroy {
     if (articleData) {
       this.article = articleData;
       this.updateMetaTags();
+      this.updateCanonicalUrl();
     }
   }
 
@@ -205,5 +208,11 @@ export class ArticlePage implements OnInit, OnDestroy {
     this.metaTags.updateTag({ name: 'twitter:description', content: description });
     this.metaTags.updateTag({ name: 'twitter:url', content: url });
     this.metaTags.updateTag({ name: 'twitter:image', content: imageUrl });
+  }
+
+  updateCanonicalUrl() {
+    const canonicalUrl = `${env.WWW_HOST}/article/${this.article.slug}`;
+
+    document.querySelector('link[rel="canonical"]').setAttribute('href', canonicalUrl);
   }
 }
