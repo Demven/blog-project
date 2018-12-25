@@ -1,5 +1,12 @@
-import { Component, HostBinding, OnInit, ViewEncapsulation } from '@angular/core';
-import { Meta } from '@angular/platform-browser';
+import {
+  Component,
+  HostBinding,
+  Inject,
+  OnInit,
+  ViewEncapsulation,
+} from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
+import { DOCUMENT } from '@angular/common';
 import { env } from '../../../environments';
 
 @Component({
@@ -65,20 +72,30 @@ import { env } from '../../../environments';
 })
 export class ContactsPage implements OnInit {
   @HostBinding('class.Contacts') rootClass = true;
+  private pageTitle = 'Contacts - Dmitry Salnikov';
 
-  constructor(private metaTags: Meta) {
+  constructor(
+    private metaTags: Meta,
+    private titleTag: Title,
+    @Inject(DOCUMENT) private document: Document
+   ) {
+    this.updatePageTitle = this.updatePageTitle.bind(this);
     this.updateMetaTags = this.updateMetaTags.bind(this);
     this.updateCanonicalUrl = this.updateCanonicalUrl.bind(this);
   }
 
   ngOnInit() {
+    this.updatePageTitle();
     this.updateMetaTags();
     this.updateCanonicalUrl();
   }
 
+  updatePageTitle() {
+    this.titleTag.setTitle(this.pageTitle);
+  }
+
   updateMetaTags() {
     const url = `${env.WWW_HOST}/contacts`;
-    const title = 'Contacts - Dmitry Salnikov';
     const description = 'My contact information';
     const keywords = 'Dmitry Salnikov, Tech, Science, Programming, Thoughts, JavaScript, CSS, HTML, Blog';
     const imageUrl = `${env.WWW_HOST}/public/images/contacts.jpg`;
@@ -87,7 +104,7 @@ export class ContactsPage implements OnInit {
     this.metaTags.updateTag({ name: 'keywords', content: keywords });
     this.metaTags.removeTag('name="author"');
 
-    this.metaTags.updateTag({ property: 'og:title', content: title });
+    this.metaTags.updateTag({ property: 'og:title', content: this.pageTitle });
     this.metaTags.updateTag({ property: 'og:description', content: description });
     this.metaTags.updateTag({ property: 'og:type', content: 'profile' });
     this.metaTags.updateTag({ property: 'og:url', content: url });
@@ -100,7 +117,7 @@ export class ContactsPage implements OnInit {
     this.metaTags.removeTag('property="article:section"');
     this.metaTags.removeTag('property="article:tag"');
 
-    this.metaTags.updateTag({ name: 'twitter:title', content: title });
+    this.metaTags.updateTag({ name: 'twitter:title', content: this.pageTitle });
     this.metaTags.updateTag({ name: 'twitter:description', content: description });
     this.metaTags.updateTag({ name: 'twitter:url', content: url });
     this.metaTags.updateTag({ name: 'twitter:image', content: imageUrl });
@@ -108,7 +125,7 @@ export class ContactsPage implements OnInit {
 
   updateCanonicalUrl() {
     const canonicalUrl = `${env.WWW_HOST}/contacts`;
-
-    document.querySelector('link[rel="canonical"]').setAttribute('href', canonicalUrl);
+    const link:HTMLLinkElement = this.document.querySelector('link[rel="canonical"]');
+    link.setAttribute('href', canonicalUrl);
   }
 }

@@ -1,16 +1,15 @@
 import {
+  Inject,
   Component,
   OnInit,
-  OnDestroy,
   HostBinding,
   ViewEncapsulation,
 } from '@angular/core';
-import { Meta } from '@angular/platform-browser';
-import { ActivatedRoute, Params } from '@angular/router';
+import { Title, Meta } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
+import { DOCUMENT } from '@angular/common';
 import { select } from '@angular-redux/store';
 import { Observable } from 'rxjs';
-import axios from 'axios';
-import clientStorage, { STORAGE_KEY } from '../../services/clientStorage';
 import { ImagesService } from '../../services/images.service';
 import { env } from '../../../environments';
 
@@ -19,7 +18,7 @@ class Keyword {
   slug: string;
 }
 
-class ArticleModel {
+export class ArticleModel {
   slug: string;
   title: string;
   description: string;
@@ -41,7 +40,7 @@ class ArticleModel {
   body: Array<any>;
 }
 
-const DEFAULT_ARTICLE: ArticleModel = {
+export const DEFAULT_ARTICLE: ArticleModel = {
   slug: '',
   title: '',
   description: '',
@@ -111,13 +110,11 @@ const DEFAULT_ARTICLE: ArticleModel = {
   `,
   encapsulation: ViewEncapsulation.None,
 })
-export class ArticlePage implements OnInit, OnDestroy {
+export class ArticlePage implements OnInit {
   @HostBinding('class.ArticlePage') rootClass = true;
 
   slug: string;
   article: ArticleModel = DEFAULT_ARTICLE;
-  previewMode = false;
-  private routerParamsListener: any;
 
   @select(state => state.ui.articleTitleIsVisible) readonly articleTitleIsVisible$: Observable<boolean>;
 
@@ -125,58 +122,26 @@ export class ArticlePage implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     public imagesService: ImagesService,
     private metaTags: Meta,
+    private titleTag: Title,
+    @Inject(DOCUMENT) private document: Document
   ) {
-    this.onArticleRouteInit = this.onArticleRouteInit.bind(this);
-    this.useArticleDataFromClientStorage = this.useArticleDataFromClientStorage.bind(this);
+    this.updatePageTitle = this.updatePageTitle.bind(this);
     this.updateMetaTags = this.updateMetaTags.bind(this);
     this.updateCanonicalUrl = this.updateCanonicalUrl.bind(this);
   }
 
   ngOnInit() {
-    if (typeof window !== 'undefined') {
-      this.previewMode = window.location.pathname === '/article/preview';
-    }
+    this.article = this.route.snapshot.data['article'];
 
-    if (this.previewMode) {
-      this.useArticleDataFromClientStorage();
-    } else {
-      this.routerParamsListener = this.route.params.subscribe(this.onArticleRouteInit);
-    }
+    console.info('data', this.article);
+
+    this.updatePageTitle();
+    this.updateMetaTags();
+    this.updateCanonicalUrl();
   }
 
-  ngOnDestroy() {
-    if (!this.previewMode) {
-      this.routerParamsListener.unsubscribe();
-    }
-  }
-
-  onArticleRouteInit(routeParams: Params) {
-    this.slug = routeParams['slug'];
-
-    axios
-      .get(`/api/v1/article/${this.slug}`)
-      .then(response => {
-        if (response.status === 200) {
-          this.article = response.data;
-          this.updateMetaTags();
-          this.updateCanonicalUrl();
-          console.info('article data', this.article);
-        } else {
-          console.error('Could not get article data', response);
-        }
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  }
-
-  useArticleDataFromClientStorage() {
-    const articleData = clientStorage.get(STORAGE_KEY.ARTICLE_DATA);
-    if (articleData) {
-      this.article = articleData;
-      this.updateMetaTags();
-      this.updateCanonicalUrl();
-    }
+  updatePageTitle() {
+    this.titleTag.setTitle(this.article.title);
   }
 
   updateMetaTags() {
@@ -212,7 +177,7 @@ export class ArticlePage implements OnInit, OnDestroy {
 
   updateCanonicalUrl() {
     const canonicalUrl = `${env.WWW_HOST}/article/${this.article.slug}`;
-
-    document.querySelector('link[rel="canonical"]').setAttribute('href', canonicalUrl);
+    const link:HTMLLinkElement = this.document.querySelector('link[rel="canonical"]');
+    link.setAttribute('href', canonicalUrl);
   }
 }
