@@ -1,13 +1,14 @@
 import {
   Component,
   HostBinding,
+  Inject,
   OnInit,
   ViewEncapsulation,
 } from '@angular/core';
-import { Meta } from '@angular/platform-browser';
-import axios from 'axios';
-import { HomepageSection } from './homepage-section/homepage-section'; // import of model, not component
-import clientStorage, { STORAGE_KEY } from '../../services/clientStorage';
+import { DOCUMENT } from '@angular/common';
+import { Meta, Title } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
+import { HomepageSection } from './homepage-section/homepage-section';
 import { env } from '../../../environments';
 
 export class Category {
@@ -38,57 +39,40 @@ export class HomePage implements OnInit {
 
   homepageSections: Array<HomepageSection>;
   categories: Array<Category>;
-  previewMode = false;
 
-  constructor(private metaTags: Meta) {
-    this.useHomepageDataFromClientStorage = this.useHomepageDataFromClientStorage.bind(this);
-    this.fetchHomepageData = this.fetchHomepageData.bind(this);
+  private pageTitle = 'Dmitry Salnikov - Personal Blog';
+
+  constructor(
+    private route: ActivatedRoute,
+    private metaTags: Meta,
+    private titleTag: Title,
+    @Inject(DOCUMENT) private document: Document
+  ) {
+    this.updatePageTitle = this.updatePageTitle.bind(this);
     this.updateMetaTags = this.updateMetaTags.bind(this);
     this.updateCanonicalUrl = this.updateCanonicalUrl.bind(this);
   }
 
   ngOnInit() {
-    if (typeof window !== 'undefined') {
-      this.previewMode = window.location.pathname === '/homepage/preview';
+    this.homepageSections = this.route.snapshot.data['homepageSections'];
+
+    console.info('data', this.homepageSections);
+
+    if (this.homepageSections && this.homepageSections.length) {
+      this.categories = this.homepageSections.map(section => section.category);
     }
 
-    if (this.previewMode) {
-      this.useHomepageDataFromClientStorage();
-    } else {
-      this.fetchHomepageData();
-    }
-
+    this.updatePageTitle();
     this.updateMetaTags();
     this.updateCanonicalUrl();
   }
 
-  useHomepageDataFromClientStorage() {
-    const homepageData: Array<HomepageSection> = clientStorage.get(STORAGE_KEY.HOMEPAGE_DATA);
-
-    if (homepageData && homepageData.length > 0) {
-      this.homepageSections = homepageData;
-    }
-  }
-
-  fetchHomepageData() {
-    axios
-      .get(`${env.WWW_HOST}/api/v1/homepage-section`)
-      .then(response => {
-        if (response.status === 200) {
-          this.homepageSections = response.data;
-          this.categories = this.homepageSections.map(section => section.category);
-        } else {
-          console.error('Could not get homepage sections', response);
-        }
-      })
-      .catch(error => {
-        console.error(error);
-      });
+  updatePageTitle() {
+    this.titleTag.setTitle(this.pageTitle);
   }
 
   updateMetaTags() {
     const url = env.WWW_HOST;
-    const title = 'Dmitry Salnikov - Personal Blog';
     const description = 'Personal blog about robotics, programming, philosophy and psychology';
     const keywords = 'Dmitry Salnikov, Tech, Science, Programming, Thoughts, JavaScript, CSS, HTML, Blog';
     const imageUrl = `${env.WWW_HOST}/assets/images/share-logo.jpg`;
@@ -97,7 +81,7 @@ export class HomePage implements OnInit {
     this.metaTags.updateTag({ name: 'keywords', content: keywords });
     this.metaTags.removeTag('name="author"');
 
-    this.metaTags.updateTag({ property: 'og:title', content: title });
+    this.metaTags.updateTag({ property: 'og:title', content: this.pageTitle });
     this.metaTags.updateTag({ property: 'og:description', content: description });
     this.metaTags.updateTag({ property: 'og:type', content: 'website' });
     this.metaTags.updateTag({ property: 'og:url', content: url });
@@ -110,7 +94,7 @@ export class HomePage implements OnInit {
     this.metaTags.removeTag('property="article:section"');
     this.metaTags.removeTag('property="article:tag"');
 
-    this.metaTags.updateTag({ name: 'twitter:title', content: title });
+    this.metaTags.updateTag({ name: 'twitter:title', content: this.pageTitle });
     this.metaTags.updateTag({ name: 'twitter:description', content: description });
     this.metaTags.updateTag({ name: 'twitter:url', content: url });
     this.metaTags.updateTag({ name: 'twitter:image', content: imageUrl });
@@ -118,7 +102,7 @@ export class HomePage implements OnInit {
 
   updateCanonicalUrl() {
     const canonicalUrl = env.WWW_HOST;
-
-    document.querySelector('link[rel="canonical"]').setAttribute('href', canonicalUrl);
+    const link:HTMLLinkElement = this.document.querySelector('link[rel="canonical"]');
+    link.setAttribute('href', canonicalUrl);
   }
 }

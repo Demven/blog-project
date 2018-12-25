@@ -1,4 +1,5 @@
-import { Component, HostBinding, ViewEncapsulation } from '@angular/core';
+import { Component, HostBinding, OnInit, ViewEncapsulation } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'ds-page-home',
@@ -11,6 +12,18 @@ import { Component, HostBinding, ViewEncapsulation } from '@angular/core';
   `,
   encapsulation: ViewEncapsulation.None,
 })
-export class Page404 {
+export class Page404 implements OnInit {
   @HostBinding('class.Page404') rootClass = true;
+
+  constructor(private titleTag: Title) {
+    this.updatePageTitle = this.updatePageTitle.bind(this);
+  }
+
+  ngOnInit() {
+    this.updatePageTitle();
+  }
+
+  updatePageTitle() {
+    this.titleTag.setTitle('Page Not Found');
+  }
 }

@@ -9,23 +9,49 @@ import { Page404 } from './pages/page404/page404';
 import { LoginPage } from './pages/login/login';
 import { LogoutPage } from './pages/logout/logout';
 import { CanActivateGuard } from './services/can-activate-guard.service';
+import { HomepageDataResolverService } from './services/data-resolvers/homepage-data-resolver.service';
+import { ArticleDataResolverService } from './services/data-resolvers/article-data-resolver.service';
 
 const appRoutes: Routes = [
-  { path: '', component: HomePage },
+  {
+    path: '',
+    component: HomePage,
+    resolve: {
+      homepageSections: HomepageDataResolverService
+    }
+  },
   {
     path: 'homepage/edit',
     component: EditHomePage,
     canActivate: [CanActivateGuard],
   },
-  { path: 'homepage/preview', component: HomePage },
+  {
+    path: 'homepage/preview',
+    component: HomePage,
+    resolve: {
+      homepageSections: HomepageDataResolverService
+    }
+  },
   { path: 'homepage', redirectTo: '' },
   {
     path: 'article/new',
     component: EditArticlePage,
     canActivate: [CanActivateGuard],
   },
-  { path: 'article/preview', component: ArticlePage },
-  { path: 'article/:slug', component: ArticlePage },
+  {
+    path: 'article/preview',
+    component: ArticlePage,
+    resolve: {
+      article: ArticleDataResolverService
+    }
+  },
+  {
+    path: 'article/:slug',
+    component: ArticlePage,
+    resolve: {
+      article: ArticleDataResolverService
+    }
+  },
   {
     path: 'article/:slug/edit',
     component: EditArticlePage,

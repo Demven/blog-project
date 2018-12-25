@@ -3,7 +3,9 @@ import {
   HostBinding,
   EventEmitter,
   ViewEncapsulation,
+  OnInit,
 } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 
@@ -56,16 +58,29 @@ import { UserService } from '../../services/user.service';
   `,
   encapsulation: ViewEncapsulation.None,
 })
-export class LoginPage {
+export class LoginPage implements OnInit {
   @HostBinding('class.LoginPage') rootClass = true;
 
   username = '';
   password = '';
   toastMessageEmmiter: EventEmitter<string> = new EventEmitter();
 
-  constructor(private router: Router, private userService: UserService) {
+  constructor(
+    private router: Router,
+    private userService: UserService,
+    private titleTag: Title
+  ) {
+    this.updatePageTitle = this.updatePageTitle.bind(this);
     this.onFieldChange = this.onFieldChange.bind(this);
     this.onEnterKey = this.onEnterKey.bind(this);
+  }
+
+  ngOnInit() {
+    this.updatePageTitle();
+  }
+
+  updatePageTitle() {
+    this.titleTag.setTitle('Enter the God Mode');
   }
 
   onFieldChange({ name, value }: { name: string, value: string }) {
