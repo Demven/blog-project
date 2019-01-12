@@ -13,6 +13,8 @@ import { env } from '../../../environments';
   selector: 'ds-page-contacts',
   styleUrls: ['./contacts.scss'],
   template: `
+    <ds-analytics-yandex></ds-analytics-yandex>
+    
     <ds-modal>
       <div class="Contacts__modal-content">
         <ds-label [title]="'Contacts'" [blue]="true"></ds-label>

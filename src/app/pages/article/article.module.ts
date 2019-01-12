@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CommonModule as CommonComponentsModule } from '../../common/common.module';
+import { InViewportModule } from 'ng-in-viewport';
 import { ArticlePage } from './article';
 import { ArticleNav } from './article-nav/article-nav';
 import { ArticleHeader } from './article-header/article-header';
+import { ArticleVisibilitySensor } from './article-visibility-sensor/article-visibility-sensor';
 import { ArticleBody } from './article-body/article-body';
 import { ArticleBodyNode } from './article-body/article-body-node';
 import { ArticleText } from './article-text/article-text';
@@ -18,11 +20,13 @@ import { ArticleCode } from './article-code/article-code';
   imports: [
     CommonModule,
     CommonComponentsModule,
+    InViewportModule,
   ],
   declarations: [
     ArticlePage,
     ArticleNav,
     ArticleHeader,
+    ArticleVisibilitySensor,
     ArticleBody,
     ArticleBodyNode,
     ArticleText,

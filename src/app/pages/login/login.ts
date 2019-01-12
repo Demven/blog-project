@@ -13,6 +13,8 @@ import { UserService } from '../../services/user.service';
   selector: 'ds-page-login',
   styleUrls: ['./login.scss'],
   template: `
+    <ds-analytics-yandex></ds-analytics-yandex>
+    
     <ds-modal>
       <div class="LoginPage__modal-content">
         <ds-label [title]="'Login'" [green]="true"></ds-label>
