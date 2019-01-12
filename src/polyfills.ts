@@ -78,3 +78,5 @@ import 'zone.js/dist/zone';  // Included with Angular CLI.
 /***************************************************************************************************
  * APPLICATION IMPORTS
  */
+
+import 'intersection-observer'; // Required by ng-in-viewport for old browsers support, including IE11

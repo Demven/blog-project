@@ -21,6 +21,7 @@ export class Category {
   selector: 'ds-page-home',
   styleUrls: ['./home.scss'],
   template: `
+    <ds-analytics-yandex></ds-analytics-yandex>
     <ds-navbar [categories]="categories"></ds-navbar>
     
     <div class="HomePage__content">

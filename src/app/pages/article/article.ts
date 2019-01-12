@@ -12,6 +12,7 @@ import { select } from '@angular-redux/store';
 import { Observable } from 'rxjs';
 import { ImagesService } from '../../services/images.service';
 import { env } from '../../../environments';
+import { sendYandexEvent, EVENT_ID } from '../../common/analytics/yandex';
 
 class Keyword {
   name: string;
@@ -66,13 +67,18 @@ export const DEFAULT_ARTICLE: ArticleModel = {
   selector: 'ds-page-article',
   styleUrls: ['./article.scss'],
   template: `
+    <ds-analytics-yandex></ds-analytics-yandex>
+    
     <ds-article-nav
       [title]="article.title"
+      [slug]="article.slug"
       [open]="!(articleTitleIsVisible$ | async)"
     ></ds-article-nav>
+    
     <ds-modal
       [flat]="true"
       [allSpaceOnMobile]="true"
+      (close)="onModalClose()"
     >
       <div class="ArticlePage__modal-content">
         <ds-label
@@ -96,6 +102,8 @@ export const DEFAULT_ARTICLE: ArticleModel = {
         />
         
         <div class="ArticlePage__content-container">
+          <ds-article-visibility-sensor [slug]="article.slug"></ds-article-visibility-sensor>
+          
           <ds-article-header
             [title]="article.title"
             [description]="article.description"
@@ -128,6 +136,7 @@ export class ArticlePage implements OnInit {
     this.updatePageTitle = this.updatePageTitle.bind(this);
     this.updateMetaTags = this.updateMetaTags.bind(this);
     this.updateCanonicalUrl = this.updateCanonicalUrl.bind(this);
+    this.onModalClose = this.onModalClose.bind(this);
   }
 
   ngOnInit() {
@@ -179,5 +188,9 @@ export class ArticlePage implements OnInit {
     const canonicalUrl = `${env.WWW_HOST}/article/${this.article.slug}`;
     const link:HTMLLinkElement = this.document.querySelector('link[rel="canonical"]');
     link.setAttribute('href', canonicalUrl);
+  }
+
+  onModalClose() {
+    sendYandexEvent(EVENT_ID.ARTICLE_CLOSE_BUTTON, { article: this.article.slug });
   }
 }

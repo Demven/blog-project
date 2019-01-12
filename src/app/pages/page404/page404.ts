@@ -5,6 +5,8 @@ import { Title } from '@angular/platform-browser';
   selector: 'ds-page-home',
   styleUrls: ['./page404.scss'],
   template: `
+    <ds-analytics-yandex></ds-analytics-yandex>
+    
     <div class="Page404__content">
       <h1>404</h1>
       <h2>Page Not Found</h2>

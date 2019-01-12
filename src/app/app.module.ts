@@ -17,6 +17,7 @@ import initialAppState, { IAppState } from './redux/InitialAppState';
 import { AppComponent } from './app.component';
 import { AppRouterModule } from './app-router.module';
 import { CommonModule as CommonComponentsModule } from './common/common.module';
+import { InViewportModule } from 'ng-in-viewport';
 import { ArticleModule } from './pages/article/article.module';
 import { HomeModule } from './pages/home/home.module';
 import { ContactsModule } from './pages/contacts/contacts.module';
@@ -52,6 +53,7 @@ if (typeof window !== 'undefined') {
     HttpClientModule,
     AppRouterModule,
     NgReduxModule,
+    InViewportModule,
     CommonModule,
     CommonComponentsModule,
     ArticleModule,

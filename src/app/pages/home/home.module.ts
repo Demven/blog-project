@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CommonModule as CommonComponentsModule } from '../../common/common.module';
+import { InViewportModule } from 'ng-in-viewport';
 import { HomePage } from './home';
 import { HomepageSectionComponent } from './homepage-section/homepage-section';
 import { HomepageSectionArticleComponent } from './homepage-section/homepage-section-article/homepage-section-article';
@@ -9,6 +10,7 @@ import { HomepageSectionArticleComponent } from './homepage-section/homepage-sec
   imports: [
     CommonModule,
     CommonComponentsModule,
+    InViewportModule,
   ],
   declarations: [
     HomePage,

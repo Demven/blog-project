@@ -8,6 +8,7 @@ const envConfigFile = `
 export const env = {
   NODE_ENV: '${process.env.NODE_ENV}',
   WWW_HOST: '${process.env.WWW_HOST}',
+  YANDEX_ID: '${process.env.YANDEX_ID}',
 };
 `;
 
