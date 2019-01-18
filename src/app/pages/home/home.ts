@@ -57,7 +57,9 @@ export class HomePage implements OnInit {
   ngOnInit() {
     this.homepageSections = this.route.snapshot.data['homepageSections'];
 
-    console.info('data', this.homepageSections);
+    if (typeof window !== 'undefined') {
+      console.info('data', this.homepageSections);
+    }
 
     if (this.homepageSections && this.homepageSections.length) {
       this.categories = this.homepageSections.map(section => section.category);

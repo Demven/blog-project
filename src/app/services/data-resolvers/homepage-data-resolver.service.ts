@@ -46,8 +46,7 @@ export class HomepageDataResolverService implements Resolve<Array<HomepageSectio
       .get<Array<HomepageSection>>(`${env.WWW_HOST}/api/v1/homepage-section`)
       .toPromise()
       .catch(error => {
-        console.error(error);
-        return [];
+        throw new Error(`API request /api/v1/homepage-section failed: ${error.message}`);
       });
   }
 }

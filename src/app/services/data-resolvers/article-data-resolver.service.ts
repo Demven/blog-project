@@ -48,8 +48,7 @@ export class ArticleDataResolverService implements Resolve<ArticleModel> {
       .get<ArticleModel>(`${env.WWW_HOST}/api/v1/article/${slug}`)
       .toPromise()
       .catch(error => {
-        console.error(error);
-        return DEFAULT_ARTICLE;
+        throw new Error(`API request /api/v1/article/${slug} failed: ${error.message}`);
       });
   }
 }

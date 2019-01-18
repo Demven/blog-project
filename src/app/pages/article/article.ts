@@ -142,7 +142,9 @@ export class ArticlePage implements OnInit {
   ngOnInit() {
     this.article = this.route.snapshot.data['article'];
 
-    console.info('data', this.article);
+    if (typeof window !== 'undefined') {
+      console.info('data', this.article);
+    }
 
     this.updatePageTitle();
     this.updateMetaTags();

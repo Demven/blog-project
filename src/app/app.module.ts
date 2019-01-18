@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import {
   BrowserModule,
   Title,
@@ -7,6 +7,7 @@ import {
 import { HttpClientModule } from '@angular/common/http';
 import { NgReduxModule, NgRedux } from '@angular-redux/store';
 import { CommonModule } from '@angular/common';
+import { BrowserClient } from '@sentry/browser';
 import {
   applyMiddleware,
   Store,
@@ -34,6 +35,7 @@ import { CodeHighlightService } from './services/code-highlight.service';
 import { CanActivateGuard } from './services/can-activate-guard.service';
 import { HomepageDataResolverService } from './services/data-resolvers/homepage-data-resolver.service';
 import { ArticleDataResolverService } from './services/data-resolvers/article-data-resolver.service';
+import { ErrorLogger } from './services/error-logger';
 import { env } from '../environments';
 
 const store:Store<any> = createStore(
@@ -69,6 +71,7 @@ if (typeof window !== 'undefined') {
     AppComponent,
   ],
   providers: [
+    { provide: ErrorHandler, useFactory: ErrorLogger.initWith(BrowserClient, env.SENTRY_DSN_CLIENT) },
     UserService,
     ImagesService,
     MarkdownService,

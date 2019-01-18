@@ -4,18 +4,16 @@ import Article from '../../dal/models/article';
 
 const router = expressRouter();
 
-router.get('/', (req:Request, res:Response) => {
+router.get('/', (req:Request, res:Response, next) => {
   Category
     .find()
     .then(categories => {
       res.json(categories);
     })
-    .catch(err => {
-      res.status(500).send(err);
-    });
+    .catch(error => next(error));
 });
 
-router.get('/:categorySlug/articles', (req:Request, res:Response) => {
+router.get('/:categorySlug/articles', (req:Request, res:Response, next) => {
   const categorySlug:string = req.params.categorySlug;
   const title = req.query.title || '';
   const limit = req.query.limit ? parseInt(req.query.limit, 10) : 5;
@@ -43,16 +41,12 @@ router.get('/:categorySlug/articles', (req:Request, res:Response) => {
               res.sendStatus(404);
             }
           })
-          .catch(err => {
-            res.status(500).send(err);
-          });
+          .catch(error => next(error));
       } else {
         res.status(404).send('Category with such slug does not exist');
       }
     })
-    .catch(err => {
-      res.status(500).send(err);
-    });
+    .catch(error => next(error));
 });
 
 export default router;
