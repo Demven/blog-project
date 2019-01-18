@@ -9,6 +9,8 @@ export const env = {
   NODE_ENV: '${process.env.NODE_ENV}',
   WWW_HOST: '${process.env.WWW_HOST}',
   YANDEX_ID: '${process.env.YANDEX_ID}',
+  SENTRY_DSN_SERVER: '${process.env.SENTRY_DSN_SERVER}',
+  SENTRY_DSN_CLIENT: '${process.env.SENTRY_DSN_CLIENT}',
 };
 `;
 

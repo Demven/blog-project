@@ -6,7 +6,7 @@ import { authorization, processAuthError } from '../authorization';
 
 const router = expressRouter();
 
-router.get('/', (req:Request, res:Response) => {
+router.get('/', (req:Request, res:Response, next) => {
   const search = req.query.search || '';
   const limit = req.query.limit ? parseInt(req.query.limit, 10) : 5;
 
@@ -22,12 +22,10 @@ router.get('/', (req:Request, res:Response) => {
     .then(keywords => {
       res.json(keywords);
     })
-    .catch(err => {
-      res.status(500).send(err);
-    });
+    .catch(error => next(error));
 });
 
-router.get('/:keywordSlug/articles', (req:Request, res:Response) => {
+router.get('/:keywordSlug/articles', (req:Request, res:Response, next) => {
   const keywordSlug:string = req.params.keywordSlug;
   const name = req.query.name || '';
   const limit = req.query.limit ? parseInt(req.query.limit, 10) : 5;
@@ -55,19 +53,15 @@ router.get('/:keywordSlug/articles', (req:Request, res:Response) => {
               res.sendStatus(404);
             }
           })
-          .catch(err => {
-            res.status(500).send(err);
-          });
+          .catch(error => next(error));
       } else {
         res.status(404).send('Keyword with such slug does not exist');
       }
     })
-    .catch(err => {
-      res.status(500).send(err);
-    });
+    .catch(error => next(error));
 });
 
-router.post('/', authorization, processAuthError, (req:Request, res:Response) => {
+router.post('/', authorization, processAuthError, (req:Request, res:Response, next) => {
   const name = req.body.keyword;
 
   if (name) {
@@ -88,9 +82,7 @@ router.post('/', authorization, processAuthError, (req:Request, res:Response) =>
                 res.sendStatus(500);
               }
             })
-            .catch((err:Error) => {
-              res.status(500).send(err);
-            });
+            .catch(error => next(error));
         }
       });
   } else {

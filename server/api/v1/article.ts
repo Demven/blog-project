@@ -8,7 +8,7 @@ import { authorization, processAuthError } from '../authorization';
 
 const router = expressRouter();
 
-router.get('/:slug', (req:Request, res:Response) => {
+router.get('/:slug', (req:Request, res:Response, next) => {
   const slug:string = req.params.slug;
   const ignorePageView = req.query.ignore ? req.query.ignore === 'pageview' : false;
 
@@ -45,12 +45,10 @@ router.get('/:slug', (req:Request, res:Response) => {
         res.sendStatus(404);
       }
     })
-    .catch(err => {
-      res.status(500).send(err);
-    });
+    .catch(error => next(error));
 });
 
-router.post('/', authorization, processAuthError, (req:Request, res:Response) => {
+router.post('/', authorization, processAuthError, (req:Request, res:Response, next) => {
   const article = req.body;
   const createMainImage = () => Image.create(article.image);
   const createViewsCount = () => ViewsCount.create({ count: 0 });
@@ -68,10 +66,8 @@ router.post('/', authorization, processAuthError, (req:Request, res:Response) =>
             .then((image:Object) => {
               if (image) {
                 // reuse existing image
-                console.info('Reuse existing image');
                 return image;
               } else {
-                console.info('Create a new image');
                 return createMainImage();
               }
             });
@@ -90,14 +86,10 @@ router.post('/', authorization, processAuthError, (req:Request, res:Response) =>
                   res.sendStatus(500);
                 }
               })
-              .catch((err:Error) => {
-                res.status(500).send(err);
-              });
+              .catch(error => next(error));
           });
       })
-      .catch((err:Error) => {
-        res.status(500).send(err);
-      });
+      .catch(error => next(error));
   } else {
     // create
     article.slug = generateSlug(article.title).toLowerCase();
@@ -120,9 +112,7 @@ router.post('/', authorization, processAuthError, (req:Request, res:Response) =>
               res.sendStatus(500);
             }
           })
-          .catch((err:Error) => {
-            res.status(500).send(err);
-          });
+          .catch(error => next(error));
       });
   }
 });

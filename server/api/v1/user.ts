@@ -21,7 +21,7 @@ function decodeToken(token:string) {
   return decodedPayload;
 }
 
-router.post('/login', (req:Request, res:Response) => {
+router.post('/login', (req:Request, res:Response, next) => {
   const name = req.body.name;
   const password = req.body.password;
 
@@ -39,9 +39,7 @@ router.post('/login', (req:Request, res:Response) => {
         return res.status(400).send('Wrong name or password!');
       }
     })
-    .catch(error => {
-      res.status(500).send(error);
-    });
+    .catch(error => next(error));
 });
 
 router.post('/validate', (req:Request, res:Response) => {

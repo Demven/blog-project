@@ -33,6 +33,8 @@
     "@angular/router": "6.1.7",
     "@nguniversal/express-engine": "6.1.0",
     "@nguniversal/module-map-ngfactory-loader": "6.1.0",
+    "@sentry/browser": "4.5.0",
+    "@sentry/node": "4.5.0",
     "axios": "0.18.0",
     "bluebird": "3.5.1",
     "body-parser": "1.18.3",

@@ -6,7 +6,7 @@ import { authorization, processAuthError } from '../authorization';
 
 const router = expressRouter();
 
-router.get('/', (req, res) => {
+router.get('/', (req:Request, res:Response, next) => {
   HomepageSection
     .find()
     .sort({ order: 'asc' })
@@ -24,12 +24,10 @@ router.get('/', (req, res) => {
         res.sendStatus(500);
       }
     })
-    .catch(err => {
-      res.status(500).send(err);
-    });
+    .catch(error => next(error));
 });
 
-router.post('/', authorization, processAuthError, (req:Request, res:Response) => {
+router.post('/', authorization, processAuthError, (req:Request, res:Response, next) => {
   const homepageSection = req.body;
 
   if (!homepageSection.articles || homepageSection.articles.length !== 5) {
@@ -54,9 +52,7 @@ router.post('/', authorization, processAuthError, (req:Request, res:Response) =>
           }
         });
     })
-    .catch(err => {
-      res.status(500).send(err);
-    });
+    .catch(error => next(error));
 });
 
 export default router;
