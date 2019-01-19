@@ -37,7 +37,13 @@ router.post('/', authorization, processAuthError, (req:Request, res:Response, ne
   }
 
   function findHomepageArticles(articles: Array<any>) {
-    return Promise.map(articles, (article:any) => Article.findById(article._id));
+    return Promise.map(articles, (article:any) => {
+      return new Promise(resolve => {
+        Article
+          .findById(article._id)
+          .then(resolve);
+      });
+    });
   }
 
   return findHomepageArticles(homepageSection.articles)
