@@ -14,13 +14,15 @@ export class MathJaxService {
   }
 
   renderEquation(selector:string) {
-    const mathJax:any = (<any>window).MathJax;
+    if (typeof window !== 'undefined') {
+      const mathJax: any = (<any>window).MathJax;
 
-    if (mathJax) {
-      mathJax.Hub.Queue(['Typeset', mathJax.Hub, document.querySelector(selector)]);
-    } else if (!this.loading) {
-      this.selectors.push(selector);
-      this.loadMathJax();
+      if (mathJax) {
+        mathJax.Hub.Queue(['Typeset', mathJax.Hub, document.querySelector(selector)]);
+      } else if (!this.loading) {
+        this.selectors.push(selector);
+        this.loadMathJax();
+      }
     }
   }
 

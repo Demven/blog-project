@@ -13,12 +13,14 @@ export class CodeHighlightService {
   }
 
   renderCode() {
-    const rainbow:any = (<any>window).Rainbow;
+    if (typeof window !== 'undefined') {
+      const rainbow:any = (<any>window).Rainbow;
 
-    if (rainbow) {
-      rainbow.color();
-    } else if (!this.loading) {
-      this.loadRainbow();
+      if (rainbow) {
+        rainbow.color();
+      } else if (!this.loading) {
+        this.loadRainbow();
+      }
     }
   }
 
