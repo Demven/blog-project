@@ -25,14 +25,14 @@ export class ErrorLogger implements ErrorHandler {
   }
 
   handleError(error: any): void {
+    console.error('ErrorLogger caught error:', error.message);
+
     if (env.NODE_ENV === 'production') {
       if (!this.initialized) {
         this.initialize();
       }
 
       this.logger.captureException(error.originalError || error);
-
-      console.error('ErrorLogger caught error:', error.message);
     } else {
       throw error; // for default behaviour rather than silently dying
     }
