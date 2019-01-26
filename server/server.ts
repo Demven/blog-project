@@ -12,6 +12,7 @@ import apiV1Router from './api/v1';
 import { enableProdMode } from '@angular/core';
 import { ngExpressEngine } from '@nguniversal/express-engine';
 import { provideModuleMap } from '@nguniversal/module-map-ngfactory-loader';
+import robots from './middleware/robots';
 
 enableProdMode();
 
@@ -45,6 +46,7 @@ app.set('views', `${DIST_FOLDER}/client`);
 
 app.get('*.*', express.static(`${DIST_FOLDER}/client`));
 
+app.use(robots());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());

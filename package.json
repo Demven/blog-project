@@ -45,6 +45,7 @@
     "envkey": "1.2.4",
     "express": "4.16.4",
     "express-jwt": "5.3.1",
+    "express-robots": "0.1.6",
     "intersection-observer": "0.5.1",
     "jsonwebtoken": "8.4.0",
     "moment": "2.23.0",
