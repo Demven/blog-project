@@ -31,7 +31,7 @@ function fetchArticles():Promise<SitemapUrl[]> {
       .exec()
       .then(articles => {
         const urls: SitemapUrl[] = articles.map((article:any) => ({
-          url: `${WWW_HOST}/${article.slug}`,
+          url: `${WWW_HOST}/article/${article.slug}`,
           lastmodISO: article.last_updated.toISOString(),
           img: {
             url: article.image ? article.image.url : '',
