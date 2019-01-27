@@ -28,6 +28,7 @@ function fetchArticles():Promise<SitemapUrl[]> {
     Article
       .find({}, 'slug image last_updated')
       .populate('image')
+      .sort({ last_updated: 'desc' })
       .exec()
       .then(articles => {
         const urls: SitemapUrl[] = articles.map((article:any) => ({
