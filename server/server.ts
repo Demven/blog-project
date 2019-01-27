@@ -13,6 +13,7 @@ import { enableProdMode } from '@angular/core';
 import { ngExpressEngine } from '@nguniversal/express-engine';
 import { provideModuleMap } from '@nguniversal/module-map-ngfactory-loader';
 import robots from './middleware/robots';
+import generateSitemap from './middleware/sitemap';
 
 enableProdMode();
 
@@ -45,6 +46,7 @@ app.set('views', `${DIST_FOLDER}/client`);
 // });
 
 app.get('*.*', express.static(`${DIST_FOLDER}/client`));
+app.get('/sitemap.xml', generateSitemap);
 
 app.use(robots());
 app.use(bodyParser.json());
