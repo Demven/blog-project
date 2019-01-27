@@ -85,5 +85,6 @@ export default function generateSitemap(req, res, next) {
         res.header('Content-Type', 'application/xml');
         res.send(xml);
       });
-    });
+    })
+    .catch(error => next(error));
 }
