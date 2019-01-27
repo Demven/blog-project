@@ -55,6 +55,7 @@
     "ng-in-viewport": "6.0.3",
     "redux": "4.0.1",
     "rxjs": "6.3.3",
+    "sitemap": "2.1.0",
     "slug": "0.9.3",
     "zone.js": "0.8.28"
   },
