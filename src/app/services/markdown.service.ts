@@ -30,7 +30,7 @@ function formatItalic(text:string):string {
 
 @Injectable()
 export class MarkdownService {
-  format(text:string):string {
+  format(text:string = ''):string {
     const subscript = formatSubscript(text);
     const superscript = formatSuperscript(subscript);
     const links = formatLinks(superscript);
