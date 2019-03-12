@@ -8,7 +8,6 @@ export default function() {
         '/client/',
         '/api/',
         '/login',
-        '/article/new',
       ]
     }
   ]);
