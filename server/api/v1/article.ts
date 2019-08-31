@@ -27,9 +27,6 @@ router.get('/:slug', (req:Request, res:Response, next) => {
         .findOneAndUpdate({ _id: views._id }, { $inc: { 'count': 1 } })
         .exec();
 
-      // don't wait for ViewsCount to update
-      // just return the article
-      article.views.count = views.count + 1;
       return article;
     }
 

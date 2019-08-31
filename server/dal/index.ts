@@ -10,10 +10,6 @@ require('./models/views-count');
 require('mongoose').Promise = require('bluebird');
 
 export default function connectToDatabase() {
-  const options = {
-    promiseLibrary: Promise,
-  };
-
   let connectionURI:string;
   if (process.env.NODE_ENV === 'production' && process.env.MONGODB_USERNAME) {
     connectionURI = `mongodb://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@${process.env.MONGODB_HOST}:${process.env.MONGODB_PORT}/${process.env.MONGODB_APP_NAME}`;
@@ -22,6 +18,8 @@ export default function connectToDatabase() {
   }
 
   console.info(`Connect to the database: ${connectionURI}...`);
+
+  const options = { useFindAndModify: false };
 
   return new Promise((resolve, reject) => {
     mongoose.connect(connectionURI, options, (error: Error) => {

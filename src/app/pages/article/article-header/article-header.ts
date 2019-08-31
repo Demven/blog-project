@@ -58,7 +58,7 @@ export class ArticleHeader implements AfterViewInit, OnDestroy {
   @Input() views: number;
   @Input() publicationDate: string;
 
-  @ViewChild('titleEl')
+  @ViewChild('titleEl', { static: false })
   private titleEl: ElementRef;
 
   private articleTitleIsVisible = true;
