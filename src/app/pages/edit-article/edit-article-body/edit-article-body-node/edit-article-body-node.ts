@@ -54,7 +54,7 @@ export class EditArticleBodyNode implements OnChanges, AfterViewInit, OnDestroy 
   @Output() remove: EventEmitter<Event> = new EventEmitter();
   @Output() addContent: EventEmitter<object> = new EventEmitter();
 
-  @ViewChild('target', { read: ViewContainerRef }) target: ViewContainerRef;
+  @ViewChild('target', { read: ViewContainerRef, static: false }) target: ViewContainerRef;
 
   node: ComponentRef<any>;
 
