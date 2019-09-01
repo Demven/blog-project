@@ -43,9 +43,10 @@ export class ArticleDataResolverService implements Resolve<ArticleModel> {
 
   fetchArticleData(route: ActivatedRouteSnapshot): Promise<ArticleModel> {
     const slug:string = route.params['slug'];
+    const parameters = typeof window !== 'undefined' ? '?ignore=pageview' : '';
 
     return this.http
-      .get<ArticleModel>(`${env.WWW_HOST}/api/v1/article/${slug}`)
+      .get<ArticleModel>(`${env.WWW_HOST}/api/v1/article/${slug}${parameters}`)
       .toPromise()
       .catch(error => {
         throw new Error(`API request /api/v1/article/${slug} failed: ${error.message}`);
