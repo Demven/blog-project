@@ -21,7 +21,7 @@ import { env } from '../../../environments';
 
         <img
           class="Contacts__hero-image"
-          src="/assets/images/contacts.jpg"
+          src="/assets/images/contacts-2019.jpg"
         />
 
         <div class="Contacts__info-background"></div>
@@ -100,7 +100,7 @@ export class ContactsPage implements OnInit {
     const url = `${env.WWW_HOST}/contacts`;
     const description = 'My contact information';
     const keywords = 'Dmitry Salnikov, Tech, Science, Programming, Thoughts, JavaScript, CSS, HTML, Blog';
-    const imageUrl = `${env.WWW_HOST}/public/images/contacts.jpg`;
+    const imageUrl = `${env.WWW_HOST}/public/images/contacts-2019.jpg`;
 
     this.metaTags.updateTag({ name: 'description', content: description });
     this.metaTags.updateTag({ name: 'keywords', content: keywords });
