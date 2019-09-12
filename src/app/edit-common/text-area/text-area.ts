@@ -39,7 +39,7 @@ export class TextArea {
 
   @Input() name: string;
   @Input() label: string;
-  @Input() rows: string;
+  @Input() rows: number;
   @Input() value: string;
   @Input() placeholder: string;
   @Input() required: boolean;

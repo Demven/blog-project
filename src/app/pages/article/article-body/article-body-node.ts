@@ -19,6 +19,7 @@ import { ArticleQuote, ARTICLE_QUOTE_TYPE } from '../article-quote/article-quote
 import { ArticleList, ARTICLE_LIST_TYPE } from '../article-list/article-list';
 import { ArticleMath, ARTICLE_MATH_TYPE } from '../article-math/article-math';
 import { ArticleCode, ARTICLE_CODE_TYPE } from '../article-code/article-code';
+import { ArticleEmbed, ARTICLE_EMBED_TYPE } from '../article-embed/article-embed';
 
 class BodyNodeContent {
   type: string;
@@ -92,6 +93,8 @@ export class ArticleBodyNode implements OnChanges, AfterViewInit, OnDestroy {
         return ArticleMath;
       case ARTICLE_CODE_TYPE:
         return ArticleCode;
+      case ARTICLE_EMBED_TYPE:
+        return ArticleEmbed;
       default:
         return null;
     }

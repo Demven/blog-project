@@ -6,6 +6,7 @@ import {
   HostBinding,
   EventEmitter,
   ViewEncapsulation,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { ICON } from '../../../common/svg-sprite/svg-sprite';
 import { MathJaxService } from '../../../services/mathJax.service';
@@ -55,6 +56,7 @@ class MathModel {
       </button>
     </div>
   `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
 export class EditArticleMath implements OnInit {

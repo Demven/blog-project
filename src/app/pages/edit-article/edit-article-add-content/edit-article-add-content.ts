@@ -13,6 +13,7 @@ import { EDIT_ARTICLE_QUOTE_TYPE } from '../edit-article-quote/edit-article-quot
 import { EDIT_ARTICLE_LIST_TYPE, LIST_TYPE } from '../edit-article-list/edit-article-list';
 import { EDIT_ARTICLE_MATH_TYPE } from '../edit-article-math/edit-article-math';
 import { EDIT_ARTICLE_CODE_TYPE } from '../edit-article-code/edit-article-code';
+import { EDIT_ARTICLE_EMBED_TYPE } from '../edit-article-embed/edit-article-embed';
 import { ICON } from '../../../common/svg-sprite/svg-sprite';
 
 @Component({
@@ -41,6 +42,9 @@ import { ICON } from '../../../common/svg-sprite/svg-sprite';
       <li class="EditArticleAddContent__content-type" (click)="onAddContent(this.CONTENT_TYPES.EDIT_ARTICLE_CODE_TYPE)">
         Code
       </li>
+      <li class="EditArticleAddContent__content-type" (click)="onAddContent(this.CONTENT_TYPES.EDIT_ARTICLE_EMBED_TYPE)">
+        Embed
+      </li>
     </ul>
     <button
       class="EditArticleAddContent__add-button"
@@ -68,6 +72,7 @@ export class EditArticleAddContent {
     EDIT_ARTICLE_LIST_TYPE: EDIT_ARTICLE_LIST_TYPE,
     EDIT_ARTICLE_MATH_TYPE: EDIT_ARTICLE_MATH_TYPE,
     EDIT_ARTICLE_CODE_TYPE: EDIT_ARTICLE_CODE_TYPE,
+    EDIT_ARTICLE_EMBED_TYPE: EDIT_ARTICLE_EMBED_TYPE,
   };
   public LIST_TYPE = LIST_TYPE;
   public ICON_ADD: string = ICON.ADD;

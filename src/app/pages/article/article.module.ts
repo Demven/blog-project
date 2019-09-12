@@ -15,6 +15,7 @@ import { ArticleQuote } from './article-quote/article-quote';
 import { ArticleList } from './article-list/article-list';
 import { ArticleMath } from './article-math/article-math';
 import { ArticleCode } from './article-code/article-code';
+import { ArticleEmbed } from './article-embed/article-embed';
 
 @NgModule({
   imports: [
@@ -36,6 +37,7 @@ import { ArticleCode } from './article-code/article-code';
     ArticleList,
     ArticleMath,
     ArticleCode,
+    ArticleEmbed,
   ],
   entryComponents: [
     ArticleText,
@@ -45,6 +47,7 @@ import { ArticleCode } from './article-code/article-code';
     ArticleList,
     ArticleMath,
     ArticleCode,
+    ArticleEmbed,
   ],
   exports: [ ArticlePage ],
 })

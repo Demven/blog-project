@@ -11,7 +11,7 @@
   margin-right: 80px;
 
   & .EditArticleAddContent__content-types {
-    width: 0;
+    width: auto;
     list-style: none;
     padding: 0;
     display: flex;
@@ -59,10 +59,6 @@
   }
 
   &.EditArticleAddContent--content-types-visible {
-    & .EditArticleAddContent__content-types {
-      width: 370px;
-    }
-
     & .EditArticleAddContent__add-button {
       transform: rotate(45deg);
 

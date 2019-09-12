@@ -6,6 +6,7 @@ import {
   HostBinding,
   EventEmitter,
   ViewEncapsulation,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { ICON } from '../../../common/svg-sprite/svg-sprite';
 import { CodeHighlightService } from '../../../services/code-highlight.service';
@@ -77,6 +78,7 @@ class CodeModel {
       </button>
     </div>
   `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
 export class EditArticleCode implements OnInit {
@@ -138,7 +140,12 @@ export class EditArticleCode implements OnInit {
     this.editMode = false;
 
     if (this.currentCodeValue && this.currentCodeValue.length > 0) {
-      this.update.emit({ index: this.index, content: { ...this.content, code: this.currentCodeValue } });
+      const newContent = {
+        ...this.content,
+        codeType: this.content.codeType || this.CODE_TYPES[this.selectedCodeTypeIndex].value,
+        code: this.currentCodeValue,
+      };
+      this.update.emit({ index: this.index, content: newContent });
     } else if (!this.content.code) {
       this.onDelete();
     }
