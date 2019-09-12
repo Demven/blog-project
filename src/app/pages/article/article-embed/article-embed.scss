@@ -1,0 +1,44 @@
+@import '../../../../styles/typography';
+@import '../../../../styles/media';
+@import '../../../../styles/colors';
+
+.ArticleEmbed {
+  display: block;
+  margin-top: 4em;
+  padding: 0 4em;
+
+  @include media($mobile-any) {
+    margin-top: 3em;
+    padding: 0 2em;
+  }
+
+  & .ArticleEmbed__info {
+    display: flex;
+    flex-direction: column;
+    padding: 16px 4em 0;
+    font-family: $font-dincyr-regular;
+    text-align: center;
+    color: $color-dark-grey;
+
+    @include media($mobile-any) {
+      padding: 1em 2em 0;
+    }
+  }
+
+  & .ArticleEmbed__caption {
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  & .ArticleEmbed__credits {
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 12px;
+  }
+
+  &.ArticleEmbed--with-caption {
+    & .ArticleEmbed__credits {
+      margin-top: 12px;
+    }
+  }
+}

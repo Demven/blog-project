@@ -20,18 +20,13 @@ import { DOCUMENT } from '@angular/common';
       [innerHTML]="embed | dsKeepHtml"
       #embedHostEl
     ></div>
-    <div class="Embed__caption" *ngIf="caption">{{caption}}</div>
-    <div class="Embed__credit" *ngIf="credits">{{credits}}</div>
   `,
   encapsulation: ViewEncapsulation.None,
 })
 export class Embed implements AfterViewInit {
   @HostBinding('class.Embed') rootClass = true;
 
-  @Input() embedType: string;
   @Input() embed: string;
-  @Input() caption: string;
-  @Input() credits: string;
 
   @ViewChild('embedHostEl', { static: false })
   private embedHostEl: ElementRef;
@@ -42,18 +37,55 @@ export class Embed implements AfterViewInit {
   ) {
     this.loadScriptsInEmbed = this.loadScriptsInEmbed.bind(this);
     this.loadScript = this.loadScript.bind(this);
+    this.setFacebookIframeHeight = this.setFacebookIframeHeight.bind(this);
+    this.setIframeWidth = this.setIframeWidth.bind(this);
   }
 
   ngAfterViewInit() {
-    if (this.embed && this.embed.includes('<script')) {
-      this.loadScriptsInEmbed();
+    const runningOnClient = typeof window !== 'undefined';
+
+    if (runningOnClient && this.embed) {
+      const viewportWidth = window.innerWidth;
+      const isMobile = viewportWidth <= 690;
+      const isScript = this.embed.includes('<script');
+      const isIframe = this.embed.includes('<iframe');
+
+      if (isScript) {
+        this.loadScriptsInEmbed();
+      }
+
+      if (isMobile && isIframe) {
+        const iframe:HTMLIFrameElement = this.embedHostEl.nativeElement.querySelector('iframe');
+        const isFacebook = this.embed.includes('facebook.com');
+
+        if (isFacebook) {
+          this.setFacebookIframeHeight(iframe);
+        }
+
+        this.setIframeWidth(iframe);
+      }
     }
   }
 
   loadScriptsInEmbed() {
     const scripts: Array<HTMLScriptElement> = this.embedHostEl.nativeElement.querySelectorAll('script');
 
-    scripts.forEach(this.loadScript);
+    if (scripts.length > 0) {
+      scripts.forEach(this.loadScript);
+    }
+  }
+
+  setFacebookIframeHeight(iframe:HTMLIFrameElement) {
+    const width = iframe.offsetWidth;
+    const height = iframe.offsetHeight;
+    const ratio = width / height;
+    const hostWidth = this.embedHostEl.nativeElement.offsetWidth;
+
+    iframe.style.height = `${Math.round(hostWidth / ratio) + 90}px`;
+  }
+
+  setIframeWidth(iframe:HTMLIFrameElement) {
+    iframe.style.width = '100%';
   }
 
   loadScript(scriptNode:HTMLScriptElement) {

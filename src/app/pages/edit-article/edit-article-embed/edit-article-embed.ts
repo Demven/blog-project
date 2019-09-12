@@ -9,13 +9,11 @@ import {
   ChangeDetectionStrategy,
 } from '@angular/core';
 import { ICON } from '../../../common/svg-sprite/svg-sprite';
-import { SelectItem } from '../../../edit-common/select-field/select-field';
 
 export const EDIT_ARTICLE_EMBED_TYPE = 'embed';
 
 class EmbedModel {
   type: string;
-  embedType: string;
   embed: string;
   caption: string;
   credits: string;
@@ -31,10 +29,7 @@ class EmbedModel {
         (click)="onEdit()"
         *ngIf="!editMode"
       >
-        <ds-embed
-          [embedType]="EMBED_TYPES[selectedEmbedTypeIndex].value"
-          [embed]="currentEmbedValue || content.embed"
-        ></ds-embed>
+        <ds-embed [embed]="currentEmbedValue || content.embed"></ds-embed>
 
         <p class="EditArticleEmbed__content" *ngIf="content.embed">{{content.embed.substring(0, 65)}}...</p>
         <p class="EditArticleEmbed__caption" *ngIf="content.caption">{{content.caption}}</p>
@@ -45,20 +40,10 @@ class EmbedModel {
         class="EditArticleEmbed__form"
         *ngIf="editMode"
       >
-        <div class="EditArticleEmbed__select">
-          <ds-select-field
-            [name]="'type'"
-            [label]="'Type'"
-            [selectedIndex]="selectedEmbedTypeIndex"
-            [values]="EMBED_TYPES"
-            (select)="onEmbedTypeChange($event)"
-          ></ds-select-field>
-        </div>
-        
         <ds-text-area
-          [name]="'snippet'"
+          [name]="'embed'"
           [rows]="5"
-          [placeholder]="'Paste snippet HTML code here'"
+          [placeholder]="'Paste HTML code here (scripts are supported)'"
           [value]="currentEmbedValue || content.embed"
           required
           (change)="onEmbedChange($event)"
@@ -118,18 +103,12 @@ export class EditArticleEmbed implements OnInit {
 
   public ICON_DONE: string = ICON.DONE;
   public ICON_CLOSE: string = ICON.CLOSE;
-  public EMBED_TYPES: Array<SelectItem> = [
-    { text: 'HTML', value: 'html' },
-    { text: 'Video', value: 'video' },
-  ];
 
-  public selectedEmbedTypeIndex = 0;
   public currentEmbedValue: string;
   public caption: string;
   public credits: string;
 
   constructor() {
-    this.onEmbedTypeChange = this.onEmbedTypeChange.bind(this);
     this.onEmbedChange = this.onEmbedChange.bind(this);
     this.onFieldChange = this.onFieldChange.bind(this);
     this.onEdit = this.onEdit.bind(this);
@@ -141,15 +120,7 @@ export class EditArticleEmbed implements OnInit {
     if (!this.content.embed && !this.currentEmbedValue) {
       this.editMode = true;
     } else {
-      this.selectedEmbedTypeIndex = this.EMBED_TYPES.findIndex(type => type.value === this.content.embedType);
       this.currentEmbedValue = this.content.embed || '';
-    }
-  }
-
-  onEmbedTypeChange({ name, selectedIndex }: { name: string, selectedIndex: number }) {
-    if (name === 'type') {
-      this.selectedEmbedTypeIndex = selectedIndex;
-      this.content.embedType = this.EMBED_TYPES[selectedIndex].value;
     }
   }
 
@@ -179,7 +150,6 @@ export class EditArticleEmbed implements OnInit {
     if (this.currentEmbedValue && this.currentEmbedValue.length > 0) {
       const newContent = {
         ...this.content,
-        embedType: this.content.embedType || this.EMBED_TYPES[this.selectedEmbedTypeIndex].value,
         embed: this.currentEmbedValue,
         caption: this.caption,
         credits: this.credits,
