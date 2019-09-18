@@ -16,6 +16,7 @@ import { ArticleList } from './article-list/article-list';
 import { ArticleMath } from './article-math/article-math';
 import { ArticleCode } from './article-code/article-code';
 import { ArticleEmbed } from './article-embed/article-embed';
+import { ArticleVideo } from './article-video/article-video';
 
 @NgModule({
   imports: [
@@ -38,6 +39,7 @@ import { ArticleEmbed } from './article-embed/article-embed';
     ArticleMath,
     ArticleCode,
     ArticleEmbed,
+    ArticleVideo,
   ],
   entryComponents: [
     ArticleText,
@@ -48,6 +50,7 @@ import { ArticleEmbed } from './article-embed/article-embed';
     ArticleMath,
     ArticleCode,
     ArticleEmbed,
+    ArticleVideo,
   ],
   exports: [ ArticlePage ],
 })

@@ -16,7 +16,7 @@ import { DOCUMENT } from '@angular/common';
   styleUrls: ['./embed.scss'],
   template: `
     <div
-      class="Embed__host"
+      [ngClass]="['Embed__host', className || '']"
       [innerHTML]="embed | dsKeepHtml"
       #embedHostEl
     ></div>
@@ -26,6 +26,7 @@ import { DOCUMENT } from '@angular/common';
 export class Embed implements AfterViewInit {
   @HostBinding('class.Embed') rootClass = true;
 
+  @Input() className: string;
   @Input() embed: string;
 
   @ViewChild('embedHostEl', { static: false })
