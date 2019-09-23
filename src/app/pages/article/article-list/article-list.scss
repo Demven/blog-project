@@ -1,6 +1,7 @@
 @import '../../../../styles/typography';
 @import '../../../../styles/colors';
 @import '../../../../styles/media';
+@import '../../../../styles/markdown';
 
 .ArticleList {
   display: block;
@@ -24,14 +25,9 @@
       text-indent: 1em;
     }
 
-    & strong {
-      font-family: $font-dincyr-bold;
-      font-weight: normal;
-    }
-
-    & a {
-      color: $color-aquamarine;
-    }
+    @include markdown-bold;
+    @include markdown-link;
+    @include markdown-code;
   }
 
   & .ArticleList__items {
@@ -53,13 +49,8 @@
   & .ArticleList__item {
     margin-top: 10px;
 
-    & strong {
-      font-family: $font-dincyr-bold;
-      font-weight: normal;
-    }
-
-    & a {
-      color: $color-aquamarine;
-    }
+    @include markdown-bold;
+    @include markdown-link;
+    @include markdown-code;
   }
 }

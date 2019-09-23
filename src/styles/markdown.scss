@@ -1,0 +1,31 @@
+@import './typography';
+@import './colors';
+
+@mixin markdown-link {
+  & a {
+    color: $color-aquamarine;
+  }
+}
+
+@mixin markdown-bold {
+  & strong {
+    font-family: $font-dincyr-bold;
+    font-weight: normal;
+  }
+}
+
+@mixin markdown-code {
+  & > code {
+    display: inline-block;
+    padding: 4px 6px;
+    font-family: $font-monospace;
+    font-weight: normal;
+    font-size: 0.8em;
+    line-height: 1em;
+    color: $color-white;
+    text-indent: 0;
+    background-image: linear-gradient(90deg, $color-aquamarine, $color-green);
+    border-radius: 4px;
+    vertical-align: bottom;
+  }
+}
