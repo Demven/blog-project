@@ -1,6 +1,7 @@
 @import '../../../../styles/typography';
 @import '../../../../styles/media';
 @import '../../../../styles/colors';
+@import '../../../../styles/markdown';
 
 .ArticleText {
   display: block;
@@ -24,12 +25,8 @@
       text-indent: 1em;
     }
 
-    & strong {
-      font-family: $font-dincyr-bold;
-    }
-
-    & a {
-      color: $color-aquamarine;
-    }
+    @include markdown-bold;
+    @include markdown-link;
+    @include markdown-code;
   }
 }

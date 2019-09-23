@@ -1,42 +1,73 @@
 import { Injectable } from '@angular/core';
 
-function formatSubscript(text:string):string {
-  return text.replace(/\^\^(\d+)\^\^/g, '<sub>$1</sub>');
-}
+class MarkdownFormatter {
+  output = '';
 
-function formatSuperscript(text:string):string {
-  return text.replace(/\^(\d+)\^/g, '<sup>$1</sup>');
-}
+  constructor(text:string) {
+    this.output = text;
+  }
 
-function formatLinks(text:string):string {
-  return text.replace(/\[([^\]]+)]\(([^(]+)\)/g, '<a href="$2" target="_blank">$1</a>');
-}
+  format():string {
+    return this
+      .formatSubscript()
+      .formatSuperscript()
+      .formatLinks()
+      .formatLineThrough()
+      .formatUnderline()
+      .formatBold()
+      .formatItalic()
+      .formatCode()
+      .toString();
+  }
 
-function formatLineThrough(text:string):string {
-  return text.replace(/\~\~([^~]+)\~\~/g, '<span style="text-decoration: line-through">$1</span>');
-}
+  formatSubscript():MarkdownFormatter {
+    this.output = this.output.replace(/\^\^(\d+)\^\^/g, '<sub>$1</sub>');
+    return this;
+  }
 
-function formatUnderline(text:string):string {
-  return text.replace(/\_\_([^_]+)\_\_/g, '<span style="text-decoration: underline">$1</span>');
-}
+  formatSuperscript():MarkdownFormatter {
+    this.output = this.output.replace(/\^(\d+)\^/g, '<sup>$1</sup>');
+    return this;
+  }
 
-function formatBold(text:string):string {
-  return text.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
-}
+  formatLinks():MarkdownFormatter {
+    this.output = this.output.replace(/\[([^\]]+)]\(([^(]+)\)/g, '<a href="$2" target="_blank">$1</a>');
+    return this;
+  }
 
-function formatItalic(text:string):string {
-  return text.replace(/\_([^_]+)\_/g, '<em>$1</em>');
+  formatLineThrough():MarkdownFormatter {
+    this.output = this.output.replace(/\~\~([^~]+)\~\~/g, '<span style="text-decoration: line-through">$1</span>');
+    return this;
+  }
+
+  formatUnderline():MarkdownFormatter {
+    this.output = this.output.replace(/\_\_([^_]+)\_\_/g, '<span style="text-decoration: underline">$1</span>');
+    return this;
+  }
+
+  formatBold():MarkdownFormatter {
+    this.output = this.output.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+    return this;
+  }
+
+  formatCode():MarkdownFormatter {
+    this.output = this.output.replace(/\`([^`]+)\`/g, '<code>$1</code>');
+    return this;
+  }
+
+  formatItalic():MarkdownFormatter {
+    this.output = this.output.replace(/\_([^_]+)\_/g, '<em>$1</em>');
+    return this;
+  }
+
+  toString():string {
+    return this.output;
+  }
 }
 
 @Injectable()
 export class MarkdownService {
   format(text:string = ''):string {
-    const subscript = formatSubscript(text);
-    const superscript = formatSuperscript(subscript);
-    const links = formatLinks(superscript);
-    const lineThrough = formatLineThrough(links);
-    const underline = formatUnderline(lineThrough);
-    const bold = formatBold(underline);
-    return formatItalic(bold);
+    return new MarkdownFormatter(text).format();
   }
 }

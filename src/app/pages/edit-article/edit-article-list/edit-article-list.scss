@@ -1,6 +1,6 @@
 @import '../../../../styles/typography';
 @import '../../../../styles/colors';
-@import '../../../../styles/media';
+@import '../../../../styles/markdown';
 
 .EditArticleList {
   display: flex;
@@ -14,17 +14,13 @@
     padding: 8px 10px 8px 0;
     font-family: $font-dincyr-regular;
     font-size: 16px;
+    line-height: 19px;
     color: $color-black-darker;
     cursor: pointer;
 
-    & strong {
-      font-family: $font-dincyr-bold;
-      font-weight: normal;
-    }
-
-    & a {
-      color: $color-aquamarine;
-    }
+    @include markdown-bold;
+    @include markdown-link;
+    @include markdown-code;
   }
 
   & .EditArticleList__items {
@@ -38,14 +34,9 @@
   & .EditArticleList__item {
     margin-top: 5px;
 
-    & strong {
-      font-family: $font-dincyr-bold;
-      font-weight: normal;
-    }
-
-    & a {
-      color: $color-aquamarine;
-    }
+    @include markdown-bold;
+    @include markdown-link;
+    @include markdown-code;
   }
 
   & .EditArticleList__text-field {
