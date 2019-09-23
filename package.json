@@ -1,6 +1,6 @@
 {
   "name": "blog-project",
-  "version": "3.12.0",
+  "version": "3.13.0",
   "scripts": {
     "generate:env-vars": "node generate-env-vars.js",
     "dev": "npm run build && npm start",
