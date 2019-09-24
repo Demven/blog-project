@@ -11,12 +11,12 @@ class MarkdownFormatter {
     return this
       .formatSubscript()
       .formatSuperscript()
-      .formatLinks()
       .formatLineThrough()
       .formatUnderline()
       .formatBold()
       .formatItalic()
       .formatCode()
+      .formatLinks()
       .toString();
   }
 

@@ -1,6 +1,7 @@
 @import '../../../../styles/typography';
 @import '../../../../styles/colors';
 @import '../../../../styles/media';
+@import '../../../../styles/markdown';
 
 .ArticleHeader {
   width: 100%;
@@ -86,5 +87,8 @@
     @include media($desktop-any) {
       text-indent: 1em;
     }
+
+    @include markdown-bold;
+    @include markdown-link;
   }
 }

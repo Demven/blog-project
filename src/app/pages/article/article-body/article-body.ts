@@ -3,6 +3,7 @@ import {
   Input,
   HostBinding,
   ViewEncapsulation,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 
 @Component({
@@ -15,6 +16,7 @@ import {
     ></ds-article-body-node>
   `,
   encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ArticleBody {
   @HostBinding('class.ArticleBody') rootClass = true;
