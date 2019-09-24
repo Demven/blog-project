@@ -39,7 +39,7 @@ class ListModel {
 export class ArticleList {
   @HostBinding('class.ArticleList') rootClass = true;
 
-  constructor(public markdownService:MarkdownService) {}
+  constructor(public markdownService: MarkdownService) {}
 
   @Input() content: ListModel;
 }

@@ -11,6 +11,7 @@ import {
 import { NgRedux } from '@angular-redux/store';
 import * as moment from 'moment';
 import { IAppState } from '../../../redux/InitialAppState';
+import { MarkdownService } from '../../../services/markdown.service';
 import { articleTitleIsHiddenAction, articleTitleIsVisibleAction } from '../../../redux/actions/ui';
 
 @Component({
@@ -46,7 +47,10 @@ import { articleTitleIsHiddenAction, articleTitleIsVisibleAction } from '../../.
       </div>
     </div>
     
-    <p class="ArticleHeader__description">{{description}}</p>
+    <p
+      class="ArticleHeader__description"
+      [innerHtml]="markdownService.format(description) | dsKeepHtml"
+    ></p>
   `,
   encapsulation: ViewEncapsulation.None,
 })
@@ -63,7 +67,10 @@ export class ArticleHeader implements AfterViewInit, OnDestroy {
 
   private articleTitleIsVisible = true;
 
-  constructor(private ngRedux: NgRedux<IAppState>) {
+  constructor(
+    public markdownService: MarkdownService,
+    private ngRedux: NgRedux<IAppState>
+  ) {
     this.onArticleScroll = this.onArticleScroll.bind(this);
     this.onTitleIsHidden = this.onTitleIsHidden.bind(this);
     this.onTitleIsVisible = this.onTitleIsVisible.bind(this);

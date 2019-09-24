@@ -1,6 +1,6 @@
 .idea
 node_modules
-.DS_Store
+/db-export
 dist/
 /.env
 src/environments/index.ts

@@ -11,6 +11,7 @@ import {
   AfterViewInit,
   OnDestroy,
   ViewEncapsulation,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { ArticleText, ARTICLE_TEXT_TYPE } from '../article-text/article-text';
 import { ArticleImage, ARTICLE_IMAGE_TYPE } from '../article-image/article-image';
@@ -31,6 +32,7 @@ class BodyNodeContent {
   template: `
     <div #target></div>
   `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
 export class ArticleBodyNode implements OnChanges, AfterViewInit, OnDestroy {
