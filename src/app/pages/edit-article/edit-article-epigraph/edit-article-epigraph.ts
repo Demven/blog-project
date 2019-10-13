@@ -9,37 +9,37 @@ import {
 } from '@angular/core';
 import { ICON } from '../../../common/svg-sprite/svg-sprite';
 
-export const EDIT_ARTICLE_QUOTE_TYPE = 'quote';
+export const EDIT_ARTICLE_EPIGRAPH_TYPE = 'epigraph';
 
-class QuoteModel {
+class EpigraphModel {
   type: string;
   text: string;
   credit: string;
 }
 
 @Component({
-  selector: 'ds-edit-article-quote',
-  styleUrls: ['./edit-article-quote.scss'],
+  selector: 'ds-edit-article-epigraph',
+  styleUrls: ['./edit-article-epigraph.scss'],
   template: `
-    <div class="EditArticleQuote__wrapper">
+    <div class="EditArticleEpigraph__wrapper">
       <p
-        class="EditArticleQuote__content-text"
+        class="EditArticleEpigraph__content-text"
         (click)="onEdit()"
         *ngIf="!editMode"
       >{{text || content.text}}</p>
       <p
-        class="EditArticleQuote__content-credit"
+        class="EditArticleEpigraph__content-credit"
         (click)="onEdit()"
         *ngIf="!editMode"
       >{{credit || content.credit}}</p>
 
       <div
-        class="EditArticleQuote__text-field"
+        class="EditArticleEpigraph__text-field"
         *ngIf="editMode"
       >
         <ds-text-area
           [name]="'text'"
-          [label]="'Quote'"
+          [label]="'Epigraph'"
           [rows]="3"
           [placeholder]="'Text'"
           [value]="text || content.text"
@@ -48,7 +48,7 @@ class QuoteModel {
         ></ds-text-area>
       </div>
       <div
-        class="EditArticleQuote__credit-field"
+        class="EditArticleEpigraph__credit-field"
         *ngIf="editMode"
       >
         <ds-text-field
@@ -61,15 +61,15 @@ class QuoteModel {
         ></ds-text-field>
       </div>
     </div>
-    <div class="EditArticleQuote__actions">
+    <div class="EditArticleEpigraph__actions">
       <button
-        class="EditArticleQuote__action EditArticleQuote__delete"
+        class="EditArticleEpigraph__action EditArticleEpigraph__delete"
         (click)="onDelete()"
       >
         <ds-icon [name]="ICON_CLOSE"></ds-icon>
       </button>
       <button
-        class="EditArticleQuote__action EditArticleQuote__done"
+        class="EditArticleEpigraph__action EditArticleEpigraph__done"
         (click)="onSave()"
         *ngIf="editMode"
       >
@@ -79,12 +79,12 @@ class QuoteModel {
   `,
   encapsulation: ViewEncapsulation.None,
 })
-export class EditArticleQuote implements OnInit {
-  @HostBinding('class.EditArticleQuote') rootClass = true;
-  @HostBinding('class.EditArticleQuote--edit-mode') editMode = false;
+export class EditArticleEpigraph implements OnInit {
+  @HostBinding('class.EditArticleEpigraph') rootClass = true;
+  @HostBinding('class.EditArticleEpigraph--edit-mode') editMode = false;
 
   @Input() index: string;
-  @Input() content: QuoteModel;
+  @Input() content: EpigraphModel;
 
   @Output() update: EventEmitter<Object> = new EventEmitter();
   @Output() remove: EventEmitter<Object> = new EventEmitter();

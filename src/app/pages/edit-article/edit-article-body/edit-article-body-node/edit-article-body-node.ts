@@ -17,7 +17,7 @@ import {
 import { EditArticleText, EDIT_ARTICLE_TEXT_TYPE } from '../../edit-article-text/edit-article-text';
 import { EditArticleImage, EDIT_ARTICLE_IMAGE_TYPE } from '../../edit-article-image/edit-article-image';
 import { EditArticleHeading, EDIT_ARTICLE_HEADING_TYPE } from '../../edit-article-heading/edit-article-heading';
-import { EditArticleQuote, EDIT_ARTICLE_QUOTE_TYPE } from '../../edit-article-quote/edit-article-quote';
+import { EditArticleEpigraph, EDIT_ARTICLE_EPIGRAPH_TYPE } from '../../edit-article-epigraph/edit-article-epigraph';
 import { EditArticleList, EDIT_ARTICLE_LIST_TYPE } from '../../edit-article-list/edit-article-list';
 import { EditArticleMath, EDIT_ARTICLE_MATH_TYPE } from '../../edit-article-math/edit-article-math';
 import { EditArticleCode, EDIT_ARTICLE_CODE_TYPE } from '../../edit-article-code/edit-article-code';
@@ -110,8 +110,8 @@ export class EditArticleBodyNode implements OnChanges, AfterViewInit, OnDestroy 
         return EditArticleImage;
       case EDIT_ARTICLE_HEADING_TYPE:
         return EditArticleHeading;
-      case EDIT_ARTICLE_QUOTE_TYPE:
-        return EditArticleQuote;
+      case EDIT_ARTICLE_EPIGRAPH_TYPE:
+        return EditArticleEpigraph;
       case EDIT_ARTICLE_LIST_TYPE:
         return EditArticleList;
       case EDIT_ARTICLE_MATH_TYPE:

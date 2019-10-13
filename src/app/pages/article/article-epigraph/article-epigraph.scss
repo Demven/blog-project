@@ -1,7 +1,7 @@
 @import '../../../../styles/typography';
 @import '../../../../styles/media';
 
-.ArticleQuote {
+.ArticleEpigraph {
   display: block;
   margin-top: 2em;
   margin-bottom: 1em;
@@ -18,7 +18,7 @@
     text-align: left;
   }
 
-  & .ArticleQuote__content-text {
+  & .ArticleEpigraph__content-text {
     max-width: 70%;
     margin-left: auto;
     font-family: $font-dincyr-regular;
@@ -41,7 +41,7 @@
     }
   }
 
-  & .ArticleQuote__content-credit {
+  & .ArticleEpigraph__content-credit {
     margin-top: 0.4em;
     font-family: $font-dincyr-regular;
     font-size: 2.2em;
