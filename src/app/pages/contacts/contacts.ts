@@ -14,7 +14,7 @@ import { env } from '../../../environments';
   styleUrls: ['./contacts.scss'],
   template: `
     <ds-analytics-yandex></ds-analytics-yandex>
-    
+
     <ds-modal>
       <div class="Contacts__modal-content">
         <ds-label [title]="'Contacts'" [blue]="true"></ds-label>
@@ -29,17 +29,28 @@ import { env } from '../../../environments';
           <h2 class="Contacts__greeting">Hi, I'm Dmitry Salnikov</h2>
 
           <p class="Contacts__text">I'm actively interested in web-development, robotics and psychology.</p>
-          <p class="Contacts__text">For any reason you can contact with me <a class="Contacts__email-link" href="mailto:dmitry_salnikov@protonmail.com" title="dmitry_salnikov@protonmail.com" target="_blank">by email</a> or use socials.</p>
+          <p class="Contacts__text">For any reason you can contact me <a class="Contacts__email-link" href="mailto:dmitry_salnikov@protonmail.com" title="dmitry_salnikov@protonmail.com" target="_blank">by&nbsp;email</a> or use these socials:</p>
 
           <div class="Contacts__socials">
             <a
               class="Contacts__social-link"
-              href="https://vk.com/demven"
+              href="https://github.com/demven"
               target="_blank"
             >
               <img
                 class="Contacts__social-logo"
-                src="/assets/images/vk.png"
+                src="/assets/images/github.png"
+              />
+              <span class="Contacts__social-path">/demven</span>
+            </a>
+            <a
+              class="Contacts__social-link"
+              href="https://instagram.com/demven"
+              target="_blank"
+            >
+              <img
+                class="Contacts__social-logo"
+                src="/assets/images/instagram.png"
               />
               <span class="Contacts__social-path">/demven</span>
             </a>
@@ -53,17 +64,6 @@ import { env } from '../../../environments';
                 src="/assets/images/facebook.png"
               />
               <span class="Contacts__social-path">/dm.salnikov</span>
-            </a>
-            <a
-              class="Contacts__social-link"
-              href="https://github.com/demven"
-              target="_blank"
-            >
-              <img
-                class="Contacts__social-logo"
-                src="/assets/images/github.png"
-              />
-              <span class="Contacts__social-path">/demven</span>
             </a>
           </div>
         </div>
