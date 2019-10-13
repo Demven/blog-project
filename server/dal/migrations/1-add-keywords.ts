@@ -1,7 +1,7 @@
 import 'envkey';
 import Keyword from '../models/keyword';
 import Article from '../models/article';
-import connectToDatabase, { closeConnection } from '../../dal';
+import connectToDatabase, { closeConnection } from '../index';
 
 function createKeywords() {
   return Keyword.create([

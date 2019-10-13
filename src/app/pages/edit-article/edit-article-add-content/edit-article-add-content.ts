@@ -9,7 +9,7 @@ import {
 import { EDIT_ARTICLE_TEXT_TYPE } from '../edit-article-text/edit-article-text';
 import { EDIT_ARTICLE_IMAGE_TYPE } from '../edit-article-image/edit-article-image';
 import { EDIT_ARTICLE_HEADING_TYPE } from '../edit-article-heading/edit-article-heading';
-import { EDIT_ARTICLE_QUOTE_TYPE } from '../edit-article-quote/edit-article-quote';
+import { EDIT_ARTICLE_EPIGRAPH_TYPE } from '../edit-article-epigraph/edit-article-epigraph';
 import { EDIT_ARTICLE_LIST_TYPE, LIST_TYPE } from '../edit-article-list/edit-article-list';
 import { EDIT_ARTICLE_MATH_TYPE } from '../edit-article-math/edit-article-math';
 import { EDIT_ARTICLE_CODE_TYPE } from '../edit-article-code/edit-article-code';
@@ -31,8 +31,8 @@ import { ICON } from '../../../common/svg-sprite/svg-sprite';
       <li class="EditArticleAddContent__content-type" (click)="onAddContent(this.CONTENT_TYPES.EDIT_ARTICLE_HEADING_TYPE)">
         Heading
       </li>
-      <li class="EditArticleAddContent__content-type" (click)="onAddContent(this.CONTENT_TYPES.EDIT_ARTICLE_QUOTE_TYPE)">
-        Quote
+      <li class="EditArticleAddContent__content-type" (click)="onAddContent(this.CONTENT_TYPES.EDIT_ARTICLE_EPIGRAPH_TYPE)">
+        Epigraph
       </li>
       <li class="EditArticleAddContent__content-type" (click)="onAddContent(this.CONTENT_TYPES.EDIT_ARTICLE_LIST_TYPE, { listType: LIST_TYPE.BULLET })">
         List
@@ -72,7 +72,7 @@ export class EditArticleAddContent {
     EDIT_ARTICLE_TEXT_TYPE: EDIT_ARTICLE_TEXT_TYPE,
     EDIT_ARTICLE_IMAGE_TYPE: EDIT_ARTICLE_IMAGE_TYPE,
     EDIT_ARTICLE_HEADING_TYPE: EDIT_ARTICLE_HEADING_TYPE,
-    EDIT_ARTICLE_QUOTE_TYPE: EDIT_ARTICLE_QUOTE_TYPE,
+    EDIT_ARTICLE_EPIGRAPH_TYPE: EDIT_ARTICLE_EPIGRAPH_TYPE,
     EDIT_ARTICLE_LIST_TYPE: EDIT_ARTICLE_LIST_TYPE,
     EDIT_ARTICLE_MATH_TYPE: EDIT_ARTICLE_MATH_TYPE,
     EDIT_ARTICLE_CODE_TYPE: EDIT_ARTICLE_CODE_TYPE,
@@ -84,7 +84,7 @@ export class EditArticleAddContent {
 
   constructor() {
     this.showContentTypes = this.showContentTypes.bind(this);
-    this.showContentTypes = this.showContentTypes.bind(this);
+    this.hideContentTypes = this.hideContentTypes.bind(this);
     this.onAddContent = this.onAddContent.bind(this);
   }
 

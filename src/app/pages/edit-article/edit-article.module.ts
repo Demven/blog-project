@@ -9,7 +9,7 @@ import { EditArticleAddContent } from './edit-article-add-content/edit-article-a
 import { EditArticleText } from './edit-article-text/edit-article-text';
 import { EditArticleImage } from './edit-article-image/edit-article-image';
 import { EditArticleHeading } from './edit-article-heading/edit-article-heading';
-import { EditArticleQuote } from './edit-article-quote/edit-article-quote';
+import { EditArticleEpigraph } from './edit-article-epigraph/edit-article-epigraph';
 import { EditArticleList } from './edit-article-list/edit-article-list';
 import { EditArticleMath } from './edit-article-math/edit-article-math';
 import { EditArticleCode } from './edit-article-code/edit-article-code';
@@ -30,7 +30,7 @@ import { EditArticleVideo } from './edit-article-video/edit-article-video';
     EditArticleText,
     EditArticleImage,
     EditArticleHeading,
-    EditArticleQuote,
+    EditArticleEpigraph,
     EditArticleList,
     EditArticleMath,
     EditArticleCode,
@@ -41,7 +41,7 @@ import { EditArticleVideo } from './edit-article-video/edit-article-video';
     EditArticleText,
     EditArticleImage,
     EditArticleHeading,
-    EditArticleQuote,
+    EditArticleEpigraph,
     EditArticleList,
     EditArticleMath,
     EditArticleCode,

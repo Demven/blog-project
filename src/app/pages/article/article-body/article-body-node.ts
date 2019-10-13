@@ -16,7 +16,7 @@ import {
 import { ArticleText, ARTICLE_TEXT_TYPE } from '../article-text/article-text';
 import { ArticleImage, ARTICLE_IMAGE_TYPE } from '../article-image/article-image';
 import { ArticleHeading, ARTICLE_HEADING_TYPE } from '../article-heading/article-heading';
-import { ArticleQuote, ARTICLE_QUOTE_TYPE } from '../article-quote/article-quote';
+import { ArticleEpigraph, ARTICLE_EPIGRAPH_TYPE } from '../article-epigraph/article-epigraph';
 import { ArticleList, ARTICLE_LIST_TYPE } from '../article-list/article-list';
 import { ArticleMath, ARTICLE_MATH_TYPE } from '../article-math/article-math';
 import { ArticleCode, ARTICLE_CODE_TYPE } from '../article-code/article-code';
@@ -88,8 +88,8 @@ export class ArticleBodyNode implements OnChanges, AfterViewInit, OnDestroy {
         return ArticleImage;
       case ARTICLE_HEADING_TYPE:
         return ArticleHeading;
-      case ARTICLE_QUOTE_TYPE:
-        return ArticleQuote;
+      case ARTICLE_EPIGRAPH_TYPE:
+        return ArticleEpigraph;
       case ARTICLE_LIST_TYPE:
         return ArticleList;
       case ARTICLE_MATH_TYPE:

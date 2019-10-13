@@ -14,7 +14,7 @@
     "lint": "npm run lint:ts && npm run lint:styles",
     "lint:ts": "ng lint",
     "lint:styles": "stylelint src/**/*.scss",
-    "db-migration:add-keywords": "ts-node -O '{\"module\": \"commonjs\"}' server/dal/seed/1-add-keywords"
+    "db-migration:rename-quote-to-epigraph": "ts-node -O '{\"module\": \"commonjs\"}' server/dal/migrations/2-rename-quote-to-epigraph"
   },
   "private": true,
   "dependencies": {

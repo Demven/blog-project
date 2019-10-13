@@ -11,7 +11,7 @@ import { ArticleBodyNode } from './article-body/article-body-node';
 import { ArticleText } from './article-text/article-text';
 import { ArticleImage } from './article-image/article-image';
 import { ArticleHeading } from './article-heading/article-heading';
-import { ArticleQuote } from './article-quote/article-quote';
+import { ArticleEpigraph } from './article-epigraph/article-epigraph';
 import { ArticleList } from './article-list/article-list';
 import { ArticleMath } from './article-math/article-math';
 import { ArticleCode } from './article-code/article-code';
@@ -34,7 +34,7 @@ import { ArticleVideo } from './article-video/article-video';
     ArticleText,
     ArticleImage,
     ArticleHeading,
-    ArticleQuote,
+    ArticleEpigraph,
     ArticleList,
     ArticleMath,
     ArticleCode,
@@ -45,7 +45,7 @@ import { ArticleVideo } from './article-video/article-video';
     ArticleText,
     ArticleImage,
     ArticleHeading,
-    ArticleQuote,
+    ArticleEpigraph,
     ArticleList,
     ArticleMath,
     ArticleCode,

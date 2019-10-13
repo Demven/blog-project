@@ -2,15 +2,15 @@
 @import '../../../../styles/colors';
 @import '../../../../styles/media';
 
-.EditArticleQuote {
+.EditArticleEpigraph {
   display: flex;
   flex-direction: row;
 
-  & .EditArticleQuote__wrapper {
+  & .EditArticleEpigraph__wrapper {
     width: 660px;
   }
 
-  & .EditArticleQuote__content-text {
+  & .EditArticleEpigraph__content-text {
     max-width: 70%;
     margin-left: auto;
     padding: 8px 10px 8px 0;
@@ -21,23 +21,24 @@
     cursor: pointer;
   }
 
-  & .EditArticleQuote__content-credit {
-    padding: 8px $font-dincyr-regular;
+  & .EditArticleEpigraph__content-credit {
+    padding: 8px;
+    font-family: $font-dincyr-regular;
     font-size: 16px;
     color: $color-black-darker;
     cursor: pointer;
     text-align: right;
   }
 
-  & .EditArticleQuote__text-field {
+  & .EditArticleEpigraph__text-field {
     margin-top: 20px;
   }
 
-  & .EditArticleQuote__credit-field {
+  & .EditArticleEpigraph__credit-field {
     margin-top: 20px;
   }
 
-  & .EditArticleQuote__actions {
+  & .EditArticleEpigraph__actions {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -45,7 +46,7 @@
     flex-grow: 1;
   }
 
-  & .EditArticleQuote__action {
+  & .EditArticleEpigraph__action {
     -webkit-appearance: none;
     width: 28px;
     height: 28px;
@@ -64,7 +65,7 @@
     }
   }
 
-  & .EditArticleQuote__done {
+  & .EditArticleEpigraph__done {
     &:hover {
       & .icon {
         color: $color-green;
@@ -72,7 +73,7 @@
     }
   }
 
-  & .EditArticleQuote__delete {
+  & .EditArticleEpigraph__delete {
     &:hover {
       & .icon {
         color: $color-red;
