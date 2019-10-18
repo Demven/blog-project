@@ -23,6 +23,7 @@ import { EditArticleMath, EDIT_ARTICLE_MATH_TYPE } from '../../edit-article-math
 import { EditArticleCode, EDIT_ARTICLE_CODE_TYPE } from '../../edit-article-code/edit-article-code';
 import { EditArticleEmbed, EDIT_ARTICLE_EMBED_TYPE } from '../../edit-article-embed/edit-article-embed';
 import { EditArticleVideo, EDIT_ARTICLE_VIDEO_TYPE } from '../../edit-article-video/edit-article-video';
+import { EditArticleQuote, EDIT_ARTICLE_QUOTE_TYPE } from '../../edit-article-quote/edit-article-quote';
 import { ICON } from '../../../../common/svg-sprite/svg-sprite';
 
 class BodyNodeContent {
@@ -122,6 +123,8 @@ export class EditArticleBodyNode implements OnChanges, AfterViewInit, OnDestroy 
         return EditArticleEmbed;
       case EDIT_ARTICLE_VIDEO_TYPE:
         return EditArticleVideo;
+      case EDIT_ARTICLE_QUOTE_TYPE:
+        return EditArticleQuote;
       default:
         return null;
     }
