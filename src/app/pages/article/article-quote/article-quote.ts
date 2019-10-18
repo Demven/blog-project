@@ -17,7 +17,10 @@ class QuoteModel {
   styleUrls: ['./article-quote.scss'],
   template: `
     <p class="ArticleQuote__text">{{content.text}}</p>
-    <p class="ArticleQuote__credit">{{content.credit}}</p>
+    <p
+      class="ArticleQuote__credit"
+      *ngIf="content.credit"
+    >{{content.credit}}</p>
   `,
   encapsulation: ViewEncapsulation.None,
 })

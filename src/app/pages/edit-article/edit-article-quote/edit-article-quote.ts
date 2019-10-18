@@ -30,7 +30,7 @@ class QuoteModel {
       <p
         class="EditArticleQuote__content-credit"
         (click)="onEdit()"
-        *ngIf="!editMode"
+        *ngIf="!editMode && (credit || content.credit)"
       >{{credit || content.credit}}</p>
 
       <div
