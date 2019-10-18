@@ -15,6 +15,7 @@ import { EditArticleMath } from './edit-article-math/edit-article-math';
 import { EditArticleCode } from './edit-article-code/edit-article-code';
 import { EditArticleEmbed } from './edit-article-embed/edit-article-embed';
 import { EditArticleVideo } from './edit-article-video/edit-article-video';
+import { EditArticleQuote } from './edit-article-quote/edit-article-quote';
 
 @NgModule({
   imports: [
@@ -36,6 +37,7 @@ import { EditArticleVideo } from './edit-article-video/edit-article-video';
     EditArticleCode,
     EditArticleEmbed,
     EditArticleVideo,
+    EditArticleQuote,
   ],
   entryComponents: [
     EditArticleText,
@@ -47,6 +49,7 @@ import { EditArticleVideo } from './edit-article-video/edit-article-video';
     EditArticleCode,
     EditArticleEmbed,
     EditArticleVideo,
+    EditArticleQuote,
   ],
   exports: [ EditArticlePage ],
 })

@@ -1,0 +1,116 @@
+@import '../../../../styles/typography';
+@import '../../../../styles/colors';
+@import '../../../../styles/media';
+
+.EditArticleQuote {
+  display: flex;
+  flex-direction: row;
+
+  & .EditArticleQuote__wrapper {
+    width: 660px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &:not(.EditArticleQuote--edit-mode) {
+    & .EditArticleQuote__wrapper {
+      align-items: center;
+    }
+  }
+
+  & .EditArticleQuote__content-text {
+    width: 565px;
+    position: relative;
+    font-family: $font-dincyr-bold;
+    font-size: 28px;
+    line-height: 38px;
+    font-style: italic;
+    color: $color-black-darker;
+    cursor: pointer;
+
+    &:before {
+      content: '        ';
+      white-space: pre-wrap;
+    }
+
+    &:after {
+      content: '';
+      display: block;
+      width: 81px;
+      height: 62px;
+      background-image: url("/assets/images/quote.jpg");
+      background-size: 81px 62px;
+      position: absolute;
+      left: -37px;
+      top: -23px;
+      transform: skewX(-13deg);
+    }
+  }
+
+  & .EditArticleQuote__content-credit {
+    margin: 24px 0 24px 0;
+    font-family: $font-dincyr-regular;
+    font-size: 16px;
+    line-height: 16px;
+    color: $color-black-darker;
+    cursor: pointer;
+
+    &:before {
+      content: '– ';
+      font-size: 16px;
+      line-height: 16px;
+      color: $color-black-darker;
+    }
+  }
+
+  & .EditArticleQuote__text-field {
+    margin-top: 20px;
+  }
+
+  & .EditArticleQuote__credit-field {
+    margin-top: 20px;
+  }
+
+  & .EditArticleQuote__actions {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    flex-grow: 1;
+  }
+
+  & .EditArticleQuote__action {
+    -webkit-appearance: none;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    margin: 0;
+    outline: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: relative;
+
+    & .icon {
+      width: 32px;
+      height: 32px;
+      color: $color-black-medium;
+    }
+  }
+
+  & .EditArticleQuote__done {
+    &:hover {
+      & .icon {
+        color: $color-green;
+      }
+    }
+  }
+
+  & .EditArticleQuote__delete {
+    &:hover {
+      & .icon {
+        color: $color-red;
+      }
+    }
+  }
+}

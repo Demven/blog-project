@@ -1,0 +1,111 @@
+@import '../../../../styles/typography';
+@import '../../../../styles/media';
+@import '../../../../styles/colors';
+
+.ArticleQuote {
+  margin: 60px 0 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @include media($mobile-wide) {
+    margin-top: 40px;
+  }
+
+  @include media($mobile) {
+    margin-top: 32px;
+  }
+
+  & .ArticleQuote__text {
+    width: 600px;
+    position: relative;
+    font-family: $font-dincyr-bold;
+    font-size: 32px;
+    line-height: 42px;
+    font-style: italic;
+    color: $color-black-darker;
+    cursor: pointer;
+
+    @include media($tablet) {
+      width: 500px;
+      font-size: 31px;
+      line-height: 40px;
+    }
+
+    @include media($mobile-wide) {
+      width: calc(100% - 106px);
+      font-size: 27px;
+      line-height: 37px;
+    }
+
+    @include media($mobile) {
+      width: calc(100% - 86px);
+      font-size: 24px;
+      line-height: 33px;
+    }
+
+    @include media($sub-mobile) {
+      font-size: 23px;
+      line-height: 32px;
+    }
+
+    &:before {
+      content: '        ';
+      white-space: pre-wrap;
+
+      @include media($mobile-any) {
+        content: '      ';
+      }
+    }
+
+    &:after {
+      content: '';
+      display: block;
+      width: 81px;
+      height: 62px;
+      background-image: url("/assets/images/quote.jpg");
+      background-size: 81px 62px;
+      position: absolute;
+      left: -37px;
+      top: -23px;
+      transform: skewX(-13deg);
+
+      @include media($mobile-wide) {
+        width: 56px;
+        height: 43px;
+        background-size: 56px 43px;
+        left: -25px;
+        top: -12px;
+      }
+
+      @include media($mobile) {
+        width: 45px;
+        height: 34px;
+        background-size: 45px 34px;
+        left: -19px;
+        top: -6px;
+      }
+    }
+  }
+
+  & .ArticleQuote__credit {
+    margin-top: 24px;
+    font-family: $font-dincyr-regular;
+    font-size: 16px;
+    line-height: 16px;
+    color: $color-black-darker;
+    cursor: pointer;
+
+    &:before {
+      content: '– ';
+      font-size: 16px;
+      line-height: 16px;
+      color: $color-black-darker;
+    }
+
+    @include media($mobile-any) {
+      text-align: center;
+      padding: 0 20px;
+    }
+  }
+}
