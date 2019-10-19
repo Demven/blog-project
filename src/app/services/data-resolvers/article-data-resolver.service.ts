@@ -29,7 +29,14 @@ export class ArticleDataResolverService implements Resolve<ArticleModel> {
         articleDataPromise = this.getArticleDataFromClientStorage();
       }
     } else {
-      articleDataPromise = this.fetchArticleData(route);
+      const pageData = runningOnClient ? (<any>window).pageData : null;
+      const slug = route.url[1].path;
+
+      if (pageData && pageData.slug && slug === pageData.slug) {
+        articleDataPromise = Promise.resolve(pageData);
+      } else {
+        articleDataPromise = this.fetchArticleData(route);
+      }
     }
 
     return articleDataPromise;
@@ -43,10 +50,9 @@ export class ArticleDataResolverService implements Resolve<ArticleModel> {
 
   fetchArticleData(route: ActivatedRouteSnapshot): Promise<ArticleModel> {
     const slug:string = route.params['slug'];
-    const parameters = typeof window !== 'undefined' ? '?ignore=pageview' : '';
 
     return this.http
-      .get<ArticleModel>(`${env.WWW_HOST}/api/v1/article/${slug}${parameters}`)
+      .get<ArticleModel>(`${env.WWW_HOST}/api/v1/article/${slug}`)
       .toPromise()
       .catch(error => {
         throw new Error(`API request /api/v1/article/${slug} failed: ${error.message}`);

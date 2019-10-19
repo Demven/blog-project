@@ -29,7 +29,13 @@ export class HomepageDataResolverService implements Resolve<Array<HomepageSectio
         homepageDataPromise = this.getHomepageDataFromClientStorage();
       }
     } else {
-      homepageDataPromise = this.fetchHomepageData();
+      const pageData = runningOnClient ? (<any>window).pageData : null;
+
+      if (pageData && pageData instanceof Array) {
+        homepageDataPromise = Promise.resolve(pageData);
+      } else {
+        homepageDataPromise = this.fetchHomepageData();
+      }
     }
 
     return homepageDataPromise;
