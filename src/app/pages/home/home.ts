@@ -9,6 +9,7 @@ import { DOCUMENT } from '@angular/common';
 import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { HomepageSection } from './homepage-section/homepage-section';
+import { PageData } from '../../services/page-data.service';
 import { env } from '../../../environments';
 
 export class Category {
@@ -23,7 +24,7 @@ export class Category {
   template: `
     <ds-analytics-yandex></ds-analytics-yandex>
     <ds-navbar [categories]="categories"></ds-navbar>
-    
+
     <div class="HomePage__content">
       <ds-homepage-section
         *ngFor="let homepageSection of homepageSections"
@@ -45,6 +46,7 @@ export class HomePage implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private pageData: PageData,
     private metaTags: Meta,
     private titleTag: Title,
     @Inject(DOCUMENT) private document: Document
@@ -56,9 +58,10 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
     this.homepageSections = this.route.snapshot.data['homepageSections'];
+    const isServer = typeof window === 'undefined';
 
-    if (typeof window !== 'undefined') {
-      console.info('data', this.homepageSections);
+    if (isServer) {
+      this.pageData.set(this.homepageSections);
     }
 
     if (this.homepageSections && this.homepageSections.length) {

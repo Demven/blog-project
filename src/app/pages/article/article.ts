@@ -11,6 +11,7 @@ import { DOCUMENT } from '@angular/common';
 import { select } from '@angular-redux/store';
 import { Observable } from 'rxjs';
 import { ImagesService } from '../../services/images.service';
+import { PageData } from '../../services/page-data.service';
 import { env } from '../../../environments';
 import { sendYandexEvent, EVENT_ID } from '../../common/analytics/yandex';
 
@@ -68,13 +69,13 @@ export const DEFAULT_ARTICLE: ArticleModel = {
   styleUrls: ['./article.scss'],
   template: `
     <ds-analytics-yandex></ds-analytics-yandex>
-    
+
     <ds-article-nav
       [title]="article.title"
       [slug]="article.slug"
       [open]="!(articleTitleIsVisible$ | async)"
     ></ds-article-nav>
-    
+
     <ds-modal
       [flat]="true"
       [allSpaceOnMobile]="true"
@@ -100,17 +101,17 @@ export const DEFAULT_ARTICLE: ArticleModel = {
           class="ArticlePage__hidden-hero-image"
           [src]="imagesService.getCroppedImageUrl(article.image.url, imagesService.ASPECT_RATIO.w16h9)"
         />
-        
+
         <div class="ArticlePage__content-container">
           <ds-article-visibility-sensor [slug]="article.slug"></ds-article-visibility-sensor>
-          
+
           <ds-article-header
             [title]="article.title"
             [description]="article.description"
             [views]="article.views.count"
             [publicationDate]="article.publication_date"
           ></ds-article-header>
-          
+
           <ds-article-body [nodes]="article.body"></ds-article-body>
         </div>
       </div>
@@ -129,6 +130,7 @@ export class ArticlePage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     public imagesService: ImagesService,
+    private pageData: PageData,
     private metaTags: Meta,
     private titleTag: Title,
     @Inject(DOCUMENT) private document: Document
@@ -141,9 +143,10 @@ export class ArticlePage implements OnInit {
 
   ngOnInit() {
     this.article = this.route.snapshot.data['article'];
+    const isServer = typeof window === 'undefined';
 
-    if (typeof window !== 'undefined') {
-      console.info('data', this.article);
+    if (isServer) {
+      this.pageData.set(this.article);
     }
 
     this.updatePageTitle();

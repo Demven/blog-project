@@ -35,6 +35,7 @@ import { CodeHighlightService } from './services/code-highlight.service';
 import { CanActivateGuard } from './services/can-activate-guard.service';
 import { HomepageDataResolverService } from './services/data-resolvers/homepage-data-resolver.service';
 import { ArticleDataResolverService } from './services/data-resolvers/article-data-resolver.service';
+import { PageData } from './services/page-data.service';
 import { ErrorLogger } from './services/error-logger';
 import { env } from '../environments';
 
@@ -80,6 +81,7 @@ if (typeof window !== 'undefined') {
     CanActivateGuard,
     HomepageDataResolverService,
     ArticleDataResolverService,
+    PageData,
     Title,
     Meta,
   ],
