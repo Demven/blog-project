@@ -91,16 +91,21 @@ export const DEFAULT_ARTICLE: ArticleModel = {
 
         <div class="ArticlePage__hero">
           <img
-            class="ArticlePage__hero-image"
-            [src]="imagesService.getCroppedImageUrl(article.image.url, imagesService.ASPECT_RATIO.w16h9)"
+            class="ArticlePage__hero__image"
+            [src]="getHeroImageUrl()"
             alt="{{article.image.description}}"
           />
         </div>
 
-        <img
-          class="ArticlePage__hidden-hero-image"
-          [src]="imagesService.getCroppedImageUrl(article.image.url, imagesService.ASPECT_RATIO.w16h9)"
-        />
+        <div class="ArticlePage__hero-preview">
+          <img
+            class="ArticlePage__hero-preview__image"
+            [src]="getPreviewHeroImageUrl()"
+            alt="{{article.image.description}}"
+          />
+        </div>
+
+        <div class="ArticlePage__hero-image-placeholder"></div>
 
         <div class="ArticlePage__content-container">
           <ds-article-visibility-sensor [slug]="article.slug"></ds-article-visibility-sensor>
@@ -121,6 +126,7 @@ export const DEFAULT_ARTICLE: ArticleModel = {
 })
 export class ArticlePage implements OnInit {
   @HostBinding('class.ArticlePage') rootClass = true;
+  @HostBinding('class.ArticlePage--hero-image-loaded') heroImageLoaded = false;
 
   slug: string;
   article: ArticleModel = DEFAULT_ARTICLE;
@@ -138,7 +144,11 @@ export class ArticlePage implements OnInit {
     this.updatePageTitle = this.updatePageTitle.bind(this);
     this.updateMetaTags = this.updateMetaTags.bind(this);
     this.updateCanonicalUrl = this.updateCanonicalUrl.bind(this);
+    this.loadFullHeroImage = this.loadFullHeroImage.bind(this);
     this.onModalClose = this.onModalClose.bind(this);
+    this.getFullHeroImageUrl = this.getFullHeroImageUrl.bind(this);
+    this.getPreviewHeroImageUrl = this.getPreviewHeroImageUrl.bind(this);
+    this.getHeroImageUrl = this.getHeroImageUrl.bind(this);
   }
 
   ngOnInit() {
@@ -152,6 +162,10 @@ export class ArticlePage implements OnInit {
     this.updatePageTitle();
     this.updateMetaTags();
     this.updateCanonicalUrl();
+
+    if (!isServer) {
+      this.loadFullHeroImage();
+    }
   }
 
   updatePageTitle() {
@@ -195,7 +209,29 @@ export class ArticlePage implements OnInit {
     link.setAttribute('href', canonicalUrl);
   }
 
+  loadFullHeroImage() {
+    const heroImage = new Image();
+    heroImage.src = this.getFullHeroImageUrl();
+    heroImage.onload = () => {
+      this.heroImageLoaded = true;
+    };
+  }
+
   onModalClose() {
     sendYandexEvent(EVENT_ID.ARTICLE_CLOSE_BUTTON, { article: this.article.slug });
+  }
+
+  getFullHeroImageUrl() {
+    return this.imagesService.getCroppedImageUrl(this.article.image.url, this.imagesService.ASPECT_RATIO.w16h9);
+  }
+
+  getPreviewHeroImageUrl() {
+    return this.imagesService.getImagePreviewUrl(this.article.image.url, this.imagesService.ASPECT_RATIO.w16h9);
+  }
+
+  getHeroImageUrl() {
+    return this.heroImageLoaded ?
+      this.getFullHeroImageUrl() :
+      this.getPreviewHeroImageUrl();
   }
 }
