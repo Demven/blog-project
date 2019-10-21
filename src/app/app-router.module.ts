@@ -65,7 +65,10 @@ const appRoutes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(appRoutes),
+    RouterModule.forRoot(
+      appRoutes,
+      { scrollPositionRestoration: 'enabled' }
+    ),
   ],
   providers: [
     CanActivateGuard,

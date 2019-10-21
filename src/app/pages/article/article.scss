@@ -11,7 +11,8 @@ $article-page-modal-offset: 2em;
     position: relative;
   }
 
-  & .ArticlePage__hero {
+  & .ArticlePage__hero,
+  & .ArticlePage__hero-preview {
     max-height: calc(100vh - #{$article-page-modal-offset});
     position: absolute;
     top: 0;
@@ -37,7 +38,13 @@ $article-page-modal-offset: 2em;
     }
   }
 
-  & .ArticlePage__hero-image {
+  & .ArticlePage__hero-preview {
+    opacity: 1;
+    transition: opacity 1s;
+  }
+
+  & .ArticlePage__hero__image,
+  & .ArticlePage__hero-preview__image {
     width: 100vw;
 
     @include media($mobile-any) {
@@ -52,8 +59,9 @@ $article-page-modal-offset: 2em;
     }
   }
 
-  & .ArticlePage__hidden-hero-image {
+  & .ArticlePage__hero-image-placeholder {
     width: 100%;
+    height: calc(100vw / 16 * 9);
     max-height: calc(100vh - 2em);
     visibility: hidden;
   }
@@ -68,16 +76,26 @@ $article-page-modal-offset: 2em;
     transform: translateY(-20vh);
     box-shadow: 0 0 8px 4px rgba(0, 0, 0, 0.05);
 
-    @include media($mobile-any) {
-      width: 92vw;
-      min-width: 92vw;
-      transform: translateY(-7vh);
-    }
-
     @include media($tablet) {
       width: 90vw;
       min-width: 90vw;
       transform: translateY(-10vh);
+    }
+
+    @include media($mobile-any) {
+      width: 92vw;
+      min-width: 92vw;
+      transform: translateY(0);
+
+      @include media($landscape) {
+        transform: translateY(-124px);
+      }
+    }
+  }
+
+  &.ArticlePage--hero-image-loaded {
+    & .ArticlePage__hero-preview {
+      opacity: 0;
     }
   }
 }
