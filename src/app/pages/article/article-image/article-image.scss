@@ -9,7 +9,11 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    margin: 4em 0 2em;
+    margin: 42px 0 24px;
+
+    @include media($mobile-any) {
+      margin: 34px 0 16px;
+    }
   }
 
   & .ArticleImage__image {

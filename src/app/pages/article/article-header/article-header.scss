@@ -9,7 +9,7 @@
   box-sizing: border-box;
 
   @include media($mobile-any) {
-    padding: 1em 2em;
+    padding: 1em 2em 0;
   }
 
   & .ArticleHeader__title {

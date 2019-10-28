@@ -5,11 +5,14 @@
 
 .ArticleText {
   display: block;
-  margin-top: 2em;
+  margin-top: 32px;
   padding: 0 4em;
 
+  @include media($mobile-tablet-any) {
+    margin-top: 24px;
+  }
+
   @include media($mobile-any) {
-    margin-top: 1em;
     padding: 0 2em;
   }
 
