@@ -68,7 +68,8 @@ $article-page-modal-offset: 2em;
 
   & .ArticlePage__content-container {
     width: 70vw;
-    min-width: 80em;
+    min-width: 800px;
+    max-width: 1024px;
     align-self: center;
     display: flex;
     flex-direction: column;

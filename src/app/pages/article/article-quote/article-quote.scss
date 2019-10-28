@@ -24,7 +24,6 @@
     line-height: 42px;
     font-style: italic;
     color: $color-black-darker;
-    cursor: pointer;
 
     @include media($tablet) {
       width: 500px;

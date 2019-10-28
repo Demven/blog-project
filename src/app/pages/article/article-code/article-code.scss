@@ -4,11 +4,11 @@
 
 .ArticleCode {
   display: block;
-  margin-top: 4em;
+  margin-top: 42px;
   padding: 0 4em;
 
   @include media($mobile-any) {
-    margin-top: 3em;
+    margin-top: 34px;
     padding: 0 2em;
   }
 
