@@ -17,40 +17,11 @@ import clientStorage, { STORAGE_KEY } from '../../services/clientStorage';
 import { ImagesService } from '../../services/images.service';
 import { AutoCompleteItem } from '../../edit-common/auto-complete/auto-complete';
 import { ICON } from '../../common/svg-sprite/svg-sprite';
+import { Article } from '../../types/Article.type';
+import { Category } from '../../types/Category.type';
+import { Keyword } from '../../types/Keyword.type';
 
-class ArticleModel {
-  slug: string;
-  title: string;
-  description: string;
-  image: {
-    url: string;
-    description: string;
-    credits: string;
-  };
-  category: Category;
-  keywords: Array<Keyword>;
-  views: {
-    count: number;
-  };
-  body: Array<any>;
-}
-
-class Category {
-  title: string;
-  slug: string;
-  color: string;
-  _v: number;
-  _id: string;
-}
-
-class Keyword {
-  name: string;
-  slug: string;
-  _v: number;
-  _id: string;
-}
-
-const DEFAULT_ARTICLE:ArticleModel = {
+const DEFAULT_ARTICLE:Article = {
   slug: '',
   title: '',
   description: '',
@@ -70,6 +41,7 @@ const DEFAULT_ARTICLE:ArticleModel = {
   views: {
     count: 0,
   },
+  publication_date: '',
   body: [],
 };
 
@@ -134,9 +106,9 @@ const DEFAULT_ARTICLE:ArticleModel = {
           (select)="onCategoryChange($event)"
         ></ds-select-field>
       </div>
-      
+
       <div class="EditArticlePage__input-field">
-        <ds-auto-complete     
+        <ds-auto-complete
           [name]="'keyword'"
           [label]="'Keywords'"
           [placeholder]="'Start typing to choose a keyword'"
@@ -147,7 +119,7 @@ const DEFAULT_ARTICLE:ArticleModel = {
           (select)="onKeywordSelect($event)"
           (enter)="onCreateKeyword($event)"
         ></ds-auto-complete>
-        
+
         <ul class="EditArticlePage__keywords">
           <li
             class="EditArticlePage__keyword"
@@ -185,7 +157,7 @@ export class EditArticlePage implements OnInit, OnDestroy {
   @HostBinding('class.EditArticlePage') rootClass = true;
 
   slug: string;
-  article: ArticleModel = DEFAULT_ARTICLE;
+  article: Article = DEFAULT_ARTICLE;
   body: Array<Object> = [];
   categories: Array<SelectItem> = [];
   category = 0;

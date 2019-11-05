@@ -5,7 +5,7 @@ import {
   ActivatedRouteSnapshot
 } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { HomepageSection } from '../../pages/home/homepage-section/homepage-section';
+import { HomepageSection } from '../../types/HomepageSection.type';
 import { env } from '../../../environments';
 import clientStorage, { STORAGE_KEY } from '../clientStorage';
 

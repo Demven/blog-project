@@ -2,6 +2,7 @@
 @import '../../../styles/media';
 
 $modal-offset: 2em;
+$modal-mobile-offset: 1em;
 
 .Modal {
   width: 100%;
@@ -21,6 +22,10 @@ $modal-offset: 2em;
     background: $color-white;
     box-shadow: 0 0 8px 4px rgba(0, 0, 0, 0.1);
     overflow: hidden;
+
+    @include media($mobile-any) {
+      min-height: calc(100vh - #{$modal-mobile-offset} * 2);
+    }
   }
 
   & .Modal__top-gradient {

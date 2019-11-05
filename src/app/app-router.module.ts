@@ -11,6 +11,7 @@ import { LogoutPage } from './pages/logout/logout';
 import { CanActivateGuard } from './services/can-activate-guard.service';
 import { HomepageDataResolverService } from './services/data-resolvers/homepage-data-resolver.service';
 import { ArticleDataResolverService } from './services/data-resolvers/article-data-resolver.service';
+import { Page404DataResolverService } from './services/data-resolvers/page-404-data-resolver.service';
 
 const appRoutes: Routes = [
   {
@@ -60,7 +61,13 @@ const appRoutes: Routes = [
   { path: 'contacts', component: ContactsPage },
   { path: 'login', component: LoginPage },
   { path: 'logout', component: LogoutPage },
-  { path: '**', component: Page404 },
+  {
+    path: '**',
+    component: Page404,
+    resolve: {
+      page404Data: Page404DataResolverService
+    }
+  },
 ];
 
 @NgModule({

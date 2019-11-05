@@ -1,12 +1,47 @@
 const generateSlug = require('slug');
 import * as Promise from 'bluebird';
-import { Router as expressRouter, Request, Response } from 'express';
+import * as mongoose from 'mongoose';
+import { Router as expressRouter, Request, Response, NextFunction } from 'express';
 import Article from '../../dal/models/article';
 import Image from '../../dal/models/image';
 import ViewsCount from '../../dal/models/views-count';
 import { authorization, processAuthError } from '../authorization';
 
 const router = expressRouter();
+
+router.get('/popular', (req:Request, res:Response, next:NextFunction) => {
+  const { limit = '10' } = req.query;
+
+  function findTopViews() {
+    return ViewsCount
+      .find({})
+      .sort({ count: -1 })
+      .limit(parseInt(limit, 10))
+      .exec();
+  }
+
+  function findArticlesByViews(views) {
+    const articlePromises = views.map(view => {
+      return Article
+        .findOne({ views: mongoose.Types.ObjectId(view._id) }, 'slug title image category views')
+        .populate('image category views')
+        .exec();
+    });
+
+    return Promise.all(articlePromises);
+  }
+
+  findTopViews()
+    .then(findArticlesByViews)
+    .then(articles => {
+      if (articles) {
+        res.json(articles);
+      } else {
+        res.sendStatus(404);
+      }
+    })
+    .catch(error => next(error));
+});
 
 router.get('/:slug', (req:Request, res:Response, next) => {
   const slug:string = req.params.slug;

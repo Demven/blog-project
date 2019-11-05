@@ -1,18 +1,5 @@
 import { Component, HostBinding, Input, ViewEncapsulation } from '@angular/core';
-import { HomepageSectionArticle } from './homepage-section-article/homepage-section-article'; // import of model, not component
-
-export class HomepageSection {
-  category: {
-    title: string;
-    slug: string;
-    color: string;
-  };
-  articles: Array<HomepageSectionArticle>;
-  views: {
-    count: number;
-  };
-  publication_date: string;
-}
+import { HomepageSection } from '../../../types/HomepageSection.type';
 
 @Component({
   selector: 'ds-homepage-section',

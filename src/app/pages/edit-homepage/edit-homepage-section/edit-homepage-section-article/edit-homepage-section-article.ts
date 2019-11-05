@@ -10,26 +10,8 @@ import * as moment from 'moment';
 import axios from 'axios';
 import { AutoCompleteItem } from '../../../../edit-common/auto-complete/auto-complete';
 import { ImagesService } from '../../../../services/images.service';
-
-export class HomepageSectionArticle {
-  title: string;
-  slug: string;
-  image: {
-    url: string;
-    description: string;
-    credits: string;
-  };
-  views: {
-    count: number;
-  };
-  publication_date: string;
-}
-
-export class Category {
-  title: string;
-  slug: string;
-  color: string;
-}
+import { Category } from '../../../../types/Category.type';
+import { HomepageSectionArticle } from '../../../../types/HomepageSectionArticle.type';
 
 @Component({
   selector: 'ds-edit-homepage-section-article',
@@ -42,7 +24,7 @@ export class Category {
         alt="{{article.image.description}}"
       />
     </div>
-    
+
     <div
       class="EditHomePageSectionArticle__info"
       *ngIf="!editMode"
@@ -52,7 +34,7 @@ export class Category {
         title="Edit"
         (click)="startEdit()"
       >{{article.title}}</h3>
-      
+
       <h4
         class="EditHomePageSectionArticle__slug"
         title="Edit"

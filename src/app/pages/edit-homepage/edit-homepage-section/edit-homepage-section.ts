@@ -6,7 +6,8 @@ import {
   EventEmitter,
   ViewEncapsulation,
 } from '@angular/core';
-import { HomepageSectionArticle, Category } from './edit-homepage-section-article/edit-homepage-section-article';
+import { HomepageSectionArticle } from '../../../types/HomepageSectionArticle.type';
+import { Category } from '../../../types/Category.type';
 
 export class HomepageSection {
   category: Category;

@@ -6,7 +6,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import axios, { AxiosResponse } from 'axios';
-import { HomepageSection } from '../home/homepage-section/homepage-section'; // import of model, not component
+import { HomepageSection } from '../../types/HomepageSection.type';
 import clientStorage, { STORAGE_KEY } from '../../services/clientStorage';
 
 @Component({
@@ -26,7 +26,7 @@ import clientStorage, { STORAGE_KEY } from '../../services/clientStorage';
       [homepageSection]="homepageSection"
       (update)="onHomepageSectionUpdate($event)"
     ></ds-edit-homepage-section>
-    
+
     <main class="EditHomePage__main">
       <ds-toast [messageEmmiter]="toastMessageEmmiter"></ds-toast>
     </main>
