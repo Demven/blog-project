@@ -8,15 +8,10 @@ import {
 import { DOCUMENT } from '@angular/common';
 import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { HomepageSection } from './homepage-section/homepage-section';
 import { PageData } from '../../services/page-data.service';
 import { env } from '../../../environments';
-
-export class Category {
-  title: string;
-  slug: string;
-  color: string;
-}
+import { Category } from '../../types/Category.type';
+import { HomepageSection } from '../../types/HomepageSection.type';
 
 @Component({
   selector: 'ds-page-home',

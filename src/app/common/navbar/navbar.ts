@@ -1,6 +1,6 @@
 import { Component, HostBinding, Input, ViewEncapsulation } from '@angular/core';
 import scrollTo from '../../services/pageScroller';
-import { Category } from '../../pages/home/home';
+import { Category } from '../../types/Category.type';
 import { sendYandexEvent, EVENT_ID } from '../analytics/yandex';
 
 @Component({
@@ -42,7 +42,7 @@ import { sendYandexEvent, EVENT_ID } from '../analytics/yandex';
         </a>
       </menuitem>
     </nav>
-    
+
     <a
       class="Navbar__logo-container"
       routerLink="/"
@@ -52,7 +52,7 @@ import { sendYandexEvent, EVENT_ID } from '../analytics/yandex';
         src="/assets/images/logo.png"
       />
     </a>
-    
+
     <h3 class="Navbar__blog-name">Dmitry Salnikov</h3>
   `,
   encapsulation: ViewEncapsulation.None,

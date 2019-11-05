@@ -11,13 +11,18 @@ export class ImagesService  {
     return url.includes('cloudinary');
   }
 
-  getCroppedImageUrl(url:string, aspectRatio:string = this.ASPECT_RATIO.w16h9):string {
+  getCroppedImageUrl(url:string, aspectRatio:string = this.ASPECT_RATIO.w16h9, limit?:number):string {
     if (!this.isCloudinaryUrl(url)) {
       return url;
     }
 
+    let limitTransformation = '';
+    if (limit) {
+      limitTransformation = `/c_limit,w_${limit}`;
+    }
+
     const urlParts: Array<string> = url.split('/upload/');
-    return `${urlParts[0]}/upload/${aspectRatio},c_crop/${urlParts[1]}`;
+    return `${urlParts[0]}/upload/${aspectRatio},c_crop${limitTransformation}/${urlParts[1]}`;
   }
 
   getImagePreviewUrl(url:string, aspectRatio:string = this.ASPECT_RATIO.w16h9):string {

@@ -14,35 +14,10 @@ import { ImagesService } from '../../services/images.service';
 import { PageData } from '../../services/page-data.service';
 import { env } from '../../../environments';
 import { sendYandexEvent, EVENT_ID } from '../../common/analytics/yandex';
+import { Article } from '../../types/Article.type';
+import { Keyword } from '../../types/Keyword.type';
 
-class Keyword {
-  name: string;
-  slug: string;
-}
-
-export class ArticleModel {
-  slug: string;
-  title: string;
-  description: string;
-  image: {
-    url: string;
-    description: string;
-    credits: string;
-  };
-  category: {
-    title: string;
-    slug: string;
-    color: string;
-  };
-  keywords: Array<Keyword>;
-  views: {
-    count: number;
-  };
-  publication_date: string;
-  body: Array<any>;
-}
-
-export const DEFAULT_ARTICLE: ArticleModel = {
+export const DEFAULT_ARTICLE: Article = {
   slug: '',
   title: '',
   description: '',
@@ -129,7 +104,7 @@ export class ArticlePage implements OnInit {
   @HostBinding('class.ArticlePage--hero-image-loaded') heroImageLoaded = false;
 
   slug: string;
-  article: ArticleModel = DEFAULT_ARTICLE;
+  article: Article = DEFAULT_ARTICLE;
 
   @select(state => state.ui.articleTitleIsVisible) readonly articleTitleIsVisible$: Observable<boolean>;
 

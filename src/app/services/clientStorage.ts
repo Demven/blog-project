@@ -1,4 +1,4 @@
-class StorageKey {
+interface StorageKey {
   ARTICLE_DATA: string;
   HOMEPAGE_DATA: string;
   AUTH_TOKEN: string;
