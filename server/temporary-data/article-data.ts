@@ -2,7 +2,7 @@ export default {
   title: 'Octagon Nine: how to make a personal spider',
   slug: 'octagon-nine-how-to-make-a-personal-spider',
   image: {
-    url: 'http://fotohost.by/images/2017/05/06/hectapod.jpg',
+    url: 'https://fotohost.by/images/2017/05/06/hectapod.jpg',
     description: 'spider',
     credits: 'credits',
   },
@@ -35,7 +35,7 @@ export default {
     },
     {
       type: 'inline-image',
-      url: 'http://fotohost.by/images/2017/05/15/article-image.jpg',
+      url: 'https://fotohost.by/images/2017/05/15/article-image.jpg',
       credits: 'Google Images',
       description: 'This is how it looks like to be a humanoid bot',
     },
