@@ -21,7 +21,9 @@ export class ImagesService  {
       limitTransformation = `/c_limit,w_${limit}`;
     }
 
-    const urlParts: Array<string> = url.split('/upload/');
+    const urlParts: Array<string> = url
+      .replace('http://', 'https://')
+      .split('/upload/');
     return `${urlParts[0]}/upload/${aspectRatio},c_crop${limitTransformation}/${urlParts[1]}`;
   }
 
@@ -30,7 +32,9 @@ export class ImagesService  {
       return url;
     }
 
-    const urlParts: Array<string> = url.split('/upload/');
+    const urlParts: Array<string> = url
+      .replace('http://', 'https://')
+      .split('/upload/');
     return `${urlParts[0]}/upload/${aspectRatio},c_scale,e_blur:300,w_320/${urlParts[1]}`;
   }
 }

@@ -35,7 +35,7 @@ function createNewSitemap(): Promise<Sitemap> {
     fetchArticles()
       .then((urls: ISitemapItemOptionsLoose[]) => {
         _sitemap = createSitemap({
-          hostname: 'http://example.com',
+          hostname: 'https://www.dmitry-salnikov.info',
           cacheTime: CACHE_TIMEOUT,
           urls
         });

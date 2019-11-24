@@ -29,7 +29,7 @@ class ImageModel {
         [src]="imagesService.getCroppedImageUrl(url || content.url, imagesService.ASPECT_RATIO.w16h9)"
         *ngIf="url || content.url"
       />
-      
+
       <div
         class="EditArticleImage__content"
         (click)="onEdit()"
@@ -47,7 +47,7 @@ class ImageModel {
         <ds-text-field
           [name]="'url'"
           [label]="'URL'"
-          [placeholder]="'http://images.com/robot.jpg'"
+          [placeholder]="'https://images.com/robot.jpg'"
           [value]="url || content.url"
           (change)="onFieldChange($event)"
           [required]="true"
@@ -81,7 +81,7 @@ class ImageModel {
         ></ds-text-field>
       </div>
     </div>
-    
+
     <div class="EditArticleImage__actions">
       <button
         class="EditArticleImage__action EditArticleImage__delete"
