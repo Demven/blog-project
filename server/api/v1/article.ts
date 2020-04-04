@@ -134,6 +134,7 @@ router.post('/', authorization, processAuthError, (req:Request, res:Response, ne
       .then(([mainImage, viewsCount]: [Object, Object]) => {
         article.image = mainImage;
         article.views = viewsCount;
+        delete article.publication_date;
 
         Article
           .create(article)
