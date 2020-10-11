@@ -7,7 +7,6 @@ import {
 } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { env } from '../../../environments';
-import clientStorage, { STORAGE_KEY } from '../clientStorage';
 import { DEFAULT_ARTICLE } from '../../pages/article/article';
 import { Article } from '../../types/Article.type';
 
@@ -48,9 +47,23 @@ export class ArticleDataResolverService implements Resolve<Article> {
   }
 
   getArticleDataFromClientStorage(): Promise<Article> {
-    const articleData: Article = clientStorage.get(STORAGE_KEY.ARTICLE_DATA) || DEFAULT_ARTICLE;
+    return new Promise(resolve => {
+      const iframe = document.createElement('iframe');
+      iframe.style.display = 'none';
+      iframe.src = `${env.CMS_HOST}/iframe-preview.html`;
+      iframe.onload = () => {
+        window.addEventListener('message', event => {
+          const { article } = event.data;
+          if (article) {
+            console.info('Received preview data for the Article:', article);
+            resolve(article);
+          }
+        });
 
-    return Promise.resolve(articleData);
+        iframe.contentWindow.postMessage({ pageType: 'article' }, '*');
+      };
+      document.body.appendChild(iframe);
+    });
   }
 
   fetchArticleData(route: ActivatedRouteSnapshot): Promise<Article> {

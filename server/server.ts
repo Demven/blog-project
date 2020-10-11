@@ -2,6 +2,7 @@ import 'envkey';
 import 'zone.js/dist/zone-node';
 import 'reflect-metadata';
 import * as express from 'express';
+import * as cors from 'cors';
 import * as path from 'path';
 import * as bodyParser from 'body-parser';
 import * as cookieParser from 'cookie-parser';
@@ -40,10 +41,11 @@ app.engine('html', ngExpressEngine({
 app.set('view engine', 'html');
 app.set('views', `${DIST_FOLDER}/client`);
 
-// app.get('*', (req, res, next) => {
-//   console.info(req.path);
-//   next();
-// });
+if (process.env.NODE_ENV === 'development') {
+  app.use(cors());
+} else {
+  app.use(cors({ origin: /\.dmitry-salnikov\.info$/, }));
+}
 
 app.get('*.*', express.static(`${DIST_FOLDER}/client`));
 app.get('/sitemap.xml', generateSitemap);

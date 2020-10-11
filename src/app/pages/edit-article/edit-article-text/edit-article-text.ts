@@ -28,7 +28,7 @@ class TextModel {
         [innerHtml]="markdownService.format(currentValue || content.text) | dsKeepHtml"
         *ngIf="!editMode"
       ></p>
-      
+
       <ds-text-area
         [name]="index"
         [rows]="3"
@@ -39,6 +39,7 @@ class TextModel {
         *ngIf="editMode"
       ></ds-text-area>
     </div>
+
     <div class="EditArticleText__actions">
       <button
         class="EditArticleText__action EditArticleText__delete"
