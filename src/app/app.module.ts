@@ -32,7 +32,7 @@ import { ImagesService } from './services/images.service';
 import { MarkdownService } from './services/markdown.service';
 import { MathJaxService } from './services/mathJax.service';
 import { CodeHighlightService } from './services/code-highlight.service';
-import { CanActivateGuard } from './services/can-activate-guard.service';
+import { CMSRedirectGuard } from './services/cms-redirect-guard.service';
 import { HomepageDataResolverService } from './services/data-resolvers/homepage-data-resolver.service';
 import { ArticleDataResolverService } from './services/data-resolvers/article-data-resolver.service';
 import { Page404DataResolverService } from './services/data-resolvers/page-404-data-resolver.service';
@@ -79,10 +79,10 @@ if (typeof window !== 'undefined') {
     MarkdownService,
     MathJaxService,
     CodeHighlightService,
-    CanActivateGuard,
     HomepageDataResolverService,
     ArticleDataResolverService,
     Page404DataResolverService,
+    CMSRedirectGuard,
     PageData,
     Title,
     Meta,

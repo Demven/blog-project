@@ -7,7 +7,6 @@ import {
 import { HttpClient } from '@angular/common/http';
 import { HomepageSection } from '../../types/HomepageSection.type';
 import { env } from '../../../environments';
-import clientStorage, { STORAGE_KEY } from '../clientStorage';
 
 @Injectable()
 export class HomepageDataResolverService implements Resolve<Array<HomepageSection>> {
@@ -42,9 +41,23 @@ export class HomepageDataResolverService implements Resolve<Array<HomepageSectio
   }
 
   getHomepageDataFromClientStorage(): Promise<Array<HomepageSection>> {
-    const homepageData: Array<HomepageSection> = clientStorage.get(STORAGE_KEY.HOMEPAGE_DATA) || [];
+    return new Promise(resolve => {
+      const iframe = document.createElement('iframe');
+      iframe.style.display = 'none';
+      iframe.src = `${env.CMS_HOST}/iframe-preview.html`;
+      iframe.onload = () => {
+        window.addEventListener('message', event => {
+          const { homepage } = event.data;
+          if (homepage) {
+            console.info('Received preview data for the Homepage:', homepage);
+            resolve(homepage);
+          }
+        });
 
-    return Promise.resolve(homepageData);
+        iframe.contentWindow.postMessage({ pageType: 'homepage' }, '*');
+      };
+      document.body.appendChild(iframe);
+    });
   }
 
   fetchHomepageData(): Promise<Array<HomepageSection>> {

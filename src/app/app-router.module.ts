@@ -8,7 +8,7 @@ import { ArticlePage } from './pages/article/article';
 import { Page404 } from './pages/page404/page404';
 import { LoginPage } from './pages/login/login';
 import { LogoutPage } from './pages/logout/logout';
-import { CanActivateGuard } from './services/can-activate-guard.service';
+import { CMSRedirectGuard } from './services/cms-redirect-guard.service';
 import { HomepageDataResolverService } from './services/data-resolvers/homepage-data-resolver.service';
 import { ArticleDataResolverService } from './services/data-resolvers/article-data-resolver.service';
 import { Page404DataResolverService } from './services/data-resolvers/page-404-data-resolver.service';
@@ -24,7 +24,7 @@ const appRoutes: Routes = [
   {
     path: 'homepage/edit',
     component: EditHomePage,
-    canActivate: [CanActivateGuard],
+    canActivate: [CMSRedirectGuard],
   },
   {
     path: 'homepage/preview',
@@ -37,7 +37,7 @@ const appRoutes: Routes = [
   {
     path: 'article/new',
     component: EditArticlePage,
-    canActivate: [CanActivateGuard],
+    canActivate: [CMSRedirectGuard],
   },
   {
     path: 'article/preview',
@@ -56,10 +56,14 @@ const appRoutes: Routes = [
   {
     path: 'article/:slug/edit',
     component: EditArticlePage,
-    canActivate: [CanActivateGuard],
+    canActivate: [CMSRedirectGuard],
   },
   { path: 'contacts', component: ContactsPage },
-  { path: 'login', component: LoginPage },
+  {
+    path: 'login',
+    component: LoginPage,
+    canActivate: [CMSRedirectGuard],
+  },
   { path: 'logout', component: LogoutPage },
   {
     path: '**',
@@ -78,7 +82,7 @@ const appRoutes: Routes = [
     ),
   ],
   providers: [
-    CanActivateGuard,
+    CMSRedirectGuard,
   ],
   exports: [
     RouterModule,
