@@ -23,11 +23,6 @@ import { ArticleModule } from './pages/article/article.module';
 import { HomeModule } from './pages/home/home.module';
 import { ContactsModule } from './pages/contacts/contacts.module';
 import { Page404Module } from './pages/page404/page404.module';
-import { EditArticleModule } from './pages/edit-article/edit-article.module';
-import { EditHomePageModule } from './pages/edit-homepage/edit-homepage.module';
-import { LoginModule } from './pages/login/login.module';
-import { LogoutModule } from './pages/logout/logout.module';
-import { UserService } from './services/user.service';
 import { ImagesService } from './services/images.service';
 import { MarkdownService } from './services/markdown.service';
 import { MathJaxService } from './services/mathJax.service';
@@ -64,17 +59,12 @@ if (typeof window !== 'undefined') {
     HomeModule,
     ContactsModule,
     Page404Module,
-    EditArticleModule,
-    EditHomePageModule,
-    LoginModule,
-    LogoutModule,
   ],
   declarations: [
     AppComponent,
   ],
   providers: [
     { provide: ErrorHandler, useFactory: ErrorLogger.initWith(BrowserClient, env.SENTRY_DSN_CLIENT) },
-    UserService,
     ImagesService,
     MarkdownService,
     MathJaxService,
