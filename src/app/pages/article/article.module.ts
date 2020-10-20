@@ -44,18 +44,6 @@ import { ArticleTitleVisibilityService } from '../../services/article-title-visi
     ArticleVideo,
     ArticleQuote,
   ],
-  entryComponents: [
-    ArticleText,
-    ArticleImage,
-    ArticleHeading,
-    ArticleEpigraph,
-    ArticleList,
-    ArticleMath,
-    ArticleCode,
-    ArticleEmbed,
-    ArticleVideo,
-    ArticleQuote,
-  ],
   providers: [
     ArticleTitleVisibilityService,
   ],
