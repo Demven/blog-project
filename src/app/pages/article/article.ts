@@ -8,14 +8,13 @@ import {
 import { Title, Meta } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
-import { select } from '@angular-redux/store';
-import { Observable } from 'rxjs';
 import { ImagesService } from '../../services/images.service';
 import { PageData } from '../../services/page-data.service';
 import { env } from '../../../environments';
 import { sendYandexEvent, EVENT_ID } from '../../common/analytics/yandex';
 import { Article } from '../../types/Article.type';
 import { Keyword } from '../../types/Keyword.type';
+import { ArticleTitleVisibilityService } from '../../services/article-title-visibility.service';
 
 export const DEFAULT_ARTICLE: Article = {
   slug: '',
@@ -48,7 +47,7 @@ export const DEFAULT_ARTICLE: Article = {
     <ds-article-nav
       [title]="article.title"
       [slug]="article.slug"
-      [open]="!(articleTitleIsVisible$ | async)"
+      [open]="!articleTitleIsVisible"
     ></ds-article-nav>
 
     <ds-modal
@@ -105,8 +104,7 @@ export class ArticlePage implements OnInit {
 
   slug: string;
   article: Article = DEFAULT_ARTICLE;
-
-  @select(state => state.ui.articleTitleIsVisible) readonly articleTitleIsVisible$: Observable<boolean>;
+  articleTitleIsVisible = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -114,6 +112,7 @@ export class ArticlePage implements OnInit {
     private pageData: PageData,
     private metaTags: Meta,
     private titleTag: Title,
+    private articleTitleVisibilityService: ArticleTitleVisibilityService,
     @Inject(DOCUMENT) private document: Document
   ) {
     this.updatePageTitle = this.updatePageTitle.bind(this);
@@ -140,6 +139,11 @@ export class ArticlePage implements OnInit {
 
     if (!isServer) {
       this.loadFullHeroImage();
+
+      this.articleTitleVisibilityService.subscribe((articleTitleIsVisible:boolean) => {
+        console.log('visibility changed', articleTitleIsVisible);
+        this.articleTitleIsVisible = articleTitleIsVisible;
+      });
     }
   }
 

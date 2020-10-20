@@ -8,11 +8,9 @@ import {
   OnDestroy,
   ViewEncapsulation,
 } from '@angular/core';
-import { NgRedux } from '@angular-redux/store';
 import * as moment from 'moment';
-import { IAppState } from '../../../redux/InitialAppState';
 import { MarkdownService } from '../../../services/markdown.service';
-import { articleTitleIsHiddenAction, articleTitleIsVisibleAction } from '../../../redux/actions/ui';
+import { ArticleTitleVisibilityService } from '../../../services/article-title-visibility.service';
 
 @Component({
   selector: 'ds-article-header',
@@ -22,7 +20,7 @@ import { articleTitleIsHiddenAction, articleTitleIsVisibleAction } from '../../.
       class="ArticleHeader__title"
       #titleEl
     >{{title}}</h1>
-    
+
     <div class="ArticleHeader__article-info">
       <div class="ArticleHeader__publication-date">{{formatPublicationDate()}}</div>
       <div class="ArticleHeader__views-count">
@@ -33,7 +31,7 @@ import { articleTitleIsHiddenAction, articleTitleIsVisibleAction } from '../../.
         />
         <div class="ArticleHeader__views-count-value">{{views}}</div>
       </div>
-      
+
       <div
         class="ArticleHeader__comments-count"
         *ngIf="false"
@@ -46,7 +44,7 @@ import { articleTitleIsHiddenAction, articleTitleIsVisibleAction } from '../../.
         <div class="ArticleHeader__comments-count-value">123</div>
       </div>
     </div>
-    
+
     <p
       class="ArticleHeader__description"
       [innerHtml]="markdownService.format(description) | dsKeepHtml"
@@ -69,7 +67,7 @@ export class ArticleHeader implements AfterViewInit, OnDestroy {
 
   constructor(
     public markdownService: MarkdownService,
-    private ngRedux: NgRedux<IAppState>
+    private articleTitleVisibilityService: ArticleTitleVisibilityService
   ) {
     this.onArticleScroll = this.onArticleScroll.bind(this);
     this.onTitleIsHidden = this.onTitleIsHidden.bind(this);
@@ -100,12 +98,12 @@ export class ArticleHeader implements AfterViewInit, OnDestroy {
 
   onTitleIsHidden() {
     this.articleTitleIsVisible = false;
-    this.ngRedux.dispatch(articleTitleIsHiddenAction());
+    this.articleTitleVisibilityService.setVisibility(false);
   }
 
   onTitleIsVisible() {
     this.articleTitleIsVisible = true;
-    this.ngRedux.dispatch(articleTitleIsVisibleAction());
+    this.articleTitleVisibilityService.setVisibility(true);
   }
 
   formatPublicationDate() {
