@@ -16,12 +16,13 @@
       "../node_modules/@types"
     ]
   },
+  "files": [
+    "../src/main.server.ts"
+  ],
   "include": [
     "../src/app",
     "../src/main.server.ts",
     "../node_modules/ng-autosize"
-  ],
-  "exclude": [
   ],
   "angularCompilerOptions": {
     "entryModule": "../src/app/app.server.module#AppServerModule"

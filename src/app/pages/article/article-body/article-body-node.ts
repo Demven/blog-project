@@ -38,7 +38,7 @@ class BodyNodeContent {
 })
 export class ArticleBodyNode implements OnChanges, AfterViewInit, OnDestroy {
   @Input() content:BodyNodeContent;
-  @ViewChild('target', { read: ViewContainerRef, static: false }) target: ViewContainerRef;
+  @ViewChild('target', { read: ViewContainerRef }) target: ViewContainerRef;
 
   node: ComponentRef<any>;
 

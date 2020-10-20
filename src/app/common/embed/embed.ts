@@ -29,7 +29,7 @@ export class Embed implements AfterViewInit {
   @Input() className: string;
   @Input() embed: string;
 
-  @ViewChild('embedHostEl', { static: false })
+  @ViewChild('embedHostEl')
   private embedHostEl: ElementRef;
 
   constructor(
