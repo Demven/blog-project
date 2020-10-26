@@ -16,7 +16,7 @@ router.get('/popular', (req:Request, res:Response, next:NextFunction) => {
     return ViewsCount
       .find({})
       .sort({ count: -1 })
-      .limit(parseInt(limit, 10))
+      .limit(parseInt(<string>limit, 10))
       .exec();
   }
 

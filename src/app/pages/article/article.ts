@@ -141,7 +141,6 @@ export class ArticlePage implements OnInit {
       this.loadFullHeroImage();
 
       this.articleTitleVisibilityService.subscribe((articleTitleIsVisible:boolean) => {
-        console.log('visibility changed', articleTitleIsVisible);
         this.articleTitleIsVisible = articleTitleIsVisible;
       });
     }

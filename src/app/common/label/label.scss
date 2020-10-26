@@ -2,7 +2,9 @@
 @import '../../../styles/colors';
 @import '../../../styles/media';
 
-.Label {
+$componentName: 'Label';
+
+.#{$componentName} {
   width: auto;
   height: auto;
   position: absolute;
@@ -35,41 +37,11 @@
     font-size: 2.6em;
   }
 
-  &.Label--blue {
-    & .Label__title {
-      background: $color-aquamarine;
-
-      &:after {
-        background: $color-aquamarine;
-      }
-    }
-  }
-
-  &.Label--green {
-    & .Label__title {
-      background: $color-green;
-
-      &:after {
-        background: $color-green;
-      }
-    }
-  }
-
-  &.Label--red {
-    & .Label__title {
-      background: $color-red;
-
-      &:after {
-        background: $color-red;
-      }
-    }
-  }
-
-  &.Label--small {
+  &--small {
     font-size: 2em;
   }
 
-  & .Label__title {
+  &__title {
     padding: 0.2em 1.6em 0.2em 1.2em;
     background: $color-aquamarine;
     color: $color-white;
@@ -84,6 +56,30 @@
       bottom: 0.28em;
       background: $color-aquamarine;
       transform: rotate(35deg);
+    }
+
+    .#{$componentName}--blue & {
+      background: $color-aquamarine;
+
+      &:after {
+        background: $color-aquamarine;
+      }
+    }
+
+    .#{$componentName}--red & {
+      background: $color-red;
+
+      &:after {
+        background: $color-red;
+      }
+    }
+
+    .#{$componentName}--green & {
+      background: $color-green;
+
+      &:after {
+        background: $color-green;
+      }
     }
   }
 }

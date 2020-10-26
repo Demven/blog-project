@@ -4,6 +4,7 @@ node_modules
 dist/
 /.env
 src/environments/index.ts
+server/environments/index.ts
 
 .DS_Store
 database-update.sh

@@ -8,11 +8,11 @@ const router = expressRouter();
 
 router.get('/', (req:Request, res:Response, next) => {
   const search = req.query.search || '';
-  const limit = req.query.limit ? parseInt(req.query.limit, 10) : 5;
+  const limit = req.query.limit ? parseInt(<string>req.query.limit, 10) : 5;
 
   const query = {};
   if (search) {
-    query['name'] = new RegExp(search, 'i');
+    query['name'] = new RegExp(<string>search, 'i');
   }
 
   Keyword
@@ -28,7 +28,7 @@ router.get('/', (req:Request, res:Response, next) => {
 router.get('/:keywordSlug/articles', (req:Request, res:Response, next) => {
   const keywordSlug:string = req.params.keywordSlug;
   const name = req.query.name || '';
-  const limit = req.query.limit ? parseInt(req.query.limit, 10) : 5;
+  const limit = req.query.limit ? parseInt(<string>req.query.limit, 10) : 5;
 
   Keyword
     .findOne({ slug: keywordSlug })
@@ -38,7 +38,7 @@ router.get('/:keywordSlug/articles', (req:Request, res:Response, next) => {
         const exclude = { body: 0 };
 
         if (name) {
-          query['name'] = new RegExp(name, 'i');
+          query['name'] = new RegExp(<string>name, 'i');
         }
 
         Article

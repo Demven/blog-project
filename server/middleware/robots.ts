@@ -1,4 +1,4 @@
-import robots from 'express-robots';
+import * as robots from 'express-robots';
 
 export default function() {
   return robots([
