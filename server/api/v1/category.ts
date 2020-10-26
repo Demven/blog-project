@@ -16,7 +16,7 @@ router.get('/', (req:Request, res:Response, next) => {
 router.get('/:categorySlug/articles', (req:Request, res:Response, next) => {
   const categorySlug:string = req.params.categorySlug;
   const title = req.query.title || '';
-  const limit = req.query.limit ? parseInt(req.query.limit, 10) : 5;
+  const limit = req.query.limit ? parseInt(<string>req.query.limit, 10) : 5;
 
   Category
     .findOne({ slug: categorySlug })
@@ -26,7 +26,7 @@ router.get('/:categorySlug/articles', (req:Request, res:Response, next) => {
         const exclude = { body: 0 };
 
         if (title) {
-          query['title'] = new RegExp(title, 'i');
+          query['title'] = new RegExp(<string>title, 'i');
         }
 
         Article

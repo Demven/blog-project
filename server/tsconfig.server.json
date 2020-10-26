@@ -1,27 +1,15 @@
 {
+  "extends": "../tsconfig.json",
   "compilerOptions": {
-    "outDir": "../dist/server",
+    "outDir": "../out-tsc/app-server",
     "baseUrl": "./",
     "target": "es6",
     "module": "commonjs",
-    "moduleResolution": "node",
-    "sourceMap": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
-    "lib": ["es6", "dom"],
-    "noImplicitAny": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "typeRoots": [
-      "../node_modules/@types"
-    ]
+    "types": ["node"]
   },
-  "include": [
-    "../src/app",
+  "files": [
     "../src/main.server.ts",
-    "../node_modules/ng-autosize"
-  ],
-  "exclude": [
+    "server.ts"
   ],
   "angularCompilerOptions": {
     "entryModule": "../src/app/app.server.module#AppServerModule"

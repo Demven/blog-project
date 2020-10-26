@@ -1,4 +1,3 @@
-import 'envkey';
 import 'zone.js/dist/zone-node';
 import 'reflect-metadata';
 import * as express from 'express';
@@ -12,43 +11,36 @@ import connectToDatabase from './dal';
 import apiV1Router from './api/v1';
 import { enableProdMode } from '@angular/core';
 import { ngExpressEngine } from '@nguniversal/express-engine';
-import { provideModuleMap } from '@nguniversal/module-map-ngfactory-loader';
 import robots from './middleware/robots';
 import generateSitemap from './middleware/sitemap';
+import { AppServerModule } from '../src/main.server';
+import { env } from './environments';
 
 enableProdMode();
-
-// import Angular compiled app
-const { AppServerModuleNgFactory, LAZY_MODULE_MAP } = require('../dist/server/main');
-
-const DIST_FOLDER = path.join(process.cwd(), 'dist');
-
 connectToDatabase();
 
 const app = express();
+const DIST_FOLDER = path.join(process.cwd(), 'dist');
 
 // The request handler must be the first middleware on the app
-Sentry.init({ dsn: process.env.SENTRY_DSN_SERVER });
+Sentry.init({ dsn: env.SENTRY_DSN_SERVER });
 app.use(Sentry.Handlers.requestHandler());
 
 app.engine('html', ngExpressEngine({
-  bootstrap: AppServerModuleNgFactory,
-  providers: [
-    provideModuleMap(LAZY_MODULE_MAP)
-  ]
+  bootstrap: AppServerModule,
 }));
 
 app.set('view engine', 'html');
 app.set('views', `${DIST_FOLDER}/client`);
 
-if (process.env.NODE_ENV === 'development') {
+if (env.NODE_ENV === 'development') {
   app.use(cors());
 } else {
   app.use(cors({ origin: /\.dmitry-salnikov\.info$/, }));
 }
 
-app.get('*.*', express.static(`${DIST_FOLDER}/client`));
 app.get('/sitemap.xml', generateSitemap);
+app.get('*.*', express.static(`${DIST_FOLDER}/client`));
 
 app.use(robots());
 app.use(bodyParser.json());

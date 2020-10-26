@@ -6,15 +6,16 @@ require('./models/keyword');
 require('./models/article');
 require('./models/homepage-section');
 require('./models/views-count');
+import { env } from '../environments';
 
 require('mongoose').Promise = require('bluebird');
 
 export default function connectToDatabase() {
   let connectionURI:string;
-  if (process.env.NODE_ENV === 'production' && process.env.MONGODB_USERNAME) {
-    connectionURI = `mongodb://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@${process.env.MONGODB_HOST}:${process.env.MONGODB_PORT}/${process.env.MONGODB_APP_NAME}`;
+  if (env.NODE_ENV === 'production' && env.MONGODB_USERNAME) {
+    connectionURI = `mongodb://${env.MONGODB_USERNAME}:${env.MONGODB_PASSWORD}@${env.MONGODB_HOST}:${env.MONGODB_PORT}/${env.MONGODB_APP_NAME}`;
   } else {
-    connectionURI = `mongodb://${process.env.MONGODB_HOST}/${process.env.MONGODB_APP_NAME}`;
+    connectionURI = `mongodb://${env.MONGODB_HOST}/${env.MONGODB_APP_NAME}`;
   }
 
   console.info(`Connect to the database: ${connectionURI}...`);

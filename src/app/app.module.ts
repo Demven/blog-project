@@ -5,16 +5,8 @@ import {
   Meta,
 } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
-import { NgReduxModule, NgRedux } from '@angular-redux/store';
 import { CommonModule } from '@angular/common';
 import { BrowserClient } from '@sentry/browser';
-import {
-  applyMiddleware,
-  Store,
-  createStore,
-} from 'redux';
-import rootReducer from './redux/reducers';
-import initialAppState, { IAppState } from './redux/InitialAppState';
 import { AppComponent } from './app.component';
 import { AppRouterModule } from './app-router.module';
 import { CommonModule as CommonComponentsModule } from './common/common.module';
@@ -35,14 +27,7 @@ import { PageData } from './services/page-data.service';
 import { ErrorLogger } from './services/error-logger';
 import { env } from '../environments';
 
-const store:Store<any> = createStore(
-  rootReducer,
-  initialAppState,
-  applyMiddleware(),
-);
-
 if (typeof window !== 'undefined') {
-  window['store'] = store;
   window['env'] = env;
 }
 
@@ -51,7 +36,6 @@ if (typeof window !== 'undefined') {
     BrowserModule.withServerTransition({ appId: 'blog-project' }),
     HttpClientModule,
     AppRouterModule,
-    NgReduxModule,
     InViewportModule,
     CommonModule,
     CommonComponentsModule,
@@ -79,8 +63,4 @@ if (typeof window !== 'undefined') {
   ],
   bootstrap: [ AppComponent ],
 })
-export class AppModule {
-  constructor(ngRedux: NgRedux<IAppState>) {
-    ngRedux.provideStore(store);
-  }
-}
+export class AppModule {}

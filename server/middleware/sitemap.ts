@@ -1,8 +1,9 @@
 import createSitemap, { Sitemap, ISitemapItemOptionsLoose } from 'sitemap';
 import Article from '../dal/models/article';
+import { env } from '../environments';
 
 const CACHE_TIMEOUT = 6 * 60 * 60 * 1000; // 6 hours
-const WWW_HOST = `${process.env.WWW_HOST}`;
+const WWW_HOST = `${env.WWW_HOST}`;
 
 let _sitemap: Sitemap = null;
 let _sitemapGeneratedDate: Date = new Date();

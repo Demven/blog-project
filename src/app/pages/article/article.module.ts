@@ -18,6 +18,7 @@ import { ArticleCode } from './article-code/article-code';
 import { ArticleEmbed } from './article-embed/article-embed';
 import { ArticleVideo } from './article-video/article-video';
 import { ArticleQuote } from './article-quote/article-quote';
+import { ArticleTitleVisibilityService } from '../../services/article-title-visibility.service';
 
 @NgModule({
   imports: [
@@ -43,17 +44,8 @@ import { ArticleQuote } from './article-quote/article-quote';
     ArticleVideo,
     ArticleQuote,
   ],
-  entryComponents: [
-    ArticleText,
-    ArticleImage,
-    ArticleHeading,
-    ArticleEpigraph,
-    ArticleList,
-    ArticleMath,
-    ArticleCode,
-    ArticleEmbed,
-    ArticleVideo,
-    ArticleQuote,
+  providers: [
+    ArticleTitleVisibilityService,
   ],
   exports: [ ArticlePage ],
 })
