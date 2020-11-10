@@ -11,7 +11,12 @@ let _sitemapGeneratedDate: Date = new Date();
 function fetchArticles():Promise<ISitemapItemOptionsLoose[]> {
   return axios
     .get(`${env.API_HOST}/v1/article/sitemap`)
+    .then((response) => {
+      console.info('response', response);
+      return response;
+    })
     .then(({ data: articles }) => {
+      console.info('articles', articles);
       const urls: ISitemapItemOptionsLoose[] = articles.map((article:any) => ({
         url: `${WWW_HOST}/article/${article.slug}`,
         lastmodISO: article.last_updated.toISOString(),
@@ -35,7 +40,7 @@ function createNewSitemap(): Promise<Sitemap> {
     fetchArticles()
       .then((urls: ISitemapItemOptionsLoose[]) => {
         _sitemap = createSitemap({
-          hostname: 'https://www.dmitry-salnikov.info',
+          hostname: WWW_HOST,
           cacheTime: CACHE_TIMEOUT,
           urls
         });
