@@ -3,7 +3,6 @@ import {
   OnInit,
   ViewEncapsulation
 } from '@angular/core';
-import * as Promise from 'bluebird';
 import { env } from '../../../environments';
 
 export const EVENT_ID = {

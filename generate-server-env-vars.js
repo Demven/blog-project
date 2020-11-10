@@ -7,6 +7,7 @@ const TARGET_PATH = path.join(process.cwd(), 'server/environments/index.ts');
 const envConfigFile = `
 export const env = {
   CMS_HOST: '${process.env.CMS_HOST}',
+  API_HOST: '${process.env.API_HOST}',
   JWT_SECRET: '${process.env.JWT_SECRET}',
   MONGODB_APP_NAME: '${process.env.MONGODB_APP_NAME}',
   MONGODB_HOST: '${process.env.MONGODB_HOST}',

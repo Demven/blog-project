@@ -70,7 +70,7 @@ export class ArticleDataResolverService implements Resolve<Article> {
     const slug:string = route.params['slug'];
 
     return this.http
-      .get<Article>(`${env.WWW_HOST}/api/v1/article/${slug}`)
+      .get<Article>(`${env.API_HOST}/v1/article/${slug}`)
       .toPromise()
       .catch(error => {
         if (error.status === 404) {
@@ -78,7 +78,7 @@ export class ArticleDataResolverService implements Resolve<Article> {
           return Promise.reject();
         }
 
-        throw new Error(`API request /api/v1/article/${slug} failed: ${error.message}`);
+        throw new Error(`API request /v1/article/${slug} failed: ${error.message}`);
       });
   }
 }

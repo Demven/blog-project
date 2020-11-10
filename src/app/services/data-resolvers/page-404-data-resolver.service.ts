@@ -5,7 +5,6 @@ import {
   ActivatedRouteSnapshot
 } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import * as BluebirdPromise from 'bluebird';
 import { env } from '../../../environments';
 import { Page404Data } from '../../types/Page404Data.type';
 import { Category } from '../../types/Category.type';
@@ -33,7 +32,7 @@ export class Page404DataResolverService implements Resolve<Page404Data> {
   }
 
   fetch404PageData(): Promise<Page404Data> {
-    return BluebirdPromise.all([
+    return Promise.all([
       this.fetchCategories(),
       this.fetchArticles()
     ])
@@ -46,19 +45,19 @@ export class Page404DataResolverService implements Resolve<Page404Data> {
 
   fetchCategories(): Promise<Category[]> {
     return this.http
-      .get<Array<Category>>(`${env.WWW_HOST}/api/v1/category`)
+      .get<Array<Category>>(`${env.API_HOST}/v1/category`)
       .toPromise()
       .catch(error => {
-        throw new Error(`API request /api/v1/category failed: ${error.message}`);
+        throw new Error(`API request /v1/category failed: ${error.message}`);
       });
   }
 
   fetchArticles(): Promise<Article[]> {
     return this.http
-      .get<Array<Article>>(`${env.WWW_HOST}/api/v1/article/popular?limit=3`)
+      .get<Array<Article>>(`${env.API_HOST}/v1/article/popular?limit=3`)
       .toPromise()
       .catch(error => {
-        throw new Error(`API request /api/v1/article/popular failed: ${error.message}`);
+        throw new Error(`API request /v1/article/popular failed: ${error.message}`);
       });
   }
 }
