@@ -1,5 +1,5 @@
 import createSitemap, { Sitemap, ISitemapItemOptionsLoose } from 'sitemap';
-import Article from '../dal/models/article';
+import axios from 'axios';
 import { env } from '../environments';
 
 const CACHE_TIMEOUT = 6 * 60 * 60 * 1000; // 6 hours
@@ -9,26 +9,25 @@ let _sitemap: Sitemap = null;
 let _sitemapGeneratedDate: Date = new Date();
 
 function fetchArticles():Promise<ISitemapItemOptionsLoose[]> {
-  return new Promise((resolve) => {
-    Article
-      .find({}, 'slug image last_updated')
-      .populate('image')
-      .sort({ last_updated: 'desc' })
-      .exec()
-      .then(articles => {
-        const urls: ISitemapItemOptionsLoose[] = articles.map((article:any) => ({
-          url: `${WWW_HOST}/article/${article.slug}`,
-          lastmodISO: article.last_updated.toISOString(),
-          img: {
-            url: article.image ? article.image.url : '',
-            caption: article.image ? article.image.description : '',
-            license: 'https://creativecommons.org/licenses/by-nc/4.0/'
-          }
-        }));
+  return axios
+    .get(`${env.API_HOST}/v1/article/sitemap`)
+    .then(({ data: articles }) => {
+      const urls: ISitemapItemOptionsLoose[] = articles.map((article:any) => ({
+        url: `${WWW_HOST}/article/${article.slug}`,
+        lastmodISO: article.last_updated.toISOString(),
+        img: {
+          url: article.image ? article.image.url : '',
+          caption: article.image ? article.image.description : '',
+          license: 'https://creativecommons.org/licenses/by-nc/4.0/'
+        }
+      }));
 
-        resolve(urls);
-      });
-  });
+      return urls;
+    })
+    .catch((error: Error) => {
+      console.error('Could not get sitemap articles', error.message);
+      return [];
+    });
 }
 
 function createNewSitemap(): Promise<Sitemap> {

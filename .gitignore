@@ -2,7 +2,7 @@
 node_modules
 /db-export
 dist/
-/.env
+.env*
 src/environments/index.ts
 server/environments/index.ts
 

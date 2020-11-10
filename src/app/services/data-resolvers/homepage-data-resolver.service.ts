@@ -62,10 +62,10 @@ export class HomepageDataResolverService implements Resolve<Array<HomepageSectio
 
   fetchHomepageData(): Promise<Array<HomepageSection>> {
     return this.http
-      .get<Array<HomepageSection>>(`${env.WWW_HOST}/api/v1/homepage-section`)
+      .get<Array<HomepageSection>>(`${env.API_HOST}/v1/homepage-section`)
       .toPromise()
       .catch(error => {
-        throw new Error(`API request /api/v1/homepage-section failed: ${error.message}`);
+        throw new Error(`API request /v1/homepage-section failed: ${error.message}`);
       });
   }
 }

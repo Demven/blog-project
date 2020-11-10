@@ -7,8 +7,6 @@ import * as bodyParser from 'body-parser';
 import * as cookieParser from 'cookie-parser';
 import * as compression from 'compression';
 import * as Sentry from '@sentry/node';
-import connectToDatabase from './dal';
-import apiV1Router from './api/v1';
 import { enableProdMode } from '@angular/core';
 import { ngExpressEngine } from '@nguniversal/express-engine';
 import robots from './middleware/robots';
@@ -17,7 +15,6 @@ import { AppServerModule } from '../src/main.server';
 import { env } from './environments';
 
 enableProdMode();
-connectToDatabase();
 
 const app = express();
 const DIST_FOLDER = path.join(process.cwd(), 'dist');
@@ -48,7 +45,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(compression());
 
-app.use('/api/v1', apiV1Router);
 app.get('*', (req, res) => {
   res.render('index', { req });
 });
