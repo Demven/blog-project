@@ -37,7 +37,7 @@ function createNewSitemap(): Promise<Sitemap> {
         _sitemap = createSitemap({
           hostname: WWW_HOST,
           cacheTime: CACHE_TIMEOUT,
-          urls
+          urls,
         });
 
         resolve(_sitemap);
