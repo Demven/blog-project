@@ -1,6 +1,7 @@
 import createSitemap, { Sitemap, ISitemapItemOptionsLoose } from 'sitemap';
-import axios from 'axios';
+import gql from '../services/gql';
 import { env } from '../environments';
+import SitemapArticle from '../types/SitemapArticle';
 
 const CACHE_TIMEOUT = 6 * 60 * 60 * 1000; // 6 hours
 const WWW_HOST = `${env.WWW_HOST}`;
@@ -9,17 +10,27 @@ let _sitemap: Sitemap = null;
 let _sitemapGeneratedDate: Date = new Date();
 
 function fetchArticles():Promise<ISitemapItemOptionsLoose[]> {
-  return axios
-    .get(`${env.API_HOST}/v1/article/sitemap`)
-    .then(({ data: articles }) => {
-      const urls: ISitemapItemOptionsLoose[] = articles.map((article:any) => ({
+  return gql(`
+    sitemapArticles {
+      slug
+      image {
+        url
+        description
+        credits
+      }
+      last_updated
+    }
+  `)
+    .then((data:any) => data.sitemapArticles as SitemapArticle[])
+    .then((sitemapArticles:SitemapArticle[]) => {
+      const urls:ISitemapItemOptionsLoose[] = sitemapArticles.map((article:SitemapArticle) => ({
         url: `${WWW_HOST}/article/${article.slug}`,
         lastmodISO: (new Date(article.last_updated)).toISOString(),
         img: {
-          url: article.image ? article.image.url : '',
-          caption: article.image ? article.image.description : '',
+          url: article.image?.url || '',
+          caption: article.image?.description || '',
           license: 'https://creativecommons.org/licenses/by-nc/4.0/'
-        }
+        },
       }));
 
       return urls;
@@ -33,7 +44,7 @@ function fetchArticles():Promise<ISitemapItemOptionsLoose[]> {
 function createNewSitemap(): Promise<Sitemap> {
   return new Promise((resolve) => {
     fetchArticles()
-      .then((urls: ISitemapItemOptionsLoose[]) => {
+      .then((urls:ISitemapItemOptionsLoose[]) => {
         _sitemap = createSitemap({
           hostname: WWW_HOST,
           cacheTime: CACHE_TIMEOUT,

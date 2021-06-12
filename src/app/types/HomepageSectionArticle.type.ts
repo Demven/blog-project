@@ -6,8 +6,4 @@ export interface HomepageSectionArticle {
     description: string;
     credits: string;
   };
-  views: {
-    count: number;
-  };
-  publication_date: string;
 }

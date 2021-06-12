@@ -1,19 +1,6 @@
 import { Component, HostBinding, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { ImagesService } from '../../../../services/images.service';
-
-export class HomepageSectionArticle {
-  title: string;
-  slug: string;
-  image: {
-    url: string;
-    description: string;
-    credits: string;
-  };
-  views: {
-    count: number;
-  };
-  publication_date: string;
-}
+import { HomepageSectionArticle } from '../../../../types/HomepageSectionArticle.type';
 
 const MAX_MOBILE_WIDTH = 56; // characters
 const MAX_SMALL_MOBILE_WIDTH = 38; // characters
@@ -41,7 +28,7 @@ export class HomepageSectionArticleComponent implements OnInit {
   @HostBinding('class.HomepageSectionArticle') rootClass = true;
   @HostBinding('class.HomepageSectionArticle--main') @Input() main: boolean;
 
-  @Input() article: HomepageSectionArticle;
+  @Input() article:HomepageSectionArticle;
   title = '';
 
   constructor(public imagesService: ImagesService) {}

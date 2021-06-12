@@ -2,24 +2,22 @@ import { Injectable } from '@angular/core';
 import {
   Resolve,
   RouterStateSnapshot,
-  ActivatedRouteSnapshot
+  ActivatedRouteSnapshot,
 } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import { env } from '../../../environments';
+import { GQLService } from '../gql.service';
 import { Page404Data } from '../../types/Page404Data.type';
-import { Category } from '../../types/Category.type';
 import { Article } from '../../types/Article.type';
 
 @Injectable()
 export class Page404DataResolverService implements Resolve<Page404Data> {
-  constructor(private http: HttpClient) {
+  constructor (private gql:GQLService) {
     this.fetch404PageData = this.fetch404PageData.bind(this);
   }
 
-  resolve(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Promise<Page404Data> {
+  resolve (
+    route:ActivatedRouteSnapshot,
+    state:RouterStateSnapshot,
+  ):Promise<Page404Data> {
     const runningOnClient = typeof window !== 'undefined';
 
     const pageData = runningOnClient ? (<any>window).pageData : null;
@@ -31,33 +29,34 @@ export class Page404DataResolverService implements Resolve<Page404Data> {
     }
   }
 
-  fetch404PageData(): Promise<Page404Data> {
-    return Promise.all([
-      this.fetchCategories(),
-      this.fetchArticles()
-    ])
-      .then(([categories, articles]: [Category[], Article[]]) => ({
+  fetch404PageData ():Promise<Page404Data> {
+    return this.fetchArticles()
+      .then((articles:Article[]) => ({
         type: '404',
-        categories,
-        articles
+        articles,
       }));
   }
 
-  fetchCategories(): Promise<Category[]> {
-    return this.http
-      .get<Array<Category>>(`${env.API_HOST}/v1/category`)
-      .toPromise()
+  fetchArticles ():Promise<Article[]> {
+    return this.gql.query(`
+      popularArticles (limit: 3) {
+        title
+        slug
+        image {
+          url
+          description
+          credits
+        }
+        category {
+          title
+          slug
+          color
+        }
+      }
+    `)
+      .then((data:any) => data.popularArticles as Article[])
       .catch(error => {
-        throw new Error(`API request /v1/category failed: ${error.message}`);
-      });
-  }
-
-  fetchArticles(): Promise<Article[]> {
-    return this.http
-      .get<Array<Article>>(`${env.API_HOST}/v1/article/popular?limit=3`)
-      .toPromise()
-      .catch(error => {
-        throw new Error(`API request /v1/article/popular failed: ${error.message}`);
+        throw new Error(`GraphQL request popularArticles(limit: 3) failed: ${error.message}`);
       });
   }
 }

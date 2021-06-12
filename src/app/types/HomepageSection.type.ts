@@ -6,8 +6,5 @@ export interface HomepageSection {
     slug: string;
     color: string;
   };
-  articles: Array<HomepageSectionArticle>;
-  views: {
-    count: number;
-  };
+  articles: HomepageSectionArticle[];
 }

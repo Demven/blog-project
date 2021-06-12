@@ -25,6 +25,7 @@ import { ArticleDataResolverService } from './services/data-resolvers/article-da
 import { Page404DataResolverService } from './services/data-resolvers/page-404-data-resolver.service';
 import { PageData } from './services/page-data.service';
 import { ErrorLogger } from './services/error-logger';
+import { GQLService } from './services/gql.service';
 import { env } from '../environments';
 
 if (typeof window !== 'undefined') {
@@ -49,6 +50,7 @@ if (typeof window !== 'undefined') {
   ],
   providers: [
     { provide: ErrorHandler, useFactory: ErrorLogger.initWith(BrowserClient, env.SENTRY_DSN_CLIENT) },
+    GQLService,
     ImagesService,
     MarkdownService,
     MathJaxService,

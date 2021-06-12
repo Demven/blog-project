@@ -40,11 +40,11 @@ export class HomePage implements OnInit {
   private pageTitle = 'Dmitry Salnikov - Personal Blog';
 
   constructor(
-    private route: ActivatedRoute,
-    private pageData: PageData,
-    private metaTags: Meta,
-    private titleTag: Title,
-    @Inject(DOCUMENT) private document: Document
+    private route:ActivatedRoute,
+    private pageData:PageData,
+    private metaTags:Meta,
+    private titleTag:Title,
+    @Inject(DOCUMENT) private document:Document
   ) {
     this.updatePageTitle = this.updatePageTitle.bind(this);
     this.updateMetaTags = this.updateMetaTags.bind(this);
