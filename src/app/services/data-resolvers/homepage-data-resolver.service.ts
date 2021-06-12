@@ -4,21 +4,21 @@ import {
   RouterStateSnapshot,
   ActivatedRouteSnapshot
 } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { GQLService } from '../gql.service';
 import { HomepageSection } from '../../types/HomepageSection.type';
 import { env } from '../../../environments';
 
 @Injectable()
-export class HomepageDataResolverService implements Resolve<Array<HomepageSection>> {
-  constructor(private http: HttpClient) {
+export class HomepageDataResolverService implements Resolve<HomepageSection[]> {
+  constructor (private gql:GQLService) {
     this.getHomepageDataFromClientStorage = this.getHomepageDataFromClientStorage.bind(this);
     this.fetchHomepageData = this.fetchHomepageData.bind(this);
   }
 
-  resolve(
+  resolve (
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): Promise<Array<HomepageSection>> {
+  ):Promise<Array<HomepageSection>> {
     const runningOnClient = typeof window !== 'undefined';
     const previewMode = route.url.length === 2 && route.url[0].path === 'homepage' && route.url[1].path === 'preview';
 
@@ -40,7 +40,7 @@ export class HomepageDataResolverService implements Resolve<Array<HomepageSectio
     return homepageDataPromise;
   }
 
-  getHomepageDataFromClientStorage(): Promise<Array<HomepageSection>> {
+  getHomepageDataFromClientStorage ():Promise<HomepageSection[]> {
     return new Promise(resolve => {
       const iframe = document.createElement('iframe');
       iframe.style.display = 'none';
@@ -60,12 +60,30 @@ export class HomepageDataResolverService implements Resolve<Array<HomepageSectio
     });
   }
 
-  fetchHomepageData(): Promise<Array<HomepageSection>> {
-    return this.http
-      .get<Array<HomepageSection>>(`${env.API_HOST}/v1/homepage-section`)
-      .toPromise()
+  fetchHomepageData ():Promise<HomepageSection[]> {
+    return this.gql.query(`
+      homepageSections {
+        category {
+          title
+          slug
+          color
+        }
+        articles {
+          title
+          slug
+          image {
+            url
+            description
+            credits
+          }
+          publication_date
+        }
+        order
+      }
+    `)
+      .then((data:any) => data.homepageSections as HomepageSection[])
       .catch(error => {
-        throw new Error(`API request /v1/homepage-section failed: ${error.message}`);
+        throw new Error(`GraphQL request homepageSections() failed: ${error.message}`);
       });
   }
 }
