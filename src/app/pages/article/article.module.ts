@@ -18,6 +18,7 @@ import { ArticleCode } from './article-code/article-code';
 import { ArticleEmbed } from './article-embed/article-embed';
 import { ArticleVideo } from './article-video/article-video';
 import { ArticleQuote } from './article-quote/article-quote';
+import { ArticleStickyThanks } from './article-sticky-thanks/article-sticky-thanks';
 import { ArticleTitleVisibilityService } from '../../services/article-title-visibility.service';
 
 @NgModule({
@@ -43,6 +44,7 @@ import { ArticleTitleVisibilityService } from '../../services/article-title-visi
     ArticleEmbed,
     ArticleVideo,
     ArticleQuote,
+    ArticleStickyThanks,
   ],
   providers: [
     ArticleTitleVisibilityService,

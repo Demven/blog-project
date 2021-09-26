@@ -1,0 +1,67 @@
+@import '../../../styles/typography';
+@import '../../../styles/colors';
+@import '../../../styles/media';
+
+$componentName: 'Sparkles';
+
+$sparkles-radius: 40px;
+$sparkles-circle-large: radial-gradient(circle, red 50%, transparent 60%);
+$sparkles-circle-small: radial-gradient(circle, orange 50%, transparent 60%);
+
+.#{$componentName} {
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+  position: relative;
+
+  &:after,
+  & > *:after {
+    content: "";
+    position: absolute;
+    width: calc(4 * #{$sparkles-radius});
+    height: calc(4 * #{$sparkles-radius});
+    left: calc(50% - 2 * #{$sparkles-radius});
+    top: calc(50% - 2 * #{$sparkles-radius});
+    background-image:
+      #{$sparkles-circle-large},#{$sparkles-circle-large},#{$sparkles-circle-large},#{$sparkles-circle-large},
+      #{$sparkles-circle-small},#{$sparkles-circle-small},#{$sparkles-circle-small},#{$sparkles-circle-small};
+    background-size: calc(#{$sparkles-radius} / 3) calc(#{$sparkles-radius} / 3);
+    background-position:
+      calc(50% - #{$sparkles-radius}) calc(50% - #{$sparkles-radius}),
+      calc(50% + #{$sparkles-radius}) calc(50% - #{$sparkles-radius}),
+      calc(50% - #{$sparkles-radius}) calc(50% + #{$sparkles-radius}),
+      calc(50% + #{$sparkles-radius}) calc(50% + #{$sparkles-radius}),
+      calc(50% + 0px) calc(50% + #{$sparkles-radius} * 1.414),
+      calc(50% + #{$sparkles-radius} * 1.414) calc(50% + 0px),
+      calc(50% - #{$sparkles-radius} * 1.414) calc(50% + 0px),
+      calc(50% + 0px) calc(50% - #{$sparkles-radius} * 1.414);
+    background-repeat: no-repeat;
+    transform: scale(0);
+  }
+  & > *:after {
+    background-size: calc(#{$sparkles-radius} / 5) calc(#{$sparkles-radius} / 5);
+    transform: rotate(55deg) scale(0);
+  }
+
+  &.#{$componentName}--active {
+    &:after {
+      transform: scale(1);
+      opacity: 0;
+      background-size: 0 0;
+      transition:
+        transform 0.5s,
+        opacity 0.4s 0.4s,
+        background-size 0.5s 0.4s;
+    }
+
+    & > *:after {
+      transform: rotate(55deg) scale(1);
+      opacity: 0;
+      background-size: 0 0;
+      transition:
+        transform 0.5s,
+        opacity 0.4s 0.4s,
+        background-size 0.5s 0.4s;
+    }
+  }
+}

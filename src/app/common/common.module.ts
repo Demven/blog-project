@@ -9,6 +9,8 @@ import { Icon } from './icon/icon';
 import { Navbar } from './navbar/navbar';
 import { Footer } from './footer/footer';
 import { Embed } from './embed/embed';
+import { Sparkles } from './sparkles/sparkles';
+import { Badge } from './badge/badge';
 import { KeepHtmlPipe } from './pipes/keep-html.pipe';
 import { Yandex } from './analytics/yandex';
 
@@ -26,6 +28,8 @@ import { Yandex } from './analytics/yandex';
     Navbar,
     Footer,
     Embed,
+    Sparkles,
+    Badge,
     KeepHtmlPipe,
     Yandex,
   ],
@@ -37,6 +41,8 @@ import { Yandex } from './analytics/yandex';
     Navbar,
     Footer,
     Embed,
+    Sparkles,
+    Badge,
     KeepHtmlPipe,
     RouterModule,
     Yandex,

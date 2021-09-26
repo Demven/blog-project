@@ -1,9 +1,13 @@
 import {
   Inject,
   Component,
-  OnInit,
   HostBinding,
   ViewEncapsulation,
+  ViewChild,
+  ElementRef,
+  OnInit,
+  AfterViewInit,
+  OnDestroy,
 } from '@angular/core';
 import { Title, Meta } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
@@ -63,6 +67,14 @@ export const DEFAULT_ARTICLE: Article = {
           [red]="article.category.color === 'red'"
         ></ds-label>
 
+        <ds-article-sticky-thanks
+          [visible]="!articleTitleIsVisible && !!contentWidth"
+          [contentWidth]="contentWidth"
+          [count]="thanksCount"
+          [disabled]="thanksDisabled"
+          (click)="onThanks()"
+        ></ds-article-sticky-thanks>
+
         <div class="ArticlePage__hero">
           <img
             class="ArticlePage__hero__image"
@@ -81,7 +93,10 @@ export const DEFAULT_ARTICLE: Article = {
 
         <div class="ArticlePage__hero-image-placeholder"></div>
 
-        <div class="ArticlePage__content-container">
+        <div
+          class="ArticlePage__content-container"
+          #contentContainerEl
+        >
           <ds-article-visibility-sensor [slug]="article.slug"></ds-article-visibility-sensor>
 
           <ds-article-header
@@ -98,15 +113,21 @@ export const DEFAULT_ARTICLE: Article = {
   `,
   encapsulation: ViewEncapsulation.None,
 })
-export class ArticlePage implements OnInit {
+export class ArticlePage implements OnInit, AfterViewInit, OnDestroy {
   @HostBinding('class.ArticlePage') rootClass = true;
   @HostBinding('class.ArticlePage--hero-image-loaded') heroImageLoaded = false;
 
-  slug: string;
-  article: Article = DEFAULT_ARTICLE;
+  slug:string;
+  article:Article = DEFAULT_ARTICLE;
   articleTitleIsVisible = true;
+  contentWidth:number;
+  thanksCount:number|string = 9997;
+  thanksDisabled = false;
 
-  constructor(
+  @ViewChild('contentContainerEl')
+  private contentContainerEl:ElementRef;
+
+  constructor (
     private route: ActivatedRoute,
     public imagesService: ImagesService,
     private pageData: PageData,
@@ -115,17 +136,19 @@ export class ArticlePage implements OnInit {
     private articleTitleVisibilityService: ArticleTitleVisibilityService,
     @Inject(DOCUMENT) private document: Document
   ) {
+    this.onResize = this.onResize.bind(this);
     this.updatePageTitle = this.updatePageTitle.bind(this);
     this.updateMetaTags = this.updateMetaTags.bind(this);
     this.updateCanonicalUrl = this.updateCanonicalUrl.bind(this);
     this.loadFullHeroImage = this.loadFullHeroImage.bind(this);
     this.onModalClose = this.onModalClose.bind(this);
+    this.onThanks = this.onThanks.bind(this);
     this.getFullHeroImageUrl = this.getFullHeroImageUrl.bind(this);
     this.getPreviewHeroImageUrl = this.getPreviewHeroImageUrl.bind(this);
     this.getHeroImageUrl = this.getHeroImageUrl.bind(this);
   }
 
-  ngOnInit() {
+  ngOnInit () {
     this.article = this.route.snapshot.data['article'];
     const isServer = typeof window === 'undefined';
 
@@ -146,11 +169,28 @@ export class ArticlePage implements OnInit {
     }
   }
 
-  updatePageTitle() {
+  ngAfterViewInit () {
+    if (typeof window !== 'undefined') {
+      window.document.addEventListener('resize', this.onResize);
+      this.onResize();
+    }
+  }
+
+  ngOnDestroy () {
+    if (typeof window !== 'undefined') {
+      window.document.removeEventListener('resize', this.onResize);
+    }
+  }
+
+  onResize () {
+    this.contentWidth = Math.round(this.contentContainerEl.nativeElement.getBoundingClientRect().width);
+  }
+
+  updatePageTitle () {
     this.titleTag.setTitle(this.article.title);
   }
 
-  updateMetaTags() {
+  updateMetaTags () {
     const url = `${env.WWW_HOST}/article/${this.article.slug}`;
     const title = this.article.title;
     const description = this.article.description;
@@ -181,13 +221,13 @@ export class ArticlePage implements OnInit {
     this.metaTags.updateTag({ name: 'twitter:image', content: imageUrl });
   }
 
-  updateCanonicalUrl() {
+  updateCanonicalUrl () {
     const canonicalUrl = `${env.WWW_HOST}/article/${this.article.slug}`;
     const link:HTMLLinkElement = this.document.querySelector('link[rel="canonical"]');
     link.setAttribute('href', canonicalUrl);
   }
 
-  loadFullHeroImage() {
+  loadFullHeroImage () {
     const heroImage = new Image();
     heroImage.src = this.getFullHeroImageUrl();
     heroImage.onload = () => {
@@ -195,19 +235,31 @@ export class ArticlePage implements OnInit {
     };
   }
 
-  onModalClose() {
+  onModalClose () {
     sendYandexEvent(EVENT_ID.ARTICLE_CLOSE_BUTTON, { article: this.article.slug });
   }
 
-  getFullHeroImageUrl() {
+  onThanks () {
+    if (!this.thanksDisabled) {
+      this.thanksDisabled = true;
+      this.thanksCount = `${this.thanksCount}\u00a0+1`;
+
+      setTimeout(() => {
+        this.thanksCount = Number(String(this.thanksCount).replace(/\D+1/ig, '')) + 1;
+        this.thanksDisabled = false;
+      }, 1000);
+    }
+  }
+
+  getFullHeroImageUrl () {
     return this.imagesService.getCroppedImageUrl(this.article.image.url, this.imagesService.ASPECT_RATIO.w16h9);
   }
 
-  getPreviewHeroImageUrl() {
+  getPreviewHeroImageUrl () {
     return this.imagesService.getImagePreviewUrl(this.article.image.url, this.imagesService.ASPECT_RATIO.w16h9);
   }
 
-  getHeroImageUrl() {
+  getHeroImageUrl () {
     return this.heroImageLoaded ?
       this.getFullHeroImageUrl() :
       this.getPreviewHeroImageUrl();
