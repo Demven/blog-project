@@ -1,0 +1,19 @@
+@import '../../../../styles/typography';
+@import '../../../../styles/colors';
+@import '../../../../styles/media';
+
+.ArticleFooter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__title {
+    font-family: $font-dincyr-bold;
+    font-size: 18px;
+    line-height: 1;
+  }
+
+  &__thanks-button {
+    margin-top: 10px;
+  }
+}

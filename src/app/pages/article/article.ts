@@ -6,8 +6,6 @@ import {
   ViewChild,
   ElementRef,
   OnInit,
-  AfterViewInit,
-  OnDestroy,
 } from '@angular/core';
 import { Title, Meta } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
@@ -68,10 +66,10 @@ export const DEFAULT_ARTICLE: Article = {
         ></ds-label>
 
         <ds-article-sticky-thanks
-          [visible]="!articleTitleIsVisible && !!contentWidth"
-          [contentWidth]="contentWidth"
+          [visible]="!articleTitleIsVisible"
           [count]="thanksCount"
           [disabled]="thanksDisabled"
+          [contentContainerEl]="contentContainerEl"
           (click)="onThanks()"
         ></ds-article-sticky-thanks>
 
@@ -107,25 +105,30 @@ export const DEFAULT_ARTICLE: Article = {
           ></ds-article-header>
 
           <ds-article-body [nodes]="article.body"></ds-article-body>
+
+          <ds-article-footer
+            [thanksCount]="thanksCount"
+            [thanksDisabled]="thanksDisabled"
+            (thanksClick)="onThanks()"
+          ></ds-article-footer>
         </div>
       </div>
     </ds-modal>
   `,
   encapsulation: ViewEncapsulation.None,
 })
-export class ArticlePage implements OnInit, AfterViewInit, OnDestroy {
+export class ArticlePage implements OnInit {
   @HostBinding('class.ArticlePage') rootClass = true;
   @HostBinding('class.ArticlePage--hero-image-loaded') heroImageLoaded = false;
 
   slug:string;
   article:Article = DEFAULT_ARTICLE;
   articleTitleIsVisible = true;
-  contentWidth:number;
   thanksCount:number|string = 9997;
   thanksDisabled = false;
 
   @ViewChild('contentContainerEl')
-  private contentContainerEl:ElementRef;
+  public contentContainerEl:ElementRef;
 
   constructor (
     private route: ActivatedRoute,
@@ -134,9 +137,8 @@ export class ArticlePage implements OnInit, AfterViewInit, OnDestroy {
     private metaTags: Meta,
     private titleTag: Title,
     private articleTitleVisibilityService: ArticleTitleVisibilityService,
-    @Inject(DOCUMENT) private document: Document
+    @Inject(DOCUMENT) private document: Document,
   ) {
-    this.onResize = this.onResize.bind(this);
     this.updatePageTitle = this.updatePageTitle.bind(this);
     this.updateMetaTags = this.updateMetaTags.bind(this);
     this.updateCanonicalUrl = this.updateCanonicalUrl.bind(this);
@@ -167,23 +169,6 @@ export class ArticlePage implements OnInit, AfterViewInit, OnDestroy {
         this.articleTitleIsVisible = articleTitleIsVisible;
       });
     }
-  }
-
-  ngAfterViewInit () {
-    if (typeof window !== 'undefined') {
-      window.document.addEventListener('resize', this.onResize);
-      this.onResize();
-    }
-  }
-
-  ngOnDestroy () {
-    if (typeof window !== 'undefined') {
-      window.document.removeEventListener('resize', this.onResize);
-    }
-  }
-
-  onResize () {
-    this.contentWidth = Math.round(this.contentContainerEl.nativeElement.getBoundingClientRect().width);
   }
 
   updatePageTitle () {

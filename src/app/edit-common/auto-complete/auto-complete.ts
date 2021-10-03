@@ -22,7 +22,7 @@ export class AutoCompleteItem {
     >
       {{label}}
     </label>
-    
+
     <input
       class="AutoComplete__field"
       id="{{name}}"
@@ -45,7 +45,7 @@ export class AutoCompleteItem {
         (click)="onSelect($event)"
       >{{itemValue.text}}</li>
     </ul>
-    
+
     <div class="AutoComplete__error">{{errorText}}</div>
   `,
   encapsulation: ViewEncapsulation.None,
@@ -121,7 +121,7 @@ export class AutoComplete {
     }
   }
 
-  onBlur(event: Event) {
+  onBlur(event:Event) {
     this.blur.emit(event);
   }
 

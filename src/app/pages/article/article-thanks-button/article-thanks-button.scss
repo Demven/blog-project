@@ -2,39 +2,18 @@
 @import '../../../../styles/colors';
 @import '../../../../styles/media';
 
-$componentName: 'ArticleStickyThanks';
+$componentName: 'ArticleThanksButton';
 
 .#{$componentName} {
-  &__wrapper {
-    position: fixed;
-    bottom: 300px;
-    width: 80px;
-    height: 80px;
-    left: 0;
-    top: 130px;
-    opacity: 0;
-    transform: scale(0);
-    transition: transform 0.5s, opacity 0.25s;
+  width: 80px;
+  height: 80px;
+  opacity: 0;
+  transform: scale(0);
+  transition: transform 0.5s, opacity 0.25s;
 
-    @include media($mobile-tablet-any) {
-      z-index: 1000;
-      top: unset;
-      left: unset !important;
-      right: 46px;
-      bottom: 30px;
-    }
-    @include media($tablet-wide) {
-      right: 30px;
-    }
-    @include media($mobile-any) {
-      right: 24px;
-      bottom: 20px;
-    }
-
-    .#{$componentName}--visible & {
-      opacity: 1;
-      transform: scale(1);
-    }
+  &--visible {
+    opacity: 1;
+    transform: scale(1);
   }
 
   &__button {
@@ -71,10 +50,6 @@ $componentName: 'ArticleStickyThanks';
       &:hover {
         box-shadow: 2px 2px 8px 4px rgb(0 0 0 / 10%);
       }
-    }
-
-    @include media($mobile-tablet-any) {
-      box-shadow: 2px 2px 8px 4px rgb(0 0 0 / 10%);
     }
   }
 
