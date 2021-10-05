@@ -1,7 +1,9 @@
 import {
-  Component, EventEmitter,
+  Component,
+  EventEmitter,
   HostBinding,
-  Input, Output,
+  Input,
+  Output,
   ViewEncapsulation,
 } from '@angular/core';
 
@@ -28,11 +30,11 @@ export class ArticleFooter {
 
   @Output() thanksClick:EventEmitter<Event> = new EventEmitter();
 
-  constructor() {
+  constructor () {
     this.onThanksClick = this.onThanksClick.bind(this);
   }
 
-  onThanksClick(event:Event) {
+  onThanksClick (event:Event) {
     this.thanksClick.emit(event);
   }
 }

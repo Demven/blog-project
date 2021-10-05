@@ -65,7 +65,7 @@ export class ArticleHeader implements AfterViewInit, OnDestroy {
 
   private articleTitleIsVisible = true;
 
-  constructor(
+  constructor (
     public markdownService: MarkdownService,
     private articleTitleVisibilityService: ArticleTitleVisibilityService
   ) {
@@ -75,19 +75,19 @@ export class ArticleHeader implements AfterViewInit, OnDestroy {
     this.formatPublicationDate = this.formatPublicationDate.bind(this);
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit () {
     if (typeof window !== 'undefined') {
       window.document.addEventListener('scroll', this.onArticleScroll);
     }
   }
 
-  ngOnDestroy() {
+  ngOnDestroy () {
     if (typeof window !== 'undefined') {
       window.document.removeEventListener('scroll', this.onArticleScroll);
     }
   }
 
-  onArticleScroll() {
+  onArticleScroll () {
     const titleElBounds = this.titleEl.nativeElement.getBoundingClientRect();
     if (this.articleTitleIsVisible && titleElBounds.top < 0) {
       this.onTitleIsHidden();
@@ -96,17 +96,17 @@ export class ArticleHeader implements AfterViewInit, OnDestroy {
     }
   }
 
-  onTitleIsHidden() {
+  onTitleIsHidden () {
     this.articleTitleIsVisible = false;
     this.articleTitleVisibilityService.setVisibility(false);
   }
 
-  onTitleIsVisible() {
+  onTitleIsVisible () {
     this.articleTitleIsVisible = true;
     this.articleTitleVisibilityService.setVisibility(true);
   }
 
-  formatPublicationDate() {
+  formatPublicationDate () {
     return moment(this.publicationDate).format('MMM DD YYYY');
   }
 }

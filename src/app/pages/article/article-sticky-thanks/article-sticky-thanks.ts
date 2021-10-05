@@ -19,17 +19,11 @@ const BUTTON_WIDTH = 80; // px
       class="ArticleStickyThanks__wrapper"
       [style.left]="left"
     >
-      <ds-sparkles [active]="clickAnimationActive">
-        <button
-          class="ArticleStickyThanks__button"
-          (click)="!disabled ? onClick() : undefined"
-        >
-          <ds-badge class="ArticleStickyThanks__badge">{{getBadgeValue(count)}}</ds-badge>
-          Thank
-          <br />
-          Me
-        </button>
-      </ds-sparkles>
+      <ds-article-thanks-button
+        [count]="count"
+        [disabled]="disabled"
+        (click)="onClick()"
+      ></ds-article-thanks-button>
     </div>
   `,
   encapsulation: ViewEncapsulation.None,
@@ -37,8 +31,8 @@ const BUTTON_WIDTH = 80; // px
 export class ArticleStickyThanks implements AfterViewInit, OnDestroy  {
   @HostBinding('class.ArticleStickyThanks') rootClass = true;
   @HostBinding('class.ArticleStickyThanks--visible') @Input() visible:boolean;
-  @HostBinding('class.ArticleStickyThanks--disabled') @Input() disabled:boolean;
 
+  @Input() disabled:boolean;
   @Input() contentContainerEl:HTMLElement;
   @Input() count:string|number = 0;
 

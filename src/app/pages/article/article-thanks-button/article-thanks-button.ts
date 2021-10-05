@@ -11,10 +11,10 @@ import {
   template: `
     <ds-sparkles [active]="clickAnimationActive">
       <button
-        class="ArticleStickyThanks__button"
+        class="ArticleThanksButton__button"
         (click)="!disabled ? onClick() : undefined"
       >
-        <ds-badge class="ArticleStickyThanks__badge">{{getBadgeValue(count)}}</ds-badge>
+        <ds-badge class="ArticleThanksButton__badge">{{getBadgeValue(count)}}</ds-badge>
         Thank
         <br />
         Me

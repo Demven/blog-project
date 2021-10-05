@@ -22,6 +22,7 @@ import { ArticleQuote } from './article-quote/article-quote';
 import { ArticleThanksButton } from './article-thanks-button/article-thanks-button';
 import { ArticleStickyThanks } from './article-sticky-thanks/article-sticky-thanks';
 import { ArticleTitleVisibilityService } from '../../services/article-title-visibility.service';
+import { ArticleFooterVisibilityService } from '../../services/article-footer-visibility.service';
 
 @NgModule({
   imports: [
@@ -52,6 +53,7 @@ import { ArticleTitleVisibilityService } from '../../services/article-title-visi
   ],
   providers: [
     ArticleTitleVisibilityService,
+    ArticleFooterVisibilityService,
   ],
   exports: [ ArticlePage ],
 })

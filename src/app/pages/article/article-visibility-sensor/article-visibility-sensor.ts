@@ -5,6 +5,7 @@ import {
   Input,
 } from '@angular/core';
 import { sendYandexEvent, EVENT_ID } from '../../../common/analytics/yandex';
+import { ArticleFooterVisibilityService } from '../../../services/article-footer-visibility.service';
 
 const ARTICLE_COMPLETED_EVENT_MAP = {
   25: EVENT_ID.ARTICLE_COMPLETED_25,
@@ -46,7 +47,9 @@ export class ArticleVisibilitySensor {
 
   private percentsCompleted = 0; // % of the article is scrolled
 
-  constructor() {
+  constructor(
+    private articleFooterVisibilityService:ArticleFooterVisibilityService,
+  ) {
     this.onInViewport = this.onInViewport.bind(this);
   }
 
@@ -59,6 +62,12 @@ export class ArticleVisibilitySensor {
       if (eventId) {
         sendYandexEvent(eventId, { article: this.slug });
       }
+    }
+
+    if (visible && percentsCompleted === 100) {
+      this.articleFooterVisibilityService.setVisibility(true);
+    } else {
+      this.articleFooterVisibilityService.setVisibility(false);
     }
   }
 }

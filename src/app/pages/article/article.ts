@@ -17,6 +17,7 @@ import { sendYandexEvent, EVENT_ID } from '../../common/analytics/yandex';
 import { Article } from '../../types/Article.type';
 import { Keyword } from '../../types/Keyword.type';
 import { ArticleTitleVisibilityService } from '../../services/article-title-visibility.service';
+import { ArticleFooterVisibilityService } from '../../services/article-footer-visibility.service';
 
 export const DEFAULT_ARTICLE: Article = {
   slug: '',
@@ -66,7 +67,7 @@ export const DEFAULT_ARTICLE: Article = {
         ></ds-label>
 
         <ds-article-sticky-thanks
-          [visible]="!articleTitleIsVisible"
+          [visible]="!articleTitleIsVisible && !articleFooterIsVisible"
           [count]="thanksCount"
           [disabled]="thanksDisabled"
           [contentContainerEl]="contentContainerEl"
@@ -124,6 +125,7 @@ export class ArticlePage implements OnInit {
   slug:string;
   article:Article = DEFAULT_ARTICLE;
   articleTitleIsVisible = true;
+  articleFooterIsVisible = false;
   thanksCount:number|string = 9997;
   thanksDisabled = false;
 
@@ -137,6 +139,7 @@ export class ArticlePage implements OnInit {
     private metaTags: Meta,
     private titleTag: Title,
     private articleTitleVisibilityService: ArticleTitleVisibilityService,
+    private articleFooterVisibilityService: ArticleFooterVisibilityService,
     @Inject(DOCUMENT) private document: Document,
   ) {
     this.updatePageTitle = this.updatePageTitle.bind(this);
@@ -167,6 +170,9 @@ export class ArticlePage implements OnInit {
 
       this.articleTitleVisibilityService.subscribe((articleTitleIsVisible:boolean) => {
         this.articleTitleIsVisible = articleTitleIsVisible;
+      });
+      this.articleFooterVisibilityService.subscribe((articleFooterIsVisible:boolean) => {
+        this.articleFooterIsVisible = articleFooterIsVisible;
       });
     }
   }
