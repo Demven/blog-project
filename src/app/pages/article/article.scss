@@ -9,6 +9,10 @@ $article-page-modal-offset: 2em;
     display: flex;
     flex-direction: column;
     position: relative;
+
+    @include media($mobile-any) {
+      padding-bottom: 20px;
+    }
   }
 
   & .ArticlePage__hero,

@@ -22,6 +22,7 @@ const BUTTON_WIDTH = 80; // px
       <ds-article-thanks-button
         [count]="count"
         [disabled]="disabled"
+        [withBadge]="true"
         (click)="onClick()"
       ></ds-article-thanks-button>
     </div>

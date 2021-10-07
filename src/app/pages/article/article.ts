@@ -72,6 +72,7 @@ export const DEFAULT_ARTICLE: Article = {
           [disabled]="thanksDisabled"
           [contentContainerEl]="contentContainerEl"
           (click)="onThanks()"
+          *ngIf="!thanked"
         ></ds-article-sticky-thanks>
 
         <div class="ArticlePage__hero">
@@ -108,8 +109,10 @@ export const DEFAULT_ARTICLE: Article = {
           <ds-article-body [nodes]="article.body"></ds-article-body>
 
           <ds-article-footer
+            [viewsCount]="article.views.count"
             [thanksCount]="thanksCount"
             [thanksDisabled]="thanksDisabled"
+            [thanked]="thanked"
             (thanksClick)="onThanks()"
           ></ds-article-footer>
         </div>
@@ -128,6 +131,7 @@ export class ArticlePage implements OnInit {
   articleFooterIsVisible = false;
   thanksCount:number|string = 9997;
   thanksDisabled = false;
+  thanked = false;
 
   @ViewChild('contentContainerEl')
   public contentContainerEl:ElementRef;
@@ -238,6 +242,7 @@ export class ArticlePage implements OnInit {
       setTimeout(() => {
         this.thanksCount = Number(String(this.thanksCount).replace(/\D+1/ig, '')) + 1;
         this.thanksDisabled = false;
+        this.thanked = true;
       }, 1000);
     }
   }

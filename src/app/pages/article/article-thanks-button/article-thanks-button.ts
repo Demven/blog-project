@@ -14,7 +14,13 @@ import {
         class="ArticleThanksButton__button"
         (click)="!disabled ? onClick() : undefined"
       >
-        <ds-badge class="ArticleThanksButton__badge">{{getBadgeValue(count)}}</ds-badge>
+        <ds-badge
+          class="ArticleThanksButton__badge"
+          *ngIf="withBadge && !!count"
+        >
+          {{getBadgeValue(count)}}
+        </ds-badge>
+
         Thank
         <br />
         Me
@@ -28,6 +34,7 @@ export class ArticleThanksButton {
   @HostBinding('class.ArticleThanksButton--disabled') @Input() disabled:boolean;
 
   @Input() count:string|number = 0;
+  @Input() withBadge = false;
 
   public clicked = false;
   public clickAnimationActive = false;

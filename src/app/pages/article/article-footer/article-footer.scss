@@ -2,7 +2,9 @@
 @import '../../../../styles/colors';
 @import '../../../../styles/media';
 
-.ArticleFooter {
+$componentName: 'ArticleFooter';
+
+.#{$componentName} {
   padding-bottom: 40px;
   display: flex;
   flex-direction: column;
@@ -16,5 +18,26 @@
 
   &__thanks-button {
     margin-top: 28px;
+  }
+
+  &__percentage {
+    margin-top: 24px;
+    display: flex;
+    align-items: center;
+
+    .#{$componentName}--thanked & {
+      margin-top: 0;
+    }
+  }
+
+  &__stats {
+    margin-left: 6px;
+    font-family: $font-dincyr-regular;
+    font-size: 14px;
+    line-height: 1;
+
+    .#{$componentName}--thanked & {
+      font-size: 16px;
+    }
   }
 }
