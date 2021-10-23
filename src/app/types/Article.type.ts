@@ -3,6 +3,7 @@ import { Keyword } from './Keyword.type';
 import { Image } from './Image.type';
 
 export interface Article {
+  _id: string;
   slug: string;
   title: string;
   description: string;
@@ -10,6 +11,9 @@ export interface Article {
   category: Category;
   keywords: Array<Keyword>;
   views: {
+    count: number;
+  };
+  thanks: {
     count: number;
   };
   publication_date: string;

@@ -1,5 +1,5 @@
 import { Component, HostBinding, Input, ViewEncapsulation } from '@angular/core';
-import scrollTo from '../../services/pageScroller';
+import scrollTo from '../../services/page-scroller';
 import { Category } from '../../types/Category.type';
 import { sendYandexEvent, EVENT_ID } from '../analytics/yandex';
 

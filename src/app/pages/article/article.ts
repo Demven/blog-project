@@ -1,22 +1,28 @@
 import {
   Inject,
   Component,
-  OnInit,
   HostBinding,
   ViewEncapsulation,
+  ViewChild,
+  ElementRef,
+  OnInit,
 } from '@angular/core';
 import { Title, Meta } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
+import { sendYandexEvent, EVENT_ID } from '../../common/analytics/yandex';
 import { ImagesService } from '../../services/images.service';
 import { PageData } from '../../services/page-data.service';
+import { ArticleTitleVisibilityService } from '../../services/article-title-visibility.service';
+import { ArticleFooterVisibilityService } from '../../services/article-footer-visibility.service';
+import { GQLService } from '../../services/gql.service';
+import clientStorage, { STORAGE_KEY } from '../../services/client-storage';
 import { env } from '../../../environments';
-import { sendYandexEvent, EVENT_ID } from '../../common/analytics/yandex';
 import { Article } from '../../types/Article.type';
 import { Keyword } from '../../types/Keyword.type';
-import { ArticleTitleVisibilityService } from '../../services/article-title-visibility.service';
 
 export const DEFAULT_ARTICLE: Article = {
+  _id: '',
   slug: '',
   title: '',
   description: '',
@@ -32,6 +38,9 @@ export const DEFAULT_ARTICLE: Article = {
   },
   keywords: [],
   views: {
+    count: 0,
+  },
+  thanks: {
     count: 0,
   },
   publication_date: '',
@@ -63,6 +72,15 @@ export const DEFAULT_ARTICLE: Article = {
           [red]="article.category.color === 'red'"
         ></ds-label>
 
+        <ds-article-sticky-thanks
+          [visible]="!articleTitleIsVisible && !articleFooterIsVisible"
+          [count]="thanksCount"
+          [disabled]="thanksDisabled"
+          [contentContainerEl]="contentContainerEl"
+          (click)="onThanks()"
+          *ngIf="!thanked"
+        ></ds-article-sticky-thanks>
+
         <div class="ArticlePage__hero">
           <img
             class="ArticlePage__hero__image"
@@ -81,7 +99,10 @@ export const DEFAULT_ARTICLE: Article = {
 
         <div class="ArticlePage__hero-image-placeholder"></div>
 
-        <div class="ArticlePage__content-container">
+        <div
+          class="ArticlePage__content-container"
+          #contentContainerEl
+        >
           <ds-article-visibility-sensor [slug]="article.slug"></ds-article-visibility-sensor>
 
           <ds-article-header
@@ -92,6 +113,14 @@ export const DEFAULT_ARTICLE: Article = {
           ></ds-article-header>
 
           <ds-article-body [nodes]="article.body"></ds-article-body>
+
+          <ds-article-footer
+            [viewsCount]="article.views.count"
+            [thanksCount]="thanksCount"
+            [thanksDisabled]="thanksDisabled"
+            [thanked]="thanked"
+            (thanksClick)="onThanks()"
+          ></ds-article-footer>
         </div>
       </div>
     </ds-modal>
@@ -102,32 +131,48 @@ export class ArticlePage implements OnInit {
   @HostBinding('class.ArticlePage') rootClass = true;
   @HostBinding('class.ArticlePage--hero-image-loaded') heroImageLoaded = false;
 
-  slug: string;
-  article: Article = DEFAULT_ARTICLE;
+  slug:string;
+  article:Article = DEFAULT_ARTICLE;
   articleTitleIsVisible = true;
+  articleFooterIsVisible = false;
+  thanksCount:number|string = 0;
+  thanksDisabled = false;
+  thanked = false;
 
-  constructor(
+  @ViewChild('contentContainerEl')
+  public contentContainerEl:ElementRef;
+
+  constructor (
     private route: ActivatedRoute,
+    private gql:GQLService,
     public imagesService: ImagesService,
     private pageData: PageData,
     private metaTags: Meta,
     private titleTag: Title,
     private articleTitleVisibilityService: ArticleTitleVisibilityService,
-    @Inject(DOCUMENT) private document: Document
+    private articleFooterVisibilityService: ArticleFooterVisibilityService,
+    @Inject(DOCUMENT) private document: Document,
   ) {
     this.updatePageTitle = this.updatePageTitle.bind(this);
     this.updateMetaTags = this.updateMetaTags.bind(this);
     this.updateCanonicalUrl = this.updateCanonicalUrl.bind(this);
     this.loadFullHeroImage = this.loadFullHeroImage.bind(this);
     this.onModalClose = this.onModalClose.bind(this);
+    this.onThanks = this.onThanks.bind(this);
     this.getFullHeroImageUrl = this.getFullHeroImageUrl.bind(this);
     this.getPreviewHeroImageUrl = this.getPreviewHeroImageUrl.bind(this);
     this.getHeroImageUrl = this.getHeroImageUrl.bind(this);
   }
 
-  ngOnInit() {
-    this.article = this.route.snapshot.data['article'];
+  ngOnInit () {
     const isServer = typeof window === 'undefined';
+
+    this.article = this.route.snapshot.data['article'];
+    this.thanksCount = this.article?.thanks?.count || 0;
+
+    if ((clientStorage.get(STORAGE_KEY.THANKED_ARTICLES_IDS) || []).includes(this.article._id)) {
+      this.thanked = true;
+    }
 
     if (isServer) {
       this.pageData.set(this.article);
@@ -143,14 +188,17 @@ export class ArticlePage implements OnInit {
       this.articleTitleVisibilityService.subscribe((articleTitleIsVisible:boolean) => {
         this.articleTitleIsVisible = articleTitleIsVisible;
       });
+      this.articleFooterVisibilityService.subscribe((articleFooterIsVisible:boolean) => {
+        this.articleFooterIsVisible = articleFooterIsVisible;
+      });
     }
   }
 
-  updatePageTitle() {
+  updatePageTitle () {
     this.titleTag.setTitle(this.article.title);
   }
 
-  updateMetaTags() {
+  updateMetaTags () {
     const url = `${env.WWW_HOST}/article/${this.article.slug}`;
     const title = this.article.title;
     const description = this.article.description;
@@ -181,13 +229,13 @@ export class ArticlePage implements OnInit {
     this.metaTags.updateTag({ name: 'twitter:image', content: imageUrl });
   }
 
-  updateCanonicalUrl() {
+  updateCanonicalUrl () {
     const canonicalUrl = `${env.WWW_HOST}/article/${this.article.slug}`;
     const link:HTMLLinkElement = this.document.querySelector('link[rel="canonical"]');
     link.setAttribute('href', canonicalUrl);
   }
 
-  loadFullHeroImage() {
+  loadFullHeroImage () {
     const heroImage = new Image();
     heroImage.src = this.getFullHeroImageUrl();
     heroImage.onload = () => {
@@ -195,19 +243,43 @@ export class ArticlePage implements OnInit {
     };
   }
 
-  onModalClose() {
+  onModalClose () {
     sendYandexEvent(EVENT_ID.ARTICLE_CLOSE_BUTTON, { article: this.article.slug });
   }
 
-  getFullHeroImageUrl() {
+  onThanks () {
+    if (!this.thanksDisabled) {
+      this.thanksDisabled = true;
+      this.thanksCount = `${this.thanksCount}\u00a0+1`;
+
+      setTimeout(() => {
+        this.thanksCount = Number(String(this.thanksCount).replace(/\D+1/ig, '')) + 1;
+        this.thanksDisabled = false;
+        this.thanked = true;
+      }, 1000);
+
+      return this.gql.mutation(`thanksFor (articleId: "${this.article._id}")`)
+        .then((data:any) => data.thanksFor as boolean)
+        .then((success:boolean) => {
+          if (success) {
+            const thankedArticlesIds = clientStorage.get(STORAGE_KEY.THANKED_ARTICLES_IDS) || [];
+            thankedArticlesIds.push(this.article._id);
+
+            clientStorage.save(STORAGE_KEY.THANKED_ARTICLES_IDS, thankedArticlesIds);
+          }
+        });
+    }
+  }
+
+  getFullHeroImageUrl () {
     return this.imagesService.getCroppedImageUrl(this.article.image.url, this.imagesService.ASPECT_RATIO.w16h9);
   }
 
-  getPreviewHeroImageUrl() {
+  getPreviewHeroImageUrl () {
     return this.imagesService.getImagePreviewUrl(this.article.image.url, this.imagesService.ASPECT_RATIO.w16h9);
   }
 
-  getHeroImageUrl() {
+  getHeroImageUrl () {
     return this.heroImageLoaded ?
       this.getFullHeroImageUrl() :
       this.getPreviewHeroImageUrl();

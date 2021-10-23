@@ -3,7 +3,7 @@ import {
   Resolve,
   RouterStateSnapshot,
   ActivatedRouteSnapshot,
-  Router
+  Router,
 } from '@angular/router';
 import { GQLService } from '../gql.service';
 import { env } from '../../../environments';
@@ -71,6 +71,7 @@ export class ArticleDataResolverService implements Resolve<Article> {
 
     return this.gql.query(`
       article (slug: "${slug}") {
+        _id
         title
         description
         slug
@@ -89,6 +90,9 @@ export class ArticleDataResolverService implements Resolve<Article> {
           slug
         }
         views {
+          count
+        }
+        thanks {
           count
         }
         publication_date

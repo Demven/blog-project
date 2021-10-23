@@ -1,0 +1,15 @@
+@import '../../../styles/typography';
+@import '../../../styles/colors';
+@import '../../../styles/media';
+
+$componentName: 'Badge';
+
+.#{$componentName} {
+  padding: 3px 6px;
+  font-family: $font-dincyr-bold;
+  font-size: 12px;
+  line-height: 1;
+  background: darkorange;
+  color: $color-white;
+  border-radius: 10px;
+}
