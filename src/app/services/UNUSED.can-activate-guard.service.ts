@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate } from '@angular/router';
 import axios from 'axios';
-import clientStorage, { STORAGE_KEY } from './clientStorage';
+import clientStorage, { STORAGE_KEY } from './client-storage';
 
 @Injectable()
 export class CanActivateGuard implements CanActivate {

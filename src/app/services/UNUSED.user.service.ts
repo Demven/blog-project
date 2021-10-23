@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
-import clientStorage, { STORAGE_KEY } from './clientStorage';
+import clientStorage, { STORAGE_KEY } from './client-storage';
 
 @Injectable()
 export class UserService {

@@ -2,12 +2,14 @@ interface StorageKey {
   ARTICLE_DATA: string;
   HOMEPAGE_DATA: string;
   AUTH_TOKEN: string;
+  THANKED_ARTICLES_IDS: string;
 }
 
-export const STORAGE_KEY: StorageKey = {
+export const STORAGE_KEY:StorageKey = {
   ARTICLE_DATA: 'ARTICLE_DATA',
   HOMEPAGE_DATA: 'HOMEPAGE_DATA',
   AUTH_TOKEN: 'AUTH_TOKEN',
+  THANKED_ARTICLES_IDS: 'THANKED_ARTICLES_IDS',
 };
 
 function save(key: string, value: any): void {

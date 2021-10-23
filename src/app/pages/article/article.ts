@@ -10,16 +10,19 @@ import {
 import { Title, Meta } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
+import { sendYandexEvent, EVENT_ID } from '../../common/analytics/yandex';
 import { ImagesService } from '../../services/images.service';
 import { PageData } from '../../services/page-data.service';
-import { env } from '../../../environments';
-import { sendYandexEvent, EVENT_ID } from '../../common/analytics/yandex';
-import { Article } from '../../types/Article.type';
-import { Keyword } from '../../types/Keyword.type';
 import { ArticleTitleVisibilityService } from '../../services/article-title-visibility.service';
 import { ArticleFooterVisibilityService } from '../../services/article-footer-visibility.service';
+import { GQLService } from '../../services/gql.service';
+import clientStorage, { STORAGE_KEY } from '../../services/client-storage';
+import { env } from '../../../environments';
+import { Article } from '../../types/Article.type';
+import { Keyword } from '../../types/Keyword.type';
 
 export const DEFAULT_ARTICLE: Article = {
+  _id: '',
   slug: '',
   title: '',
   description: '',
@@ -35,6 +38,9 @@ export const DEFAULT_ARTICLE: Article = {
   },
   keywords: [],
   views: {
+    count: 0,
+  },
+  thanks: {
     count: 0,
   },
   publication_date: '',
@@ -129,7 +135,7 @@ export class ArticlePage implements OnInit {
   article:Article = DEFAULT_ARTICLE;
   articleTitleIsVisible = true;
   articleFooterIsVisible = false;
-  thanksCount:number|string = 9997;
+  thanksCount:number|string = 0;
   thanksDisabled = false;
   thanked = false;
 
@@ -138,6 +144,7 @@ export class ArticlePage implements OnInit {
 
   constructor (
     private route: ActivatedRoute,
+    private gql:GQLService,
     public imagesService: ImagesService,
     private pageData: PageData,
     private metaTags: Meta,
@@ -158,8 +165,14 @@ export class ArticlePage implements OnInit {
   }
 
   ngOnInit () {
-    this.article = this.route.snapshot.data['article'];
     const isServer = typeof window === 'undefined';
+
+    this.article = this.route.snapshot.data['article'];
+    this.thanksCount = this.article?.thanks?.count || 0;
+
+    if ((clientStorage.get(STORAGE_KEY.THANKED_ARTICLES_IDS) || []).includes(this.article._id)) {
+      this.thanked = true;
+    }
 
     if (isServer) {
       this.pageData.set(this.article);
@@ -244,6 +257,17 @@ export class ArticlePage implements OnInit {
         this.thanksDisabled = false;
         this.thanked = true;
       }, 1000);
+
+      return this.gql.mutation(`thanksFor (articleId: "${this.article._id}")`)
+        .then((data:any) => data.thanksFor as boolean)
+        .then((success:boolean) => {
+          if (success) {
+            const thankedArticlesIds = clientStorage.get(STORAGE_KEY.THANKED_ARTICLES_IDS) || [];
+            thankedArticlesIds.push(this.article._id);
+
+            clientStorage.save(STORAGE_KEY.THANKED_ARTICLES_IDS, thankedArticlesIds);
+          }
+        });
     }
   }
 

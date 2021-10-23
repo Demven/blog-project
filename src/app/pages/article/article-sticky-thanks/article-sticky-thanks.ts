@@ -45,7 +45,6 @@ export class ArticleStickyThanks implements AfterViewInit, OnDestroy  {
   constructor () {
     this.onResize = this.onResize.bind(this);
     this.onClick = this.onClick.bind(this);
-    this.getBadgeValue = this.getBadgeValue.bind(this);
   }
 
   ngAfterViewInit () {
@@ -72,13 +71,5 @@ export class ArticleStickyThanks implements AfterViewInit, OnDestroy  {
     setTimeout(() => {
       this.clickAnimationActive = false;
     }, 1000);
-  }
-
-  getBadgeValue (count:string|number):string {
-    return ((typeof count === 'number' && count < 10000) || typeof count === 'string')
-      ? String(count)
-      : (count < 1000000
-        ? `${(count / 1000).toFixed(1).replace('.0', '')}k`
-        : `${(count / 1000000).toFixed(1).replace('.0', '')}M`);
   }
 }
