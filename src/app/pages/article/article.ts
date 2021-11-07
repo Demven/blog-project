@@ -10,7 +10,7 @@ import {
 import { Title, Meta } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
-import { sendYandexEvent, EVENT_ID } from '../../common/analytics/yandex';
+import { sendYandexEvent, EVENT_ID, trackPageView } from '../../common/analytics/yandex';
 import { ImagesService } from '../../services/images.service';
 import { PageData } from '../../services/page-data.service';
 import { ArticleTitleVisibilityService } from '../../services/article-title-visibility.service';
@@ -51,7 +51,7 @@ export const DEFAULT_ARTICLE: Article = {
   selector: 'ds-page-article',
   styleUrls: ['./article.scss'],
   template: `
-    <ds-analytics-yandex></ds-analytics-yandex>
+    <ds-analytics-yandex [trackPageViewManually]="true"></ds-analytics-yandex>
 
     <ds-article-nav
       [title]="article.title"
@@ -153,6 +153,7 @@ export class ArticlePage implements OnInit {
     private articleFooterVisibilityService: ArticleFooterVisibilityService,
     @Inject(DOCUMENT) private document: Document,
   ) {
+    this.onRouteChange = this.onRouteChange.bind(this);
     this.updatePageTitle = this.updatePageTitle.bind(this);
     this.updateMetaTags = this.updateMetaTags.bind(this);
     this.updateCanonicalUrl = this.updateCanonicalUrl.bind(this);
@@ -167,6 +168,14 @@ export class ArticlePage implements OnInit {
   ngOnInit () {
     const isServer = typeof window === 'undefined';
 
+    if (isServer) {
+      this.pageData.set(this.route.snapshot.data['article']);
+    }
+
+    this.route.params.subscribe(this.onRouteChange);
+  }
+
+  onRouteChange () {
     this.article = this.route.snapshot.data['article'];
     this.thanksCount = this.article?.thanks?.count || 0;
 
@@ -174,24 +183,20 @@ export class ArticlePage implements OnInit {
       this.thanked = true;
     }
 
-    if (isServer) {
-      this.pageData.set(this.article);
-    }
-
     this.updatePageTitle();
     this.updateMetaTags();
     this.updateCanonicalUrl();
 
-    if (!isServer) {
-      this.loadFullHeroImage();
+    this.loadFullHeroImage();
 
-      this.articleTitleVisibilityService.subscribe((articleTitleIsVisible:boolean) => {
-        this.articleTitleIsVisible = articleTitleIsVisible;
-      });
-      this.articleFooterVisibilityService.subscribe((articleFooterIsVisible:boolean) => {
-        this.articleFooterIsVisible = articleFooterIsVisible;
-      });
-    }
+    this.articleTitleVisibilityService.subscribe((articleTitleIsVisible:boolean) => {
+      this.articleTitleIsVisible = articleTitleIsVisible;
+    });
+    this.articleFooterVisibilityService.subscribe((articleFooterIsVisible:boolean) => {
+      this.articleFooterIsVisible = articleFooterIsVisible;
+    });
+
+    trackPageView();
   }
 
   updatePageTitle () {

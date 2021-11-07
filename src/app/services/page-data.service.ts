@@ -3,11 +3,11 @@ import { DOCUMENT } from '@angular/common';
 
 @Injectable()
 export class PageData {
-  constructor(@Inject(DOCUMENT) private document: Document) {
+  constructor (@Inject(DOCUMENT) private document:Document) {
     this.set = this.set.bind(this);
   }
 
-  set(data:object) {
+  set (data:object) {
     const script:HTMLScriptElement = this.document.createElement('script');
     const pageData = JSON.stringify(data)
       .replace(/<\/(script)/gi, '<\\/$1')

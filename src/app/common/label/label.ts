@@ -1,11 +1,5 @@
 import { Component, HostBinding, Input, ViewEncapsulation } from '@angular/core';
 
-export const LABEL_COLOR = {
-  BLUE: 'blue',
-  GREEN: 'green',
-  RED: 'red',
-};
-
 @Component({
   selector: 'ds-label',
   styleUrls: ['./label.scss'],

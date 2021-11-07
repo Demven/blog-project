@@ -11,6 +11,8 @@ import { Footer } from './footer/footer';
 import { Embed } from './embed/embed';
 import { Sparkles } from './sparkles/sparkles';
 import { Badge } from './badge/badge';
+import { ArticleCard } from './article-card/article-card';
+import { ArticleInfo } from './article-info/article-info';
 import { KeepHtmlPipe } from './pipes/keep-html.pipe';
 import { Yandex } from './analytics/yandex';
 
@@ -30,6 +32,8 @@ import { Yandex } from './analytics/yandex';
     Embed,
     Sparkles,
     Badge,
+    ArticleCard,
+    ArticleInfo,
     KeepHtmlPipe,
     Yandex,
   ],
@@ -43,6 +47,8 @@ import { Yandex } from './analytics/yandex';
     Embed,
     Sparkles,
     Badge,
+    ArticleCard,
+    ArticleInfo,
     KeepHtmlPipe,
     RouterModule,
     Yandex,

@@ -28,50 +28,7 @@
   }
 
   & .ArticleHeader__article-info {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
     margin-top: 1em;
-    font-family: $font-dincyr-bold;
-    font-size: 1.4em;
-    line-height: 1em;
-    color: $color-grey;
-  }
-
-  & .ArticleHeader__publication-date {
-    margin-right: 20px;
-  }
-
-  & .ArticleHeader__views-count {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-
-    & .ArticleHeader__views-count-icon {
-      width: 30px;
-      height: 30px;
-    }
-
-    & .ArticleHeader__views-count-value {
-      margin-left: 0.5em;
-    }
-  }
-
-  & .ArticleHeader__comments-count {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-left: 2em;
-
-    & .ArticleHeader__comments-count-icon {
-      width: 30px;
-      height: 30px;
-      margin-top: 2px;
-    }
-
-    & .ArticleHeader__comments-count-value {
-      margin-left: 0.5em;
-    }
   }
 
   & .ArticleHeader__description {

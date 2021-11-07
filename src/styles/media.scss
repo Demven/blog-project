@@ -41,7 +41,7 @@ $default-feature: min-width;
   $desktop-screen = 1440px
 */
 
-$sub-mobile: new-breakpoint(max-width 320px);
+$mobile-small: new-breakpoint(max-width 320px);
 $mobile: new-breakpoint(max-width 400px);
 $mobile-wide: new-breakpoint(min-width 401px max-width 690px);
 $mobile-any: new-breakpoint(max-width 690px);
@@ -51,6 +51,8 @@ $tablet-any: new-breakpoint(min-width 691px max-width 1024px);
 $mobile-tablet-any: new-breakpoint(max-width 1024px);
 $desktop: new-breakpoint(min-width 1025px max-width 1439px);
 $desktop-narrow: new-breakpoint(min-width 1025px max-width 1279px);
+$desktop-narrow-tablet: new-breakpoint(min-width 691px max-width 1279px);
+$desktop-not-narrow: new-breakpoint(min-width 1280px);
 $desktop-wide: new-breakpoint(min-width 1440px);
 $desktop-any: new-breakpoint(min-width 1025px);
 $portrait: new-breakpoint(orientation portrait);

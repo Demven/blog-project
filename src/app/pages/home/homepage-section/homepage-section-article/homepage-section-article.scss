@@ -2,24 +2,44 @@
 @import '../../../../../styles/colors';
 @import '../../../../../styles/media';
 
+$homepage-section-article-tablet-691-790: new-breakpoint(min-width 691px max-width 790px);
+
 .HomepageSectionArticle {
-  width: 24.5%;
-  height: 50%;
-  padding: 0 0 0.25em 0.5em;
+  width: calc(25% - 0.36em);
+  height: calc(50% - 0.25em);
+  margin: 0 0 0.25em 0.5em;
   box-sizing: border-box;
+  border-radius: 0;
+  box-shadow: 0 0 0 0 rgb(0 0 0 / 10%);
+  transform: scale(1);
+  transition: transform 0.2s ease-in, box-shadow 0.2s, border-radius 0.4s;
+  overflow: hidden;
+
+  &:hover {
+    @include media($desktop-any) {
+      border-radius: 6px;
+      transform: scale(1.1);
+      z-index: 1;
+      box-shadow: 2px 2px 8px 4px rgb(0 0 0 / 10%);
+    }
+  }
 
   @include media($tablet-any) {
-    width: 33.3%;
+    width: calc(33.3% - 0.38em);
+  }
+
+  @include media($homepage-section-article-tablet-691-790) {
+    width: calc(33.3% - 0.44em);
   }
 
   @include media($mobile-any) {
-    width: 50%;
+    width: calc(50% - 0.25em);
     height: auto;
-    padding: 0.5em 0.25em 0 0;
+    margin: 0.5em 0.25em 0 0;
   }
 
   @include media($desktop-any) {
-    padding: 0;
+    margin: 0;
   }
 
   &:nth-of-type(2),
@@ -30,11 +50,11 @@
   }
 
   &:nth-of-type(2n + 1) {
-    padding-top: 0.25em;
-    padding-bottom: 0;
+    margin-top: 0.25em;
+    margin-bottom: 0;
 
     @include media($mobile-any) {
-      padding: 0.5em 0 0 0.25em;
+      margin: 0.5em 0 0 0.25em;
     }
   }
 
@@ -112,8 +132,15 @@
   &.HomepageSectionArticle--main {
     width: 50%;
     height: 100%;
+    margin: 0;
     box-sizing: border-box;
-    padding: 0 !important;
+    transition: transform 0.26s ease-in, box-shadow 0.2s, border-radius 0.4s;
+
+    &:hover {
+      @include media($desktop-any) {
+        transform: scale(1.05);
+      }
+    }
 
     @include media($mobile-any) {
       width: 100%;

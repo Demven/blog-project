@@ -1,0 +1,49 @@
+@import '../../../styles/typography';
+@import '../../../styles/colors';
+@import '../../../styles/media';
+
+.ArticleInfo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-family: $font-dincyr-bold;
+  font-size: 1.4em;
+  line-height: 1em;
+  color: $color-grey;
+
+  &__publication-date {
+    margin-right: 20px;
+  }
+
+  &__views-count {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    &-icon {
+      width: 30px;
+      height: 30px;
+    }
+
+    &-value {
+      margin-left: 0.5em;
+    }
+  }
+
+  &__comments-count {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 2em;
+
+    &-icon {
+      width: 30px;
+      height: 30px;
+      margin-top: 2px;
+    }
+
+    &-value {
+      margin-left: 0.5em;
+    }
+  }
+}

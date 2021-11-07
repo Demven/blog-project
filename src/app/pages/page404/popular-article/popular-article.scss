@@ -36,7 +36,7 @@ $popular-article-sub-mobile-width: 276px;
     height: $popular-article-mobile-width / 3 * 2;
   }
 
-  @include media($sub-mobile) {
+  @include media($mobile-small) {
     width: $popular-article-sub-mobile-width;
     height: $popular-article-sub-mobile-width / 3 * 2;
   }
@@ -98,7 +98,7 @@ $popular-article-sub-mobile-width: 276px;
       bottom: 20px;
     }
 
-    @include media($sub-mobile) {
+    @include media($mobile-small) {
       left: 16px;
       bottom: 14px;
     }

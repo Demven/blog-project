@@ -1,7 +1,8 @@
 import {
   Component,
+  Input,
   OnInit,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import { env } from '../../../environments';
 
@@ -16,8 +17,14 @@ export const EVENT_ID = {
   ARTICLE_COMPLETED_100: 'ARTICLE_COMPLETED_100',
 };
 
-export function sendYandexEvent(eventId:string, params?:object):void {
-  if (typeof window !== 'undefined') {
+export function trackPageView ():void {
+  if (typeof window !== 'undefined' && window['yandexInitialized']) {
+    window['ym'](env.YANDEX_ID, 'hit', window.location.pathname);
+  }
+}
+
+export function sendYandexEvent (eventId:string, params?:object):void {
+  if (typeof window !== 'undefined' && window['yandexInitialized']) {
     window['ym'](env.YANDEX_ID, 'reachGoal', eventId, params);
   }
 }
@@ -42,7 +49,9 @@ export class Yandex implements OnInit {
   public YANDEX_METRICA_SRC = 'https://mc.yandex.ru/metrika/tag.js';
   public YANDEX_ID = env.YANDEX_ID;
 
-  constructor() {
+  @Input() trackPageViewManually = false;
+
+  constructor () {
     this.load = this.load.bind(this);
     this.initYandex = this.initYandex.bind(this);
   }
@@ -53,13 +62,17 @@ export class Yandex implements OnInit {
       const yandexInitialized = window['yandexInitialized'];
 
       if (!yandexInitialized) {
-        this.load().then(this.initYandex);
+        this.load()
+          .then(this.initYandex);
+
         window['yandexInitialized'] = true;
+      } else if (!this.trackPageViewManually) {
+        trackPageView();
       }
     }
   }
 
-  load() {
+  load () {
     window['ym'] = window['ym'] || function () {
       (window['ym'].a = window['ym'].a || []).push(arguments);
     };
@@ -78,7 +91,7 @@ export class Yandex implements OnInit {
     });
   }
 
-  initYandex() {
+  initYandex () {
     window['ym'](this.YANDEX_ID, 'init', {
       id: this.YANDEX_ID,
       clickmap: true,

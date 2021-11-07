@@ -5,6 +5,7 @@ export class ImagesService  {
   public ASPECT_RATIO = {
     w16h9: 'ar_16:9',
     w3h2: 'ar_3:2',
+    w1h1: 'ar_1:1',
   };
 
   isCloudinaryUrl(url:string):boolean {

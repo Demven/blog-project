@@ -1,7 +1,6 @@
 import { Component, HostBinding, Input, ViewEncapsulation } from '@angular/core';
-import scrollTo from '../../services/page-scroller';
-import { Category } from '../../types/Category.type';
 import { sendYandexEvent, EVENT_ID } from '../analytics/yandex';
+import { Category } from '../../types/Category.type';
 
 @Component({
   selector: 'ds-navbar',
@@ -10,28 +9,38 @@ import { sendYandexEvent, EVENT_ID } from '../analytics/yandex';
     <nav class="Navbar__menu">
       <menuitem class="Navbar__menu-item">
         <a
-          class="Navbar__menu-link"
-          (click)="onMenuItemClick($event, 0, categories && categories[0].slug)"
+          [ngClass]="getLinkClassName(categories[0])"
+          routerLink="/category/{{categories[0]?.slug}}"
+          routerLinkActive="Navbar__menu-link--active"
+
+          (click)="sendClickEvent(categories[0]?.slug)"
         >
-          {{categories && categories[0].title}}
+          {{categories[0]?.title}}
         </a>
       </menuitem>
+
       <menuitem class="Navbar__menu-item">
         <a
-          class="Navbar__menu-link"
-          (click)="onMenuItemClick($event, 1, categories && categories[1].slug)"
+          [ngClass]="getLinkClassName(categories[2])"
+          routerLink="/category/{{categories[2]?.slug}}"
+          routerLinkActive="Navbar__menu-link--active"
+          (click)="sendClickEvent(categories[2]?.slug)"
         >
-          {{categories && categories[1].title}}
+          {{categories[2]?.title}}
         </a>
       </menuitem>
+
       <menuitem class="Navbar__menu-item">
         <a
-          class="Navbar__menu-link"
-          (click)="onMenuItemClick($event, 2, categories && categories[2].slug)"
+          [ngClass]="getLinkClassName(categories[1])"
+          routerLink="/category/{{categories[1]?.slug}}"
+          routerLinkActive="Navbar__menu-link--active"
+          (click)="sendClickEvent(categories[1]?.slug)"
         >
-          {{categories && categories[2].title}}
+          {{categories[1]?.title}}
         </a>
       </menuitem>
+
       <menuitem class="Navbar__menu-item">
         <a
           class="Navbar__menu-link"
@@ -59,25 +68,23 @@ import { sendYandexEvent, EVENT_ID } from '../analytics/yandex';
 })
 export class Navbar {
   @HostBinding('class.Navbar') rootClass = true;
-  @Input() categories: Array<Category>;
+  @Input() categories: Category[];
 
   constructor() {
-    this.onMenuItemClick = this.onMenuItemClick.bind(this);
+    this.getLinkClassName = this.getLinkClassName.bind(this);
     this.sendClickEvent = this.sendClickEvent.bind(this);
   }
 
-  getOffsetToCategory(index:number):number {
-    return document.querySelectorAll('ds-homepage-section')[index]['offsetTop'] - 20;
+  getLinkClassName (category:Category) {
+    return {
+      'Navbar__menu-link': true,
+      'Navbar__menu-link--red': category?.color === 'red',
+      'Navbar__menu-link--green': category?.color === 'green',
+      'Navbar__menu-link--blue': category?.color === 'blue',
+    };
   }
 
-  onMenuItemClick(event:Event, index:number, categorySlug: string) {
-    event.preventDefault();
-
-    scrollTo(this.getOffsetToCategory(index));
-    this.sendClickEvent(categorySlug);
-  }
-
-  sendClickEvent(categorySlug:string) {
+  sendClickEvent (categorySlug:string) {
     sendYandexEvent(EVENT_ID.NAVIGATION_ITEM_CLICKED, { item: categorySlug });
   }
 }

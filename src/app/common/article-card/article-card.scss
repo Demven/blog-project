@@ -1,0 +1,107 @@
+@import '../../../styles/typography';
+@import '../../../styles/colors';
+@import '../../../styles/media';
+
+.ArticleCard {
+  &__link {
+    display: block;
+    position: relative;
+    box-shadow: 0 0 0 0 rgb(0 0 0 / 10%);
+    text-decoration: none;
+    transition: box-shadow 0.3s;
+    border-radius: 6px;
+    cursor: pointer;
+    overflow: hidden;
+
+    @include media($mobile-any) {
+      box-shadow: 2px 2px 6px 4px rgb(0 0 0 / 5%);
+    }
+
+    &:hover {
+      box-shadow: 2px 2px 8px 4px rgb(0 0 0 / 10%);
+    }
+  }
+
+  &__label {
+    font-size: 17px !important;
+  }
+
+  &__wrapper {
+    display: flex;
+
+    @include media($mobile-any) {
+      flex-direction: column;
+    }
+  }
+
+  &__image {
+    width: 50%;
+    height: auto;
+    flex-shrink: 0;
+    flex-grow: 0;
+    border-radius: 6px 0 0 6px;
+
+    @include media($mobile-any) {
+      width: 100%;
+      border-radius: 6px 6px 0 0;
+    }
+  }
+
+  &__info {
+    width: 50%;
+    padding: 10px 20px 13px 24px;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    flex-grow: 0;
+    box-sizing: border-box;
+
+    @include media($tablet-any) {
+      padding: 7px 16px 5px 16px;
+    }
+
+    @include media($mobile-any) {
+      width: 100%;
+      padding: 10px 15px 10px 15px;
+    }
+  }
+
+  &__title {
+    font-family: $font-dincyr-bold;
+    font-size: 32px;
+    line-height: 1.4;
+    letter-spacing: -0.5px;
+    color: $color-black-text;
+
+    @include media($tablet-any) {
+      font-size: 30px;
+      line-height: 1.3;
+    }
+    @include media($mobile-any) {
+      font-size: 26px;
+      line-height: 1.4;
+    }
+  }
+
+  &__description {
+    margin-top: 10px;
+    font-family: $font-dincyr-regular;
+    font-size: 19px;
+    line-height: 1.6;
+    color: $color-black;
+
+    @include media($tablet-any) {
+      font-size: 18px;
+      line-height: 1.5;
+    }
+  }
+
+  &__date-and-views {
+    margin-top: auto;
+    padding-top: 8px;
+
+    @include media($mobile-any) {
+      padding-top: 12px;
+    }
+  }
+}
