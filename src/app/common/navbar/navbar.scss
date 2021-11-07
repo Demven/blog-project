@@ -2,118 +2,285 @@
 @import '../../../styles/colors';
 @import '../../../styles/media';
 
-.Navbar {
+$componentName: 'Navbar';
+$logo-width-desktop: 170px;
+$logo-height-desktop: 160px;
+$logo-width-tablet: 150px;
+$logo-height-tablet: 140px;
+$logo-width-mobile: 94px;
+$logo-height-mobile: 88px;
+
+.#{$componentName} {
   width: 100vw;
   position: relative;
-  padding: 0 8em;
+  padding: 0 80px;
   box-sizing: border-box;
   user-select: none;
 
-  @include media($mobile) {
-    font-size: 0.5rem;
-    padding: 0 2em;
-  }
-
-  @include media($mobile-wide) {
-    font-size: 0.6rem;
-    padding: 0 2em;
-  }
-
   @include media($tablet-any) {
-    padding: 0 4em;
+    padding: 0 40px;
+  }
+  @include media($mobile-any) {
+    padding: 0 10px;
   }
 
-  @include media($desktop-wide) {
-    width: 128em;
-    margin: 0 auto;
-    padding: 0;
-  }
-
-  & .Navbar__menu {
-    height: 12em;
+  &__menu {
+    max-width: 1280px;
+    margin-top: 26px;
+    margin-left: auto;
+    margin-right: auto;
     position: relative;
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
     font-family: $font-cormorant-bold;
     align-items: center;
-    justify-content: space-between;
-    margin-top: 2.6em;
+    justify-content: flex-start;
 
-    &:before {
-      content: '';
-      width: 100%;
-      height: 0.2em;
-      position: absolute;
-      left: 0;
-      top: 6em;
-      background: $color-black;
+    @include media($desktop-narrow) {
+      margin-top: 20px;
+    }
+    @include media($tablet-any) {
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+    @include media($mobile-any) {
+      margin-top: 10px;
+      flex-wrap: wrap;
     }
   }
 
-  & .Navbar__menu-item {
-    width: 50%;
-    height: 2.23em;
-    font-size: 2.6em;
-    line-height: 2.23em;
+  &__menu-item {
+    width: calc(25% - #{$logo-width-desktop / 4});
+    position: relative;
+    font-size: 26px;
+    line-height: 56px;
     text-transform: uppercase;
     text-align: center;
+    flex-grow: 0;
+    flex-shrink: 0;
+    box-sizing: border-box;
 
-    @include media($mobile) {
-      width: 39%;
+    @include media($desktop) {
+      font-size: 22px;
     }
-
+    @include media($tablet-any) {
+      width: 50%;
+      font-size: 22px;
+      line-height: 57px;
+    }
+    @include media($mobile-any) {
+      width: 50%;
+      font-size: 13px;
+      line-height: 36px;
+    }
     @include media($mobile-wide) {
-      width: 42%;
+      font-size: 16px;
+    }
+    @include media($mobile-small) {
+      font-size: 12px;
     }
 
-    @include media($tablet) {
-      width: 43%;
+    &:nth-of-type(1) {
+      @include media($tablet-any) {
+        padding-right: $logo-width-tablet / 2;
+      }
+      @include media($mobile-any) {
+        padding-right: $logo-width-mobile / 2;
+      }
+    }
+    &:nth-of-type(2) {
+      margin-right: auto;
+
+      @include media($tablet-any) {
+        padding-left: $logo-width-tablet / 2;
+      }
+      @include media($mobile-any) {
+        padding-left: $logo-width-mobile / 2;
+      }
+    }
+    &:nth-of-type(3) {
+      margin-left: auto;
+
+      @include media($tablet-any) {
+        padding-right: $logo-width-tablet / 2;
+      }
+      @include media($mobile-any) {
+        padding-right: $logo-width-mobile / 2;
+      }
+    }
+    &:nth-of-type(4) {
+      @include media($tablet-any) {
+        padding-left: $logo-width-tablet / 2;
+      }
+      @include media($mobile-any) {
+        padding-left: $logo-width-mobile / 2;
+      }
     }
   }
 
-  & .Navbar__menu-link {
+  &__menu-link {
     width: auto;
     height: 100%;
     display: inline-block;
-    padding: 0 1em;
     text-decoration: none;
-    color: inherit;
     cursor: pointer;
+    position: relative;
+    color: $color-black-text;
+    box-sizing: border-box;
+
+    @include media($desktop-not-narrow) {
+      padding: 0 10px;
+    }
+    @include media($tablet-any) {
+      padding: 0 10px;
+    }
+    @include media($mobile-any) {
+      padding: 0;
+    }
+
+    &:after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 4px;
+      color: rgba(0, 0, 0, 0);
+      background: currentColor;
+      border-radius: 2px;
+      bottom: -4px;
+      left: 0;
+      transition: color 0.2s;
+
+      @include media($tablet-any) {
+        bottom: 6px;
+      }
+      @include media($mobile-any) {
+        bottom: 3px;
+      }
+    }
+
+    &:not(&--active):hover:after,
+    &--active:after {
+      color: $color-black-text;
+    }
+
+    &--red {
+      &:not(.#{$componentName}__menu-link--active):hover:after,
+      &.#{$componentName}__menu-link--active:after {
+        color: $color-red;
+      }
+    }
+    &--green {
+      &:not(.#{$componentName}__menu-link--active):hover:after,
+      &.#{$componentName}__menu-link--active:after {
+        color: $color-green;
+      }
+    }
+    &--blue {
+      &:not(.#{$componentName}__menu-link--active):hover:after,
+      &.#{$componentName}__menu-link--active:after {
+        color: $color-aquamarine;
+      }
+    }
   }
 
-  & .Navbar__logo-container {
-    width: 17em;
-    height: 16em;
+  &__logo-container {
+    width: $logo-width-desktop;
+    height: $logo-height-desktop;
     display: flex;
     justify-content: center;
     align-items: center;
     position: absolute;
-    top: -3em;
+    top: -30px;
     left: 50%;
-    transform: translateX(-8.5em);
-    border: 0.6em solid $color-black;
+    transform: translateX($logo-width-desktop / -2);
+    border: 6px solid $color-black;
     border-radius: 50%;
     background: $color-white;
     box-sizing: border-box;
-    z-index: 10;
-  }
 
-  & .Navbar__logo {
-    width: 11em;
-    margin-top: 1em;
-    z-index: 20;
-  }
-
-  & .Navbar__blog-name {
-    font-family: $font-cormorant-bold;
-    font-size: 1.6em;
-    text-transform: uppercase;
-    text-align: center;
-    margin: 0.5em 0 0;
+    @include media($desktop-narrow-tablet) {
+      width: $logo-width-tablet;
+      height: $logo-height-tablet;
+      top: -26px;
+      transform: translateX($logo-width-tablet / -2);
+    }
 
     @include media($mobile-any) {
-      font-size: 1.8em;
+      width: $logo-width-mobile;
+      height: $logo-height-mobile;
+      top: -18px;
+      transform: translateX($logo-width-mobile / -2);
+      border-width: 4px;
+    }
+
+    &:before {
+      content: '';
+      width: 100%;
+      height: 4px;
+      background: $color-black;
+      position: absolute;
+      left: 0;
+      bottom: 37px;
+      border-radius: 2px;
+      transform: scaleX(0);
+      transition: transform 0.3s ease-in-out;
+    }
+    &:after {
+      content: '';
+      width: 100%;
+      height: 100%;
+      background: $color-white;
+      border-radius: 50%;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    &:hover {
+      &:before {
+        @include media($desktop-any) {
+          transform: scaleX(1.5);
+        }
+      }
+    }
+  }
+
+  &__logo {
+    width: 110px;
+    margin-top: 10px;
+    z-index: 20;
+
+    @include media($desktop-narrow-tablet) {
+      width: 96px;
+    }
+    @include media($mobile-any) {
+      width: 62px;
+      margin-top: 5px;
+    }
+  }
+
+  &__blog-name {
+    font-family: $font-cormorant-bold;
+    font-size: 16px;
+    line-height: 1;
+    text-transform: uppercase;
+    text-align: center;
+    margin-top: 70px;
+
+    @include media($desktop-narrow) {
+      margin-top: 60px;
+      font-size: 14px;
+    }
+    @include media($tablet-any) {
+      margin-top: 15px;
+      font-size: 14px;
+    }
+    @include media($mobile-any) {
+      margin-top: 10px;
+      font-size: 11px;
+    }
+    @include media($mobile-wide) {
+      margin-top: 12px;
     }
   }
 }

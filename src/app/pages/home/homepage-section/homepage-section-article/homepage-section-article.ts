@@ -1,5 +1,6 @@
 import { Component, HostBinding, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { ImagesService } from '../../../../services/images.service';
+import { ScreenSize, ScreenSizeService } from '../../../../services/screen-size.service';
 import { HomepageSectionArticle } from '../../../../types/HomepageSectionArticle.type';
 
 const MAX_MOBILE_WIDTH = 56; // characters
@@ -31,9 +32,12 @@ export class HomepageSectionArticleComponent implements OnInit {
   @Input() article:HomepageSectionArticle;
   title = '';
 
-  constructor(public imagesService: ImagesService) {}
+  constructor (
+    public imagesService: ImagesService,
+    private screenSizeService: ScreenSizeService,
+  ) {}
 
-  ngOnInit() {
+  ngOnInit () {
     this.title = this.article.title;
 
     if (!this.main && typeof window !== 'undefined') {
@@ -41,10 +45,9 @@ export class HomepageSectionArticleComponent implements OnInit {
     }
   }
 
-  truncateTitle() {
-    const viewportWidth = window.innerWidth;
-    const isMobile = viewportWidth <= 690;
-    const isSmallMobile = viewportWidth <= 320;
+  truncateTitle () {
+    const isMobile = this.screenSizeService.isCurrentScreenSize(ScreenSize.MOBILE_ANY);
+    const isSmallMobile = this.screenSizeService.isCurrentScreenSize(ScreenSize.MOBILE_SMALL);
 
     if (isSmallMobile && this.article.title.length > (MAX_SMALL_MOBILE_WIDTH + 4)) {
       this.title = `${this.article.title.substring(0, MAX_SMALL_MOBILE_WIDTH)} ...`;

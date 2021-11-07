@@ -22,10 +22,8 @@ $homepage-section-tablet-691-790: new-breakpoint(min-width 691px max-width 790px
     flex-direction: row;
   }
 
-  &:first-of-type {
-    @include media($mobile-any) {
-      margin-top: 0;
-    }
+  @include media($desktop-narrow) {
+    max-height: 40em;
   }
 
   @include media($homepage-section-tablet-691-715) {

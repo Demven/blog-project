@@ -29,7 +29,7 @@ const BUTTON_WIDTH = 80; // px
   `,
   encapsulation: ViewEncapsulation.None,
 })
-export class ArticleStickyThanks implements AfterViewInit, OnDestroy  {
+export class ArticleStickyThanks implements AfterViewInit, OnDestroy {
   @HostBinding('class.ArticleStickyThanks') rootClass = true;
   @HostBinding('class.ArticleStickyThanks--visible') @Input() visible:boolean;
 

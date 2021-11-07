@@ -8,7 +8,6 @@ import {
   OnDestroy,
   ViewEncapsulation,
 } from '@angular/core';
-import * as moment from 'moment';
 import { MarkdownService } from '../../../services/markdown.service';
 import { ArticleTitleVisibilityService } from '../../../services/article-title-visibility.service';
 
@@ -21,29 +20,11 @@ import { ArticleTitleVisibilityService } from '../../../services/article-title-v
       #titleEl
     >{{title}}</h1>
 
-    <div class="ArticleHeader__article-info">
-      <div class="ArticleHeader__publication-date">{{formatPublicationDate()}}</div>
-      <div class="ArticleHeader__views-count">
-        <img
-          class="ArticleHeader__views-count-icon"
-          src="/assets/images/eye.png"
-          alt="Eye icon"
-        />
-        <div class="ArticleHeader__views-count-value">{{views}}</div>
-      </div>
-
-      <div
-        class="ArticleHeader__comments-count"
-        *ngIf="false"
-      >
-        <img
-          class="ArticleHeader__comments-count-icon"
-          src="/assets/images/comments.png"
-          alt="Comment icon"
-        />
-        <div class="ArticleHeader__comments-count-value">123</div>
-      </div>
-    </div>
+    <ds-article-info
+      class="ArticleHeader__article-info"
+      [publicationDate]="publicationDate"
+      [views]="views"
+    ></ds-article-info>
 
     <p
       class="ArticleHeader__description"
@@ -72,7 +53,6 @@ export class ArticleHeader implements AfterViewInit, OnDestroy {
     this.onArticleScroll = this.onArticleScroll.bind(this);
     this.onTitleIsHidden = this.onTitleIsHidden.bind(this);
     this.onTitleIsVisible = this.onTitleIsVisible.bind(this);
-    this.formatPublicationDate = this.formatPublicationDate.bind(this);
   }
 
   ngAfterViewInit () {
@@ -104,9 +84,5 @@ export class ArticleHeader implements AfterViewInit, OnDestroy {
   onTitleIsVisible () {
     this.articleTitleIsVisible = true;
     this.articleTitleVisibilityService.setVisibility(true);
-  }
-
-  formatPublicationDate () {
-    return moment(this.publicationDate).format('MMM DD YYYY');
   }
 }

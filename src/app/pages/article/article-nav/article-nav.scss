@@ -21,7 +21,7 @@
     font-size: 0.8rem;
   }
 
-  @include media($sub-mobile) {
+  @include media($mobile-small) {
     font-size: 0.75rem;
   }
 
@@ -60,7 +60,7 @@
       width: 70%;
     }
 
-    @include media($sub-mobile) {
+    @include media($mobile-small) {
       width: 68%;
     }
   }
@@ -111,7 +111,7 @@
       right: 1.5em;
     }
 
-    @include media($sub-mobile) {
+    @include media($mobile-small) {
       font-size: 0.55rem;
       top: 1.8em;
       right: 1em;

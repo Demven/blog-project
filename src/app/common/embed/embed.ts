@@ -1,15 +1,16 @@
 import {
+  AfterViewInit,
   Component,
   ElementRef,
   HostBinding,
+  Inject,
   Input,
+  Renderer2,
   ViewChild,
   ViewEncapsulation,
-  Renderer2,
-  Inject,
-  AfterViewInit,
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
+import { ScreenSize, ScreenSizeService } from '../../services/screen-size.service';
 
 @Component({
   selector: 'ds-embed',
@@ -34,6 +35,7 @@ export class Embed implements AfterViewInit {
 
   constructor(
     private renderer: Renderer2,
+    private screenSizeService: ScreenSizeService,
     @Inject(DOCUMENT) private document: Document
   ) {
     this.loadScriptsInEmbed = this.loadScriptsInEmbed.bind(this);
@@ -46,8 +48,8 @@ export class Embed implements AfterViewInit {
     const runningOnClient = typeof window !== 'undefined';
 
     if (runningOnClient && this.embed) {
-      const viewportWidth = window.innerWidth;
-      const isMobile = viewportWidth <= 690;
+      const isMobile = this.screenSizeService.isCurrentScreenSize(ScreenSize.MOBILE_ANY);
+
       const isScript = this.embed.includes('<script');
       const isIframe = this.embed.includes('<iframe');
 

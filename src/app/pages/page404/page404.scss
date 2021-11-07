@@ -57,7 +57,7 @@ $page404-popular-articles-sub-mobile-height: 662px;
       margin: 86px 0;
     }
 
-    @include media($sub-mobile) {
+    @include media($mobile-small) {
       padding: 0 12px;
     }
   }
@@ -124,7 +124,7 @@ $page404-popular-articles-sub-mobile-height: 662px;
       transform-origin: bottom center;
     }
 
-    @include media($sub-mobile) {
+    @include media($mobile-small) {
       transform: translateX(-55%) translateY(100%) scale(0.6);
     }
   }
@@ -136,7 +136,7 @@ $page404-popular-articles-sub-mobile-height: 662px;
       transform-origin: bottom center;
     }
 
-    @include media($sub-mobile) {
+    @include media($mobile-small) {
       transform: translateX(-55%) translateY(0) scale(0.6);
     }
   }
@@ -172,7 +172,7 @@ $page404-popular-articles-sub-mobile-height: 662px;
       padding: 0 24px;
     }
 
-    @include media($sub-mobile) {
+    @include media($mobile-small) {
       height: $page404-popular-articles-sub-mobile-height;
       padding: 0 12px;
     }
@@ -217,7 +217,7 @@ $page404-popular-articles-sub-mobile-height: 662px;
       flex-direction: column;
     }
 
-    @include media($sub-mobile) {
+    @include media($mobile-small) {
       margin-top: 24px;
     }
   }

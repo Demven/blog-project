@@ -82,7 +82,7 @@ $modal-mobile-offset: 1em;
       font-size: 0.6em;
     }
 
-    @include media($sub-mobile) {
+    @include media($mobile-small) {
       font-size: 0.55em;
     }
   }
