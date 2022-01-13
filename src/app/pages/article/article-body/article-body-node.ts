@@ -23,6 +23,7 @@ import { ArticleCode, ARTICLE_CODE_TYPE } from '../article-code/article-code';
 import { ArticleEmbed, ARTICLE_EMBED_TYPE } from '../article-embed/article-embed';
 import { ArticleVideo, ARTICLE_VIDEO_TYPE } from '../article-video/article-video';
 import { ArticleQuote, ARTICLE_QUOTE_TYPE } from '../article-quote/article-quote';
+import { ArticleRecommendations, ARTICLE_RECOMMENDATIONS_TYPE } from '../article-recommendations/article-recommendations';
 
 class BodyNodeContent {
   type: string;
@@ -44,9 +45,10 @@ export class ArticleBodyNode implements OnChanges, AfterViewInit, OnDestroy {
 
   private isViewInitialized = false;
 
-  constructor(private componentFactoryResolver: ComponentFactoryResolver,
-              private compiler: Compiler,
-              private changeDetector:ChangeDetectorRef
+  constructor(
+    private componentFactoryResolver: ComponentFactoryResolver,
+    private compiler: Compiler,
+    private changeDetector: ChangeDetectorRef,
   ) {}
 
   updateComponent() {
@@ -58,12 +60,15 @@ export class ArticleBodyNode implements OnChanges, AfterViewInit, OnDestroy {
       this.node.destroy();
     }
 
-    const componentToRender:any = this.getComponentByNodeType(this.content.type);
-    const factory = this.componentFactoryResolver.resolveComponentFactory(componentToRender);
-    this.node = this.target.createComponent(factory);
-    this.node.instance.content = this.content;
-    // this.node.instance.someOutput.subscribe(val => doSomething());
-    this.changeDetector.detectChanges();
+    const componentToRender:any|null = this.getComponentByNodeType(this.content.type);
+
+    if (componentToRender) {
+      const factory = this.componentFactoryResolver.resolveComponentFactory(componentToRender);
+      this.node = this.target.createComponent(factory);
+      this.node.instance.content = this.content;
+      // this.node.instance.someOutput.subscribe(val => doSomething());
+      this.changeDetector.detectChanges();
+    }
   }
 
   ngOnChanges() {
@@ -103,6 +108,8 @@ export class ArticleBodyNode implements OnChanges, AfterViewInit, OnDestroy {
         return ArticleVideo;
       case ARTICLE_QUOTE_TYPE:
         return ArticleQuote;
+      case ARTICLE_RECOMMENDATIONS_TYPE:
+        return ArticleRecommendations;
       default:
         return null;
     }

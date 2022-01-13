@@ -21,6 +21,7 @@ import { ArticleVideo } from './article-video/article-video';
 import { ArticleQuote } from './article-quote/article-quote';
 import { ArticleThanksButton } from './article-thanks-button/article-thanks-button';
 import { ArticleStickyThanks } from './article-sticky-thanks/article-sticky-thanks';
+import { ArticleRecommendations } from './article-recommendations/article-recommendations';
 import { ArticleTitleVisibilityService } from '../../services/article-title-visibility.service';
 import { ArticleFooterVisibilityService } from '../../services/article-footer-visibility.service';
 
@@ -50,6 +51,7 @@ import { ArticleFooterVisibilityService } from '../../services/article-footer-vi
     ArticleQuote,
     ArticleThanksButton,
     ArticleStickyThanks,
+    ArticleRecommendations,
   ],
   providers: [
     ArticleTitleVisibilityService,
