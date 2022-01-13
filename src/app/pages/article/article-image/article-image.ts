@@ -25,7 +25,7 @@ class ImageModel {
         [src]="imagesService.getCroppedImageUrl(content.url, imagesService.ASPECT_RATIO.w16h9)"
         alt="{{content.description}}"
       />
-      
+
       <figcaption
         class="ArticleImage__image-info"
         *ngIf="content.description || content.credits"
@@ -47,11 +47,11 @@ export class ArticleImage implements OnInit {
   @HostBinding('class.ArticleImage') rootClass = true;
   @HostBinding('class.ArticleImage--with-description') withDescription = false;
 
-  @Input() content: ImageModel;
+  @Input() content:ImageModel;
 
-  constructor(public imagesService: ImagesService) {}
+  constructor (public imagesService:ImagesService) {}
 
-  ngOnInit() {
+  ngOnInit () {
     this.withDescription = this.content && !!this.content.description;
   }
 }
