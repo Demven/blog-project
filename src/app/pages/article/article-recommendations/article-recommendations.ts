@@ -7,8 +7,9 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
 } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ImagesService } from '../../../services/images.service';
-import {ScreenSize, ScreenSizeService} from '../../../services/screen-size.service';
+import { ScreenSize, ScreenSizeService } from '../../../services/screen-size.service';
 import { GQLService } from '../../../services/gql.service';
 import { Category } from '../../../types/Category.type';
 import { Article } from '../../../types/Article.type';
@@ -70,10 +71,11 @@ export class ArticleRecommendations implements OnInit {
   articles:Article[] = [];
 
   constructor (
-    public imagesService:ImagesService,
-    private gql:GQLService,
+    public imagesService: ImagesService,
+    private gql: GQLService,
     private changeDetector: ChangeDetectorRef,
-    public screenSizeService:ScreenSizeService,
+    public screenSizeService: ScreenSizeService,
+    private route: ActivatedRoute,
   ) {
     this.cropImage = this.cropImage.bind(this);
   }
@@ -87,8 +89,14 @@ export class ArticleRecommendations implements OnInit {
       return;
     }
 
+    const currentArticleSlug:string = this.route.snapshot.params['slug'];
+
     this.gql.query(`
-      mostPopularInCategory (categorySlug: "${this.content.category.slug}", limit:3) {
+      mostPopularInCategory (
+        categorySlug: "${this.content.category.slug}",
+        excludeSlug: "${currentArticleSlug}",
+        limit:3
+      ) {
         _id
         slug
         title
@@ -103,8 +111,6 @@ export class ArticleRecommendations implements OnInit {
       .then((data:any) => data.mostPopularInCategory as Article[])
       .then((articles:Article[]) => {
         if (articles?.length) {
-          console.info('articles', articles);
-
           this.articles = articles;
           this.changeDetector.detectChanges();
         }
